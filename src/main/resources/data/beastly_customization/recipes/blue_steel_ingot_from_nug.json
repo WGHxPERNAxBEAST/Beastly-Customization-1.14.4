@@ -1,0 +1,17 @@
+{
+	"type": "minecraft:crafting_shaped",
+	
+	"pattern":
+	[
+		"III",
+		"III",
+		"III"
+	],
+	
+	"key":
+	{
+		"I": { "item": "beastly_customization:blue_steel_nug" }
+	},
+	
+	"result": { "item": "beastly_customization:blue_steel_ingot" }
+}

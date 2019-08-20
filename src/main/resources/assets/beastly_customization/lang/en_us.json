@@ -1,3 +1,44 @@
-{
-
+{	
+	"comment": "Items",
+	"item.beastly_customization.carbon_dust": "Rich Carbon Dust",
+	"item.beastly_customization.blue_steel_ingot": "Blue Steel Ingot",
+	"item.beastly_customization.blue_steel_nug": "Blue Steel Nugget",
+	"item.beastly_customization.bs_dust": "Blue Steel Dust",
+	"item.beastly_customization.bs_stick": "Blue Steel Rod",
+	"item.beastly_customization.azr_ingot": "Azurdanite Ingot",
+	"item.beastly_customization.azr_nug": "Azurdanite Nugget",
+	"item.beastly_customization.azr_dust": "Azurdanite Dust",
+	"item.beastly_customization.azr_stick": "Azurdanite Rod",
+	
+	"comment": "Tools",
+	"item.beastly_customization.bs_axe": "Blue Steel Axe",
+	"item.beastly_customization.bs_pick": "Blue Steel Pickaxe",
+	"item.beastly_customization.bs_shovel": "Blue Steel Shovel",
+	"item.beastly_customization.bs_hoe": "Blue Steel Hoe",
+	"item.beastly_customization.bs_sword": "Blue Steel Sword",
+	"item.beastly_customization.azr_axe": "Azurdanite Axe",
+	"item.beastly_customization.azr_pick": "Azurdanite Pickaxe",
+	"item.beastly_customization.azr_shovel": "Azurdanite Shovel",
+	"item.beastly_customization.azr_hoe": "Azurdanite Hoe",
+	"item.beastly_customization.azr_sword": "Azurdanite Sword",
+	
+	"comment": "Armor",
+	"item.beastly_customization.bs_helmet": "Blue Steel Helmet",
+	"item.beastly_customization.bs_chestplate": "Blue Steel Chestplate",
+	"item.beastly_customization.bs_leggings": "Blue Steel Leggings",
+	"item.beastly_customization.bs_boots": "Blue Steel Boots",
+	"item.beastly_customization.azr_helmet": "Azurdanite Helmet",
+	"item.beastly_customization.azr_chestplate": "Azurdanite Chestplate",
+	"item.beastly_customization.azr_leggings": "Azurdanite Leggings",
+	"item.beastly_customization.azr_boots": "Azurdanite Boots",
+	
+	"comment": "ORES",
+	"block.beastly_customization.carbon_rock": "Rich Carbonic Rock",
+	
+	"comment": "Blocks",
+	"block.beastly_customization.blue_steel_block": "Blue Steel Block",
+	"block.beastly_customization.azr_block": "Azurdanite Block",
+	
+	"comment": "Inventory Tabs",
+	"itemGroup.beastly_customization_inv_group": "Beastly Customization"
 }

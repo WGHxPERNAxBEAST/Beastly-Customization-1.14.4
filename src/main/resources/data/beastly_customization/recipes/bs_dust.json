@@ -1,0 +1,17 @@
+{
+	"type": "minecraft:crafting_shapeless",
+	
+	"ingredients": [
+		{
+			"item": "beastly_customization:azr_dust"
+		},
+		{
+			"item": "beastly_customization:carbon_dust"
+		}
+	],
+	
+	"result": {
+		"item": "beastly_customization:bs_dust",
+		"count": 2
+	}
+}

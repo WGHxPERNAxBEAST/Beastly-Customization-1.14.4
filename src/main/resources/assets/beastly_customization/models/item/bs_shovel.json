@@ -1,0 +1,11 @@
+{
+    "parent": "item/handheld",
+    "textures": {
+        "layer0": "beastly_customization:items/bs_shovel_01"
+    },
+	"overrides":[
+		{"predicate":{"damaged":1, "damage": 0.85}, "model": "beastly_customization:item/bs_shovel/bs_shovel_02"},
+		{"predicate":{"damaged":1, "damage": 0.9}, "model": "beastly_customization:item/bs_shovel/bs_shovel_03"},
+		{"predicate":{"damaged":1, "damage": 0.95}, "model": "beastly_customization:item/bs_shovel/bs_shovel_04"}
+	]
+}

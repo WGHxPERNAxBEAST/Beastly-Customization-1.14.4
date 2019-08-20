@@ -1,0 +1,17 @@
+{
+	"type": "minecraft:crafting_shaped",
+	
+	"pattern":
+	[
+		"   ",
+		"I I",
+		"I I"
+	],
+	
+	"key":
+	{
+		"I": { "item": "beastly_customization:azr_ingot" }
+	},
+	
+	"result": { "item": "beastly_customization:azr_boots" }
+}

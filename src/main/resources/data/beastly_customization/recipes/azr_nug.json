@@ -1,0 +1,10 @@
+{
+	"type": "minecraft:crafting_shapeless",
+	
+	"ingredients": [{"item": "beastly_customization:azr_ingot"}],
+	
+	"result": {
+		"item": "beastly_customization:azr_nug",
+		"count": 9
+	}
+}

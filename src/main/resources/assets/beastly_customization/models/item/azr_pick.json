@@ -1,0 +1,11 @@
+{
+    "parent": "item/handheld",
+    "textures": {
+        "layer0": "beastly_customization:items/azr_pick_01"
+    },
+	"overrides":[
+		{"predicate":{"damaged":1, "damage": 0.85}, "model": "beastly_customization:item/azr_pick/azr_pick_02"},
+		{"predicate":{"damaged":1, "damage": 0.9}, "model": "beastly_customization:item/azr_pick/azr_pick_03"},
+		{"predicate":{"damaged":1, "damage": 0.95}, "model": "beastly_customization:item/azr_pick/azr_pick_04"}
+	]
+}

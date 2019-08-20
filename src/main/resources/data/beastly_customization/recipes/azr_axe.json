@@ -1,0 +1,18 @@
+{
+	"type": "minecraft:crafting_shaped",
+	
+	"pattern":
+	[
+		" II",
+		" SI",
+		" S "
+	],
+	
+	"key":
+	{
+		"I": { "item": "beastly_customization:azr_ingot" },
+		"S": { "item": "beastly_customization:azr_stick" }	
+	},
+	
+	"result": { "item": "beastly_customization:azr_axe" }
+}

@@ -1,0 +1,18 @@
+{
+	"type": "minecraft:crafting_shaped",
+	
+	"pattern":
+	[
+		"I",
+		"S",
+		"S"
+	],
+	
+	"key":
+	{
+		"I": { "item": "beastly_customization:blue_steel_ingot" },
+		"S": { "item": "beastly_customization:bs_stick" }	
+	},
+	
+	"result": { "item": "beastly_customization:bs_shovel" }
+}
