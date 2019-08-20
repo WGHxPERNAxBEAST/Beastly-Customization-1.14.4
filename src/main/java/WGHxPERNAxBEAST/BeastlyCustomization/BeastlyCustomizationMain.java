@@ -9,6 +9,7 @@ import WGHxPERNAxBEAST.BeastlyCustomization.lists.ArmorMatList;
 import WGHxPERNAxBEAST.BeastlyCustomization.lists.BlockList;
 import WGHxPERNAxBEAST.BeastlyCustomization.lists.ItemList;
 import WGHxPERNAxBEAST.BeastlyCustomization.lists.ToolMatList;
+import WGHxPERNAxBEAST.BeastlyCustomization.world.OreGeneration;
 import net.minecraft.block.Block;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
@@ -51,6 +52,7 @@ public class BeastlyCustomizationMain {
 	//pre-init
 	private void setup(final FMLCommonSetupEvent event) {
 		logger.info("Setup method registered.");
+		OreGeneration.setupOreGeneration();
 	}
 	
 	//client
