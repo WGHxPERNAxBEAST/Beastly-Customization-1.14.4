@@ -1,0 +1,17 @@
+{
+	"type": "minecraft:crafting_shaped",
+	
+	"pattern":
+	[
+		"III",
+		"I I",
+		"   "
+	],
+	
+	"key":
+	{
+		"I": { "item": "beastly_customization:pps_ingot" }
+	},
+	
+	"result": { "item": "beastly_customization:pps_helmet" }
+}

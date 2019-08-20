@@ -1,0 +1,10 @@
+{
+	"type": "minecraft:blasting",
+	
+	"ingredient": {"item": "beastly_customization:azr_dust"},
+	
+	"result": "beastly_customization:azr_ingot",
+	
+	"experience": 0.5,
+	"cookingtime": 75
+}

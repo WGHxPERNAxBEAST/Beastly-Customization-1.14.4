@@ -1,0 +1,11 @@
+{
+    "parent": "item/handheld",
+    "textures": {
+        "layer0": "beastly_customization:items/pps_hoe_01"
+    },
+	"overrides":[
+		{"predicate":{"damaged":1, "damage": 0.85}, "model": "beastly_customization:item/pps_hoe/pps_hoe_02"},
+		{"predicate":{"damaged":1, "damage": 0.9}, "model": "beastly_customization:item/pps_hoe/pps_hoe_03"},
+		{"predicate":{"damaged":1, "damage": 0.95}, "model": "beastly_customization:item/pps_hoe/pps_hoe_04"}
+	]
+}

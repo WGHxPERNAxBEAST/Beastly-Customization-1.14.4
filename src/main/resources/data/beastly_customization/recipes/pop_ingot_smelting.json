@@ -1,0 +1,10 @@
+{
+	"type": "minecraft:smelting",
+	
+	"ingredient": {"item": "beastly_customization:pop_ore"},
+	
+	"result": "beastly_customization:pop_ingot",
+	
+	"experience": 0.5,
+	"cookingtime": 150
+}

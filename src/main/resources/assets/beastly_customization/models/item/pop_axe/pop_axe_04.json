@@ -1,0 +1,6 @@
+{
+    "parent": "item/handheld",
+    "textures": {
+        "layer0": "beastly_customization:items/pop_axe_04"
+    }
+}

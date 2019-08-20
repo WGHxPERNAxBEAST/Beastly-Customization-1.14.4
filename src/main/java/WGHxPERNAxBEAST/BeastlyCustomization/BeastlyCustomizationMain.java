@@ -73,7 +73,20 @@ public class BeastlyCustomizationMain {
 					ItemList.azr_nug = new Item(new Item.Properties().group(bcItemGroup)).setRegistryName(location("azr_nug")),
 					ItemList.azr_dust = new Item(new Item.Properties().group(bcItemGroup)).setRegistryName(location("azr_dust")),
 					ItemList.azr_stick = new Item(new Item.Properties().group(bcItemGroup)).setRegistryName(location("azr_stick")),
-					
+					ItemList.pop_ingot = new Item(new Item.Properties().group(bcItemGroup)).setRegistryName(location("pop_ingot")),
+					ItemList.pop_nug = new Item(new Item.Properties().group(bcItemGroup)).setRegistryName(location("pop_nug")),
+					ItemList.pop_dust = new Item(new Item.Properties().group(bcItemGroup)).setRegistryName(location("pop_dust")),
+					ItemList.pop_stick = new Item(new Item.Properties().group(bcItemGroup)).setRegistryName(location("pop_stick")),
+					ItemList.rds_ingot = new Item(new Item.Properties().group(bcItemGroup)).setRegistryName(location("rds_ingot")),
+					ItemList.rds_nug = new Item(new Item.Properties().group(bcItemGroup)).setRegistryName(location("rds_nug")),
+					ItemList.rds_dust = new Item(new Item.Properties().group(bcItemGroup)).setRegistryName(location("rds_dust")),
+					ItemList.rds_stick = new Item(new Item.Properties().group(bcItemGroup)).setRegistryName(location("rds_stick")),
+					ItemList.pps_ingot = new Item(new Item.Properties().group(bcItemGroup)).setRegistryName(location("pps_ingot")),
+					ItemList.pps_nug = new Item(new Item.Properties().group(bcItemGroup)).setRegistryName(location("pps_nug")),
+					ItemList.pps_dust = new Item(new Item.Properties().group(bcItemGroup)).setRegistryName(location("pps_dust")),
+					ItemList.pps_stick = new Item(new Item.Properties().group(bcItemGroup)).setRegistryName(location("pps_stick")),
+
+							
 					ItemList.carbon_dust = new Item(new Item.Properties().group(bcItemGroup)).setRegistryName(location("carbon_dust")),
 					
 					ItemList.bs_axe = new ItemCustomAxe(ToolMatList.bs_mat, 7.5F, -4.5F, new Item.Properties().group(bcItemGroup)).setRegistryName(location("bs_axe")),
@@ -86,7 +99,22 @@ public class BeastlyCustomizationMain {
 					ItemList.azr_pick = new ItemCustomPickaxe(ToolMatList.azr_mat, 1, -2.8F, new Item.Properties().group(bcItemGroup)).setRegistryName(location("azr_pick")),
 					ItemList.azr_shovel = new ShovelItem(ToolMatList.azr_mat, 1.5F, -3.0F, new Item.Properties().group(bcItemGroup)).setRegistryName(location("azr_shovel")),
 					ItemList.azr_sword = new SwordItem(ToolMatList.azr_mat, 3, -2.4F, new Item.Properties().group(bcItemGroup)).setRegistryName(location("azr_sword")),
-									
+					ItemList.pop_axe = new ItemCustomAxe(ToolMatList.pop_mat, 5.0F, -3.0F, new Item.Properties().group(bcItemGroup)).setRegistryName(location("pop_axe")),
+					ItemList.pop_hoe = new HoeItem(ToolMatList.pop_mat, 0.0F, new Item.Properties().group(bcItemGroup)).setRegistryName(location("pop_hoe")),
+					ItemList.pop_pick = new ItemCustomPickaxe(ToolMatList.pop_mat, 1, -2.8F, new Item.Properties().group(bcItemGroup)).setRegistryName(location("pop_pick")),
+					ItemList.pop_shovel = new ShovelItem(ToolMatList.pop_mat, 1.5F, -3.0F, new Item.Properties().group(bcItemGroup)).setRegistryName(location("pop_shovel")),
+					ItemList.pop_sword = new SwordItem(ToolMatList.pop_mat, 3, -2.4F, new Item.Properties().group(bcItemGroup)).setRegistryName(location("pop_sword")),
+					ItemList.rds_axe = new ItemCustomAxe(ToolMatList.rds_mat, 7.5F, -4.5F, new Item.Properties().group(bcItemGroup)).setRegistryName(location("rds_axe")),
+					ItemList.rds_hoe = new HoeItem(ToolMatList.rds_mat, -0.5F, new Item.Properties().group(bcItemGroup)).setRegistryName(location("rds_hoe")),
+					ItemList.rds_pick = new ItemCustomPickaxe(ToolMatList.rds_mat, 2, -4.2F, new Item.Properties().group(bcItemGroup)).setRegistryName(location("rds_pick")),
+					ItemList.rds_shovel = new ShovelItem(ToolMatList.rds_mat, 2.25F, -4.5F, new Item.Properties().group(bcItemGroup)).setRegistryName(location("rds_shovel")),
+					ItemList.rds_sword = new SwordItem(ToolMatList.rds_mat, 5, -3.6F, new Item.Properties().group(bcItemGroup)).setRegistryName(location("rds_sword")),
+					ItemList.pps_axe = new ItemCustomAxe(ToolMatList.pps_mat, 11.25F, -6.75F, new Item.Properties().group(bcItemGroup)).setRegistryName(location("pps_axe")),
+					ItemList.pps_hoe = new HoeItem(ToolMatList.pps_mat, -0.75F, new Item.Properties().group(bcItemGroup)).setRegistryName(location("pps_hoe")),
+					ItemList.pps_pick = new ItemCustomPickaxe(ToolMatList.pps_mat, 3, -6.3F, new Item.Properties().group(bcItemGroup)).setRegistryName(location("pps_pick")),
+					ItemList.pps_shovel = new ShovelItem(ToolMatList.pps_mat, 3.375F, -6.75F, new Item.Properties().group(bcItemGroup)).setRegistryName(location("pps_shovel")),
+					ItemList.pps_sword = new SwordItem(ToolMatList.pps_mat, 8, -5.4F, new Item.Properties().group(bcItemGroup)).setRegistryName(location("pps_sword")),
+																			
 					ItemList.bs_helmet = new ArmorItem(ArmorMatList.bs_mat, EquipmentSlotType.HEAD, new Item.Properties().group(bcItemGroup)).setRegistryName(location("bs_helmet")),
 					ItemList.bs_chestplate = new ArmorItem(ArmorMatList.bs_mat, EquipmentSlotType.CHEST, new Item.Properties().group(bcItemGroup)).setRegistryName(location("bs_chestplate")),
 					ItemList.bs_leggings = new ArmorItem(ArmorMatList.bs_mat, EquipmentSlotType.LEGS, new Item.Properties().group(bcItemGroup)).setRegistryName(location("bs_leggings")),
@@ -95,12 +123,28 @@ public class BeastlyCustomizationMain {
 					ItemList.azr_chestplate = new ArmorItem(ArmorMatList.azr_mat, EquipmentSlotType.CHEST, new Item.Properties().group(bcItemGroup)).setRegistryName(location("azr_chestplate")),
 					ItemList.azr_leggings = new ArmorItem(ArmorMatList.azr_mat, EquipmentSlotType.LEGS, new Item.Properties().group(bcItemGroup)).setRegistryName(location("azr_leggings")),
 					ItemList.azr_boots = new ArmorItem(ArmorMatList.azr_mat, EquipmentSlotType.FEET, new Item.Properties().group(bcItemGroup)).setRegistryName(location("azr_boots")),
-									
+					ItemList.pop_helmet = new ArmorItem(ArmorMatList.pop_mat, EquipmentSlotType.HEAD, new Item.Properties().group(bcItemGroup)).setRegistryName(location("pop_helmet")),
+					ItemList.pop_chestplate = new ArmorItem(ArmorMatList.pop_mat, EquipmentSlotType.CHEST, new Item.Properties().group(bcItemGroup)).setRegistryName(location("pop_chestplate")),
+					ItemList.pop_leggings = new ArmorItem(ArmorMatList.pop_mat, EquipmentSlotType.LEGS, new Item.Properties().group(bcItemGroup)).setRegistryName(location("pop_leggings")),
+					ItemList.pop_boots = new ArmorItem(ArmorMatList.pop_mat, EquipmentSlotType.FEET, new Item.Properties().group(bcItemGroup)).setRegistryName(location("pop_boots")),
+					ItemList.rds_helmet = new ArmorItem(ArmorMatList.rds_mat, EquipmentSlotType.HEAD, new Item.Properties().group(bcItemGroup)).setRegistryName(location("rds_helmet")),
+					ItemList.rds_chestplate = new ArmorItem(ArmorMatList.rds_mat, EquipmentSlotType.CHEST, new Item.Properties().group(bcItemGroup)).setRegistryName(location("rds_chestplate")),
+					ItemList.rds_leggings = new ArmorItem(ArmorMatList.rds_mat, EquipmentSlotType.LEGS, new Item.Properties().group(bcItemGroup)).setRegistryName(location("rds_leggings")),
+					ItemList.rds_boots = new ArmorItem(ArmorMatList.rds_mat, EquipmentSlotType.FEET, new Item.Properties().group(bcItemGroup)).setRegistryName(location("rds_boots")),		
+					ItemList.pps_helmet = new ArmorItem(ArmorMatList.pps_mat, EquipmentSlotType.HEAD, new Item.Properties().group(bcItemGroup)).setRegistryName(location("pps_helmet")),
+					ItemList.pps_chestplate = new ArmorItem(ArmorMatList.pps_mat, EquipmentSlotType.CHEST, new Item.Properties().group(bcItemGroup)).setRegistryName(location("pps_chestplate")),
+					ItemList.pps_leggings = new ArmorItem(ArmorMatList.pps_mat, EquipmentSlotType.LEGS, new Item.Properties().group(bcItemGroup)).setRegistryName(location("pps_leggings")),
+					ItemList.pps_boots = new ArmorItem(ArmorMatList.pps_mat, EquipmentSlotType.FEET, new Item.Properties().group(bcItemGroup)).setRegistryName(location("pps_boots")),		
+																	
 					ItemList.blue_steel_block = new BlockItem(BlockList.blue_steel_block, new Item.Properties().group(bcItemGroup)).setRegistryName(BlockList.blue_steel_block.getRegistryName()),
 					ItemList.azr_block = new BlockItem(BlockList.azr_block, new Item.Properties().group(bcItemGroup)).setRegistryName(BlockList.azr_block.getRegistryName()),
-							
+					ItemList.pop_block = new BlockItem(BlockList.pop_block, new Item.Properties().group(bcItemGroup)).setRegistryName(BlockList.pop_block.getRegistryName()),
+					ItemList.rds_block = new BlockItem(BlockList.rds_block, new Item.Properties().group(bcItemGroup)).setRegistryName(BlockList.rds_block.getRegistryName()),
+					ItemList.pps_block = new BlockItem(BlockList.pps_block, new Item.Properties().group(bcItemGroup)).setRegistryName(BlockList.pps_block.getRegistryName()),
+															
 					ItemList.carbon_rock = new BlockItem(BlockList.carbon_rock, new Item.Properties().group(bcItemGroup)).setRegistryName(BlockList.carbon_rock.getRegistryName()),
-					ItemList.azr_ore = new BlockItem(BlockList.azr_ore, new Item.Properties().group(bcItemGroup)).setRegistryName(BlockList.azr_ore.getRegistryName())
+					ItemList.azr_ore = new BlockItem(BlockList.azr_ore, new Item.Properties().group(bcItemGroup)).setRegistryName(BlockList.azr_ore.getRegistryName()),
+					ItemList.pop_ore = new BlockItem(BlockList.pop_ore, new Item.Properties().group(bcItemGroup)).setRegistryName(BlockList.pop_ore.getRegistryName())
 					
 			);
 			
@@ -111,11 +155,15 @@ public class BeastlyCustomizationMain {
 		public static void registerBlocks(final RegistryEvent.Register<Block> event) {
 			event.getRegistry().registerAll (
 					
-					BlockList.blue_steel_block = new Block(Block.Properties.create(Material.IRON).hardnessAndResistance(5.0F, 6.0F).lightValue(0).sound(SoundType.METAL)).setRegistryName(location("blue_steel_block")),
+					BlockList.blue_steel_block = new Block(Block.Properties.create(Material.IRON).hardnessAndResistance(6.0F, 7.0F).lightValue(0).sound(SoundType.METAL)).setRegistryName(location("blue_steel_block")),
 					BlockList.azr_block = new Block(Block.Properties.create(Material.IRON).hardnessAndResistance(5.0F, 6.0F).lightValue(0).sound(SoundType.METAL)).setRegistryName(location("azr_block")),
-							
+					BlockList.pop_block = new Block(Block.Properties.create(Material.IRON).hardnessAndResistance(5.0F, 6.0F).lightValue(0).sound(SoundType.METAL)).setRegistryName(location("pop_block")),
+					BlockList.rds_block = new Block(Block.Properties.create(Material.IRON).hardnessAndResistance(6.0F, 7.0F).lightValue(0).sound(SoundType.METAL)).setRegistryName(location("rds_block")),
+					BlockList.pps_block = new Block(Block.Properties.create(Material.IRON).hardnessAndResistance(6.5F, 7.5F).lightValue(0).sound(SoundType.METAL)).setRegistryName(location("pps_block")),
+																
 					BlockList.carbon_rock = new Block(Block.Properties.create(Material.ROCK).hardnessAndResistance(3.0F, 3.0F).lightValue(0).sound(SoundType.STONE)).setRegistryName(location("carbon_rock")),
-					BlockList.azr_ore = new Block(Block.Properties.create(Material.ROCK).hardnessAndResistance(3.0F, 3.0F).lightValue(0).sound(SoundType.STONE)).setRegistryName(location("azr_ore"))
+					BlockList.azr_ore = new Block(Block.Properties.create(Material.ROCK).hardnessAndResistance(3.0F, 3.0F).lightValue(0).sound(SoundType.STONE)).setRegistryName(location("azr_ore")),
+					BlockList.pop_ore = new Block(Block.Properties.create(Material.ROCK).hardnessAndResistance(3.0F, 3.0F).lightValue(0).sound(SoundType.STONE)).setRegistryName(location("pop_ore"))
 					
 			);
 			logger.info("Blocks registered.");

@@ -6,7 +6,10 @@ import net.minecraft.item.crafting.Ingredient;
 
 public enum ToolMatList implements IItemTier{
 	azr_mat(3, 1173, 6.0F, 2.25F, 19, ItemList.azr_ingot),
-	bs_mat(5, 2342, 12.0F, 4.5F, 16, ItemList.blue_steel_ingot);
+	pop_mat(3, 1274, 5.4F, 2.325F, 18, ItemList.pop_ingot),
+	bs_mat(5, 2342, 12.0F, 4.5F, 16, ItemList.blue_steel_ingot),
+	rds_mat(5, 2547, 10.8F, 4.65F, 14, ItemList.rds_ingot),
+	pps_mat(6, 3513, 18.0F, 6.75F, 13, ItemList.pps_ingot);
 	
 	private float attackDamage, efficiency;
 	private int durability, harvestLevel, enchantability;

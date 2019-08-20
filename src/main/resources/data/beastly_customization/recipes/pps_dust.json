@@ -1,0 +1,17 @@
+{
+	"type": "minecraft:crafting_shapeless",
+	
+	"ingredients": [
+		{
+			"item": "beastly_customization:bs_dust"
+		},
+		{
+			"item": "beastly_customization:rds_dust"
+		}
+	],
+	
+	"result": {
+		"item": "beastly_customization:pps_dust",
+		"count": 2
+	}
+}

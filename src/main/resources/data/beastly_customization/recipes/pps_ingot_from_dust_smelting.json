@@ -1,0 +1,10 @@
+{
+	"type": "minecraft:smelting",
+	
+	"ingredient": {"tag": "beastly_customization:pps_dust"},
+	
+	"result": "beastly_customization:pps_ingot",
+	
+	"experience": 0.5,
+	"cookingtime": 150
+}

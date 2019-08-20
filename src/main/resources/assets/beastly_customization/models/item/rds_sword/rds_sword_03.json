@@ -1,0 +1,6 @@
+{
+    "parent": "item/handheld",
+    "textures": {
+        "layer0": "beastly_customization:items/rds_sword_03"
+    }
+}

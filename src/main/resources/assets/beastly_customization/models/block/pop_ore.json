@@ -1,0 +1,6 @@
+{
+    "parent": "block/cube_all",
+    "textures": {
+        "all": "beastly_customization:block/pop_ore"
+    }
+}

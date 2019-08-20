@@ -10,7 +10,10 @@ import net.minecraft.util.SoundEvents;
 
 public enum ArmorMatList implements IArmorMaterial {
 	azr_mat("azr", 25, new int[] {2, 5, 6, 2}, 22, ItemList.azr_ingot, SoundEvents.ITEM_ARMOR_EQUIP_GENERIC, 1.5F),
-	bs_mat("bs", 49, new int[] {4, 9, 12, 4}, 17, ItemList.blue_steel_ingot, SoundEvents.ITEM_ARMOR_EQUIP_GENERIC, 3.0F);
+	pop_mat("pop", 28, new int[] {2, 4, 5, 2}, 24, ItemList.pop_ingot, SoundEvents.ITEM_ARMOR_EQUIP_GENERIC, 1.5F),
+	bs_mat("bs", 49, new int[] {4, 9, 12, 4}, 17, ItemList.blue_steel_ingot, SoundEvents.ITEM_ARMOR_EQUIP_GENERIC, 3.0F),
+	rds_mat("rds", 55, new int[] {3, 8, 10, 3}, 19, ItemList.rds_ingot, SoundEvents.ITEM_ARMOR_EQUIP_GENERIC, 2.8F),
+	pps_mat("pps", 74, new int[] {6, 14, 18, 6}, 12, ItemList.pps_ingot, SoundEvents.ITEM_ARMOR_EQUIP_GENERIC, 4.5F);
 	
 	private static final int[] max_damage_array = new int[]{13, 15, 16, 11};
 	private String name;
