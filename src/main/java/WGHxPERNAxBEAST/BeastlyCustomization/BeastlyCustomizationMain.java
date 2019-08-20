@@ -85,7 +85,6 @@ public class BeastlyCustomizationMain {
 					ItemList.pps_nug = new Item(new Item.Properties().group(bcItemGroup)).setRegistryName(location("pps_nug")),
 					ItemList.pps_dust = new Item(new Item.Properties().group(bcItemGroup)).setRegistryName(location("pps_dust")),
 					ItemList.pps_stick = new Item(new Item.Properties().group(bcItemGroup)).setRegistryName(location("pps_stick")),
-
 							
 					ItemList.carbon_dust = new Item(new Item.Properties().group(bcItemGroup)).setRegistryName(location("carbon_dust")),
 					
