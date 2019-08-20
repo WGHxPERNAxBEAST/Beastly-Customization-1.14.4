@@ -32,13 +32,14 @@
 	"item.beastly_customization.azr_leggings": "Azurdanite Leggings",
 	"item.beastly_customization.azr_boots": "Azurdanite Boots",
 	
-	"comment": "ORES",
+	"comment": "Ores",
 	"block.beastly_customization.carbon_rock": "Rich Carbonic Rock",
+	"block.beastly_customization.azr_ore": "Azurdanite Ore",
 	
 	"comment": "Blocks",
 	"block.beastly_customization.blue_steel_block": "Blue Steel Block",
 	"block.beastly_customization.azr_block": "Azurdanite Block",
 	
 	"comment": "Inventory Tabs",
-	"itemGroup.beastly_customization_inv_group": "Beastly Customization"
+	"itemGroup.beastly_customization_inv_group": "Beastly Customization Stuff"
 }

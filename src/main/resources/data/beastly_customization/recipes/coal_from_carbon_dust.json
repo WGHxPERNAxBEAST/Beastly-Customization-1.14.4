@@ -1,0 +1,18 @@
+{
+	"type": "minecraft:crafting_shaped",
+	
+	"pattern":
+	[
+		"DD",
+		"DD"
+	],
+	
+	"key":
+	{
+		"D": { "item": "beastly_customization:carbon_dust" }
+	},
+	
+	"result": { 
+		"item": "minecraft:coal"
+	}
+}

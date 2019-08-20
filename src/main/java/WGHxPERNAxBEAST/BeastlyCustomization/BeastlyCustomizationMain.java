@@ -3,14 +3,12 @@ package WGHxPERNAxBEAST.BeastlyCustomization;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import WGHxPERNAxBEAST.BeastlyCustomization.config.Config;
 import WGHxPERNAxBEAST.BeastlyCustomization.items.ItemCustomAxe;
 import WGHxPERNAxBEAST.BeastlyCustomization.items.ItemCustomPickaxe;
 import WGHxPERNAxBEAST.BeastlyCustomization.lists.ArmorMatList;
 import WGHxPERNAxBEAST.BeastlyCustomization.lists.BlockList;
 import WGHxPERNAxBEAST.BeastlyCustomization.lists.ItemList;
 import WGHxPERNAxBEAST.BeastlyCustomization.lists.ToolMatList;
-import WGHxPERNAxBEAST.BeastlyCustomization.world.OreGeneration;
 import net.minecraft.block.Block;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
@@ -27,13 +25,10 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.config.ModConfig;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
-import net.minecraftforge.fml.loading.FMLPaths;
 
 @Mod("beastly_customization")
 public class BeastlyCustomizationMain {
@@ -47,21 +42,14 @@ public class BeastlyCustomizationMain {
 	public BeastlyCustomizationMain() {
 		instance = this;
 		
-		ModLoadingContext.get().registerConfig(ModConfig.Type.SERVER, Config.server_config, "beastly_customization-server.toml");
-		ModLoadingContext.get().registerConfig(ModConfig.Type.CLIENT, Config.client_config, "beastly_customization-client.toml");
-		
 		FMLJavaModLoadingContext.get().getModEventBus().addListener(this::setup);
 		FMLJavaModLoadingContext.get().getModEventBus().addListener(this::clientRegistries);
-		
-		Config.loadConfig(Config.server_config, "Server", FMLPaths.CONFIGDIR.get().resolve("beastly_customization-server.toml").toString());
-		Config.loadConfig(Config.client_config, "Client", FMLPaths.CONFIGDIR.get().resolve("beastly_customization-client.toml").toString());
 		
 		MinecraftForge.EVENT_BUS.register(this);
 	}
 	
 	//pre-init
 	private void setup(final FMLCommonSetupEvent event) {
-		OreGeneration.setupOreGeneration();
 		logger.info("Setup method registered.");
 	}
 	
@@ -75,7 +63,6 @@ public class BeastlyCustomizationMain {
 		@SubscribeEvent
 		public static void registerItems(final RegistryEvent.Register<Item> event) {
 			event.getRegistry().registerAll (
-					
 					ItemList.blue_steel_ingot = new Item(new Item.Properties().group(bcItemGroup)).setRegistryName(location("blue_steel_ingot")),
 					ItemList.blue_steel_nug = new Item(new Item.Properties().group(bcItemGroup)).setRegistryName(location("blue_steel_nug")),
 					ItemList.bs_dust = new Item(new Item.Properties().group(bcItemGroup)).setRegistryName(location("bs_dust")),
@@ -110,7 +97,8 @@ public class BeastlyCustomizationMain {
 					ItemList.blue_steel_block = new BlockItem(BlockList.blue_steel_block, new Item.Properties().group(bcItemGroup)).setRegistryName(BlockList.blue_steel_block.getRegistryName()),
 					ItemList.azr_block = new BlockItem(BlockList.azr_block, new Item.Properties().group(bcItemGroup)).setRegistryName(BlockList.azr_block.getRegistryName()),
 							
-					ItemList.carbon_rock = new BlockItem(BlockList.carbon_rock, new Item.Properties().group(bcItemGroup)).setRegistryName(BlockList.carbon_rock.getRegistryName())
+					ItemList.carbon_rock = new BlockItem(BlockList.carbon_rock, new Item.Properties().group(bcItemGroup)).setRegistryName(BlockList.carbon_rock.getRegistryName()),
+					ItemList.azr_ore = new BlockItem(BlockList.azr_ore, new Item.Properties().group(bcItemGroup)).setRegistryName(BlockList.azr_ore.getRegistryName())
 					
 			);
 			
@@ -124,7 +112,8 @@ public class BeastlyCustomizationMain {
 					BlockList.blue_steel_block = new Block(Block.Properties.create(Material.IRON).hardnessAndResistance(5.0F, 6.0F).lightValue(0).sound(SoundType.METAL)).setRegistryName(location("blue_steel_block")),
 					BlockList.azr_block = new Block(Block.Properties.create(Material.IRON).hardnessAndResistance(5.0F, 6.0F).lightValue(0).sound(SoundType.METAL)).setRegistryName(location("azr_block")),
 							
-					BlockList.carbon_rock = new Block(Block.Properties.create(Material.ROCK).hardnessAndResistance(3.0F, 3.0F).lightValue(0).sound(SoundType.STONE)).setRegistryName(location("carbon_rock"))
+					BlockList.carbon_rock = new Block(Block.Properties.create(Material.ROCK).hardnessAndResistance(3.0F, 3.0F).lightValue(0).sound(SoundType.STONE)).setRegistryName(location("carbon_rock")),
+					BlockList.azr_ore = new Block(Block.Properties.create(Material.ROCK).hardnessAndResistance(3.0F, 3.0F).lightValue(0).sound(SoundType.STONE)).setRegistryName(location("azr_ore"))
 					
 			);
 			logger.info("Blocks registered.");

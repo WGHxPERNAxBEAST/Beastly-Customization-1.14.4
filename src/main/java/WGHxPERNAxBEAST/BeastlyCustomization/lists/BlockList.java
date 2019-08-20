@@ -7,4 +7,5 @@ public class BlockList {
 	public static Block azr_block;
 	
 	public static Block carbon_rock;
+	public static Block azr_ore;
 }

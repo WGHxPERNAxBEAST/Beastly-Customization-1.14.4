@@ -40,4 +40,5 @@ public class ItemList {
 	public static Item azr_block;
 	
 	public static Item carbon_rock;
+	public static Item azr_ore;
 }

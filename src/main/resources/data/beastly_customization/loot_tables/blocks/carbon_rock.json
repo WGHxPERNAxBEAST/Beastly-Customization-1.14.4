@@ -6,7 +6,16 @@
 			"entries":[
 				{
 					"type": "minecraft:item",
-					"name": "beastly_customization:carbon_dust"
+					"name": "beastly_customization:carbon_dust",
+					"functions": [
+						{
+							"function": "minecraft:set_count",
+							"count": {
+								"min": 1,
+								"max": 4
+							}
+						}
+					]
 				}
 			]
 		}
