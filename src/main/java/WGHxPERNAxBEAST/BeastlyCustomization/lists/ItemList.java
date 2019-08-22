@@ -25,6 +25,7 @@ public class ItemList {
 	public static Item pps_stick;
 	
 	public static Item carbon_dust;
+	public static Item brain;
 	
 	public static Item bs_axe;
 	public static Item bs_hoe;
@@ -86,6 +87,8 @@ public class ItemList {
 	public static Item pop_block;
 	public static Item rds_block;
 	public static Item pps_block;
+	
+	public static Item golem_head;
 	
 	public static Item carbon_rock;
 	public static Item azr_ore;

@@ -3,10 +3,13 @@ package WGHxPERNAxBEAST.BeastlyCustomization;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import WGHxPERNAxBEAST.BeastlyCustomization.blocks.GolemHead;
+import WGHxPERNAxBEAST.BeastlyCustomization.client.render.bcRenderRegistry;
 import WGHxPERNAxBEAST.BeastlyCustomization.items.ItemCustomAxe;
 import WGHxPERNAxBEAST.BeastlyCustomization.items.ItemCustomPickaxe;
 import WGHxPERNAxBEAST.BeastlyCustomization.lists.ArmorMatList;
 import WGHxPERNAxBEAST.BeastlyCustomization.lists.BlockList;
+import WGHxPERNAxBEAST.BeastlyCustomization.lists.EntitiesList;
 import WGHxPERNAxBEAST.BeastlyCustomization.lists.ItemList;
 import WGHxPERNAxBEAST.BeastlyCustomization.lists.ToolMatList;
 import WGHxPERNAxBEAST.BeastlyCustomization.world.OreGeneration;
@@ -51,12 +54,13 @@ public class BeastlyCustomizationMain {
 	
 	//pre-init
 	private void setup(final FMLCommonSetupEvent event) {
-		logger.info("Setup method registered.");
 		OreGeneration.setupOreGeneration();
+		logger.info("Setup method registered.");
 	}
 	
 	//client
 	private void clientRegistries(final FMLClientSetupEvent event) {
+		bcRenderRegistry.registerEntityRenders();
 		logger.info("clientRegistries method registered.");
 	}
 	
@@ -87,7 +91,8 @@ public class BeastlyCustomizationMain {
 					ItemList.pps_stick = new Item(new Item.Properties().group(bcItemGroup)).setRegistryName(location("pps_stick")),
 							
 					ItemList.carbon_dust = new Item(new Item.Properties().group(bcItemGroup)).setRegistryName(location("carbon_dust")),
-					
+					ItemList.brain = new Item(new Item.Properties().group(bcItemGroup)).setRegistryName(location("brain")),
+									
 					ItemList.bs_axe = new ItemCustomAxe(ToolMatList.bs_mat, 7.5F, 1.5F, new Item.Properties().group(bcItemGroup)).setRegistryName(location("bs_axe")),
 					ItemList.bs_hoe = new HoeItem(ToolMatList.bs_mat, 0.5F, new Item.Properties().group(bcItemGroup)).setRegistryName(location("bs_hoe")),
 					ItemList.bs_pick = new ItemCustomPickaxe(ToolMatList.bs_mat, 2, 1.4F, new Item.Properties().group(bcItemGroup)).setRegistryName(location("bs_pick")),
@@ -140,12 +145,15 @@ public class BeastlyCustomizationMain {
 					ItemList.pop_block = new BlockItem(BlockList.pop_block, new Item.Properties().group(bcItemGroup)).setRegistryName(BlockList.pop_block.getRegistryName()),
 					ItemList.rds_block = new BlockItem(BlockList.rds_block, new Item.Properties().group(bcItemGroup)).setRegistryName(BlockList.rds_block.getRegistryName()),
 					ItemList.pps_block = new BlockItem(BlockList.pps_block, new Item.Properties().group(bcItemGroup)).setRegistryName(BlockList.pps_block.getRegistryName()),
-															
+					ItemList.golem_head = new BlockItem(BlockList.golem_head, new Item.Properties().group(bcItemGroup)).setRegistryName(BlockList.golem_head.getRegistryName()),
+																			
 					ItemList.carbon_rock = new BlockItem(BlockList.carbon_rock, new Item.Properties().group(bcItemGroup)).setRegistryName(BlockList.carbon_rock.getRegistryName()),
 					ItemList.azr_ore = new BlockItem(BlockList.azr_ore, new Item.Properties().group(bcItemGroup)).setRegistryName(BlockList.azr_ore.getRegistryName()),
 					ItemList.pop_ore = new BlockItem(BlockList.pop_ore, new Item.Properties().group(bcItemGroup)).setRegistryName(BlockList.pop_ore.getRegistryName())
 					
 			);
+			
+			EntitiesList.registerEntitySpawnEggs(event);
 			
 			logger.info("Items registered.");
 		}
@@ -159,7 +167,8 @@ public class BeastlyCustomizationMain {
 					BlockList.pop_block = new Block(Block.Properties.create(Material.IRON).hardnessAndResistance(5.0F, 6.0F).lightValue(0).sound(SoundType.METAL)).setRegistryName(location("pop_block")),
 					BlockList.rds_block = new Block(Block.Properties.create(Material.IRON).hardnessAndResistance(6.0F, 7.0F).lightValue(0).sound(SoundType.METAL)).setRegistryName(location("rds_block")),
 					BlockList.pps_block = new Block(Block.Properties.create(Material.IRON).hardnessAndResistance(6.5F, 7.5F).lightValue(0).sound(SoundType.METAL)).setRegistryName(location("pps_block")),
-																
+					BlockList.golem_head = new GolemHead(Block.Properties.create(Material.IRON).hardnessAndResistance(6.0F, 7.0F).lightValue(0).sound(SoundType.METAL)).setRegistryName(location("golem_head")),
+																		
 					BlockList.carbon_rock = new Block(Block.Properties.create(Material.ROCK).hardnessAndResistance(3.0F, 3.0F).lightValue(0).sound(SoundType.STONE)).setRegistryName(location("carbon_rock")),
 					BlockList.azr_ore = new Block(Block.Properties.create(Material.ROCK).hardnessAndResistance(3.0F, 3.0F).lightValue(0).sound(SoundType.STONE)).setRegistryName(location("azr_ore")),
 					BlockList.pop_ore = new Block(Block.Properties.create(Material.ROCK).hardnessAndResistance(3.0F, 3.0F).lightValue(0).sound(SoundType.STONE)).setRegistryName(location("pop_ore"))
@@ -171,8 +180,10 @@ public class BeastlyCustomizationMain {
 		@SubscribeEvent
 		public static void registerEntities(final RegistryEvent.Register<EntityType<?>> event) {
 			event.getRegistry().registerAll(
-				
+					EntitiesList.BABY_GOLEM,
+					EntitiesList.ADULT_GOLEM
 			);
+			EntitiesList.registerEntityWorldSpawns();
 		}
 		
 	}

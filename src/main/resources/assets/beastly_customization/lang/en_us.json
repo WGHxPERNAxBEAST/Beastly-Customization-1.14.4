@@ -1,6 +1,7 @@
 {	
 	"comment": "Items",
 	"item.beastly_customization.carbon_dust": "Rich Carbon Dust",
+	"item.beastly_customization.brain": "A Brain",
 	"item.beastly_customization.blue_steel_ingot": "Blue Steel Ingot",
 	"item.beastly_customization.blue_steel_nug": "Blue Steel Nugget",
 	"item.beastly_customization.bs_dust": "Blue Steel Dust",
@@ -82,7 +83,12 @@
 	"block.beastly_customization.pop_block": "Poppium Block",
 	"block.beastly_customization.rds_block": "Red Steel Block",
 	"block.beastly_customization.pps_block": "Purple Steel Block",
+	"block.beastly_customization.golem_head": "Golem Head",
 	
 	"comment": "Inventory Tabs",
-	"itemGroup.beastly_customization_inv_group": "Beastly Customization Stuff"
+	"itemGroup.beastly_customization_inv_group": "Beastly Customization Stuff",
+	
+	"comment": "Entities",
+	"entity.beastly_customization.bs_baby_golem": "Baby Blue Steel Golem",
+	"entity.beastly_customization.bs_adult_golem": "Blue Steel Golem"
 }
