@@ -24,34 +24,37 @@ import net.minecraft.world.World;
 
 public class BabyGolem extends IronGolemEntity{
 	
-	private double health = 120.0D;
-	private double move_speed = 0.7D;
-	private double knock_back_resist = 1.5D;
-	private ResourceLocation textureLoc = BeastlyCustomizationMain.location("textures/entity/bs_golem.png");
+	public static double health = 120.0D;
+	public static double move_speed = 0.7D;
+	public static double knock_back_resist = 1.5D;
+	public static float targeting_range = 35.0F;
+	public static ResourceLocation textureLoc = BeastlyCustomizationMain.location("textures/entity/bs_golem.png");
 	
 	public BabyGolem(EntityType<? extends BabyGolem> type, World worldIn) {
 		super(type, worldIn);
 	}
 	
-	public BabyGolem setAttributes(Double health, Double speed, Double kb_resist, String name) {
-		this.health = health;
-		this.move_speed = speed;
-		this.knock_back_resist = kb_resist;
-		this.textureLoc = BeastlyCustomizationMain.location("textures/entity/" + name + ".png");
-		return this;
+	
+	public BabyGolem setAttributes(EntityType<? extends BabyGolem> type, World worldIn, Double healthIn, Double speedIn, Double kb_resistIn, Float targetingRange, String name) {
+		health = healthIn;
+		move_speed = speedIn;
+		knock_back_resist = kb_resistIn;
+		targeting_range = targetingRange;
+		textureLoc = BeastlyCustomizationMain.location("textures/entity/" + name + ".png");
+		return new BabyGolem(type, worldIn);
 	}
 	
 	@Override
 	protected void registerGoals() {
 	      this.goalSelector.addGoal(1, new MeleeAttackGoal(this, move_speed * 2.6D, true));
-	      this.goalSelector.addGoal(2, new MoveTowardsTargetGoal(this, move_speed * 2.5D, 32.0F));
+	      this.goalSelector.addGoal(2, new MoveTowardsTargetGoal(this, move_speed * 2.5D, targeting_range));
 	      this.goalSelector.addGoal(2, new MoveTowardsVillageGoal(this, move_speed * 2.0D));
 	      this.goalSelector.addGoal(3, new MoveThroughVillageGoal(this, move_speed * 2.0D, false, 4, () -> {
 	         return false;
 	      }));
 	      this.goalSelector.addGoal(5, new ShowVillagerFlowerGoal(this));
 	      this.goalSelector.addGoal(6, new WaterAvoidingRandomWalkingGoal(this, move_speed * 2.0D));
-	      this.goalSelector.addGoal(7, new LookAtGoal(this, PlayerEntity.class, 6.0F));
+	      this.goalSelector.addGoal(7, new LookAtGoal(this, PlayerEntity.class, targeting_range / 4.5F));
 	      this.goalSelector.addGoal(8, new LookRandomlyGoal(this));
 	      this.targetSelector.addGoal(1, new DefendVillageTargetGoal(this));
 	      this.targetSelector.addGoal(2, new HurtByTargetGoal(this));
@@ -68,7 +71,6 @@ public class BabyGolem extends IronGolemEntity{
 	    this.getAttribute(SharedMonsterAttributes.KNOCKBACK_RESISTANCE).setBaseValue(knock_back_resist);
 	    //this.getAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(4.5D);
 	}
-	
 	public ResourceLocation getTextureLoc() {
 		return textureLoc;
 	}

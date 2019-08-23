@@ -1,21 +1,18 @@
 package WGHxPERNAxBEAST.BeastlyCustomization;
 
-import net.minecraft.item.Item;
+import WGHxPERNAxBEAST.BeastlyCustomization.lists.ItemList;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 
 public class GroupClass extends ItemGroup{
 	
-	private Item iconItem;
-	
-	public GroupClass(String label, Item iconItem) {
+	public GroupClass(String label) {
 		super(label);
-		this.iconItem = iconItem;
 	}
 
 	@Override
 	public ItemStack createIcon() {
-		return new ItemStack(this.iconItem);
+		return new ItemStack(ItemList.golem_head);
 	}
 	
 }

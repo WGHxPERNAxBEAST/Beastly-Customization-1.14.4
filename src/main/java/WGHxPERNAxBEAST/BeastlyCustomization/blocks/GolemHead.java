@@ -15,10 +15,10 @@ public class GolemHead extends CarvedPumpkinBlock{
 	      this.setDefaultState(this.stateContainer.getBaseState().with(FACING, Direction.NORTH));
 	   }
 	
-	public void onBlockAdded(BlockState state, World worldIn, BlockPos pos, BlockState oldState) {
-	      if (oldState.getBlock() != state.getBlock()) {
-	         EntitiesList.trySpawnGolems(worldIn, pos);
-	      }
-	   }
-	
+	@Override
+	public void onBlockAdded(BlockState state, World worldIn, BlockPos pos, BlockState oldState, boolean isMoving) {
+		if (oldState.getBlock() != state.getBlock()) {
+			EntitiesList.trySpawnGolems(worldIn, pos);
+		}
+	}
 }

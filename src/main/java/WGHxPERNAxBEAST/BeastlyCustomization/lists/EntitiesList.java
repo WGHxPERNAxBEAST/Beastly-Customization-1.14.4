@@ -6,9 +6,16 @@ import javax.annotation.Nullable;
 
 import WGHxPERNAxBEAST.BeastlyCustomization.BeastlyCustomizationMain;
 import WGHxPERNAxBEAST.BeastlyCustomization.Entities.AdultGolem;
+import WGHxPERNAxBEAST.BeastlyCustomization.Entities.BS_AdultGolem;
+import WGHxPERNAxBEAST.BeastlyCustomization.Entities.BS_BabyGolem;
 import WGHxPERNAxBEAST.BeastlyCustomization.Entities.BabyGolem;
+import WGHxPERNAxBEAST.BeastlyCustomization.Entities.PPS_AdultGolem;
+import WGHxPERNAxBEAST.BeastlyCustomization.Entities.PPS_BabyGolem;
+import WGHxPERNAxBEAST.BeastlyCustomization.Entities.RDS_AdultGolem;
+import WGHxPERNAxBEAST.BeastlyCustomization.Entities.RDS_BabyGolem;
 import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.pattern.BlockMaterialMatcher;
@@ -36,9 +43,17 @@ public class EntitiesList {
 	private BlockPattern GolemPattern;
 	
 	@SuppressWarnings("unchecked")
-	public static EntityType<?extends BabyGolem> BABY_GOLEM = (EntityType<? extends BabyGolem>) EntityType.Builder.create(BabyGolem::new, EntityClassification.CREATURE).build(BeastlyCustomizationMain.modid + ":baby_golem").setRegistryName(BeastlyCustomizationMain.location("baby_golem"));
+	public static EntityType<?extends BS_BabyGolem> BS_BABY_GOLEM = (EntityType<? extends BS_BabyGolem>) EntityType.Builder.create(BS_BabyGolem::new, EntityClassification.CREATURE).build(BeastlyCustomizationMain.modid + ":bs_baby_golem").setRegistryName(BeastlyCustomizationMain.location("bs_baby_golem"));
 	@SuppressWarnings("unchecked")
-	public static EntityType<?extends AdultGolem> ADULT_GOLEM = (EntityType<? extends AdultGolem>) EntityType.Builder.create(AdultGolem::new, EntityClassification.CREATURE).build(BeastlyCustomizationMain.modid + ":adult_golem").setRegistryName(BeastlyCustomizationMain.location("adult_golem"));
+	public static EntityType<?extends BS_AdultGolem> BS_ADULT_GOLEM = (EntityType<? extends BS_AdultGolem>) EntityType.Builder.create(BS_AdultGolem::new, EntityClassification.CREATURE).build(BeastlyCustomizationMain.modid + ":bs_adult_golem").setRegistryName(BeastlyCustomizationMain.location("bs_adult_golem"));
+	@SuppressWarnings("unchecked")
+	public static EntityType<?extends RDS_BabyGolem> RDS_BABY_GOLEM = (EntityType<? extends RDS_BabyGolem>) EntityType.Builder.create(RDS_BabyGolem::new, EntityClassification.CREATURE).build(BeastlyCustomizationMain.modid + ":rds_baby_golem").setRegistryName(BeastlyCustomizationMain.location("rds_baby_golem"));
+	@SuppressWarnings("unchecked")
+	public static EntityType<?extends RDS_AdultGolem> RDS_ADULT_GOLEM = (EntityType<? extends RDS_AdultGolem>) EntityType.Builder.create(RDS_AdultGolem::new, EntityClassification.CREATURE).build(BeastlyCustomizationMain.modid + ":rds_adult_golem").setRegistryName(BeastlyCustomizationMain.location("rds_adult_golem"));
+	@SuppressWarnings("unchecked")
+	public static EntityType<?extends PPS_BabyGolem> PPS_BABY_GOLEM = (EntityType<? extends PPS_BabyGolem>) EntityType.Builder.create(PPS_BabyGolem::new, EntityClassification.CREATURE).build(BeastlyCustomizationMain.modid + ":pps_baby_golem").setRegistryName(BeastlyCustomizationMain.location("pps_baby_golem"));
+	@SuppressWarnings("unchecked")
+	public static EntityType<?extends PPS_AdultGolem> PPS_ADULT_GOLEM = (EntityType<? extends PPS_AdultGolem>) EntityType.Builder.create(PPS_AdultGolem::new, EntityClassification.CREATURE).build(BeastlyCustomizationMain.modid + ":pps_adult_golem").setRegistryName(BeastlyCustomizationMain.location("pps_adult_golem"));
 	
 	public static void registerEntitySpawnEggs(final RegistryEvent.Register<Item> event) {
 		event.getRegistry().registerAll(
@@ -73,11 +88,22 @@ public class EntitiesList {
 	}
 	
 	public static void trySpawnGolems(World worldIn, BlockPos pos){
-		AdultGolemSpawner(worldIn, pos, ADULT_GOLEM.create(worldIn).setAttributes(140.0D, 0.5D, 1.5D, "bs_golem"), BlockList.blue_steel_block);
-		babyGolemSpawner(worldIn, pos, BABY_GOLEM.create(worldIn).setAttributes(120.0D, 0.7D, 1.5D, "bs_golem"), BlockList.blue_steel_block);
+		BlockState underBlockState = worldIn.getBlockState(new BlockPos(pos.getX(), pos.getY() - 1, pos.getZ()));
+		if (underBlockState == BlockList.blue_steel_block.getDefaultState()) {
+			trySpawnGolemSet(worldIn, pos, BS_ADULT_GOLEM, BS_BABY_GOLEM, BlockList.blue_steel_block, 150.0D, 0.35D, 1.5D, 35.0F, "bs_golem");
+		} else if (underBlockState == BlockList.rds_block.getDefaultState()) {
+			trySpawnGolemSet(worldIn, pos, RDS_ADULT_GOLEM, RDS_BABY_GOLEM, BlockList.rds_block, 145.0D, 0.4D, 1.35D, 38.5F, "rds_golem");
+		} else if (underBlockState == BlockList.pps_block.getDefaultState()) {
+			trySpawnGolemSet(worldIn, pos, PPS_ADULT_GOLEM, PPS_BABY_GOLEM, BlockList.pps_block, 187.5D, 0.6D, 1.8D, 49.25F, "pps_golem");
+		}
+	}
+	
+	private static void trySpawnGolemSet(World worldIn, BlockPos pos, EntityType<? extends AdultGolem> AdultType, EntityType<? extends BabyGolem> babyType, Block bodyBlock, Double adultHealth, Double adultSpeed, Double adultKB_Resist, Float adultTargetingRange, String textureName){
+		AdultGolemSpawner(worldIn, pos, AdultType.create(worldIn).setAttributes(AdultType, worldIn, adultHealth, adultSpeed, adultKB_Resist, adultTargetingRange, textureName), bodyBlock);
+		BabyGolemSpawner(worldIn, pos, babyType.create(worldIn).setAttributes(babyType, worldIn, adultHealth / 5.0D, adultSpeed * 1.175D, adultKB_Resist / 1.2D, adultTargetingRange / 1.5F, textureName), bodyBlock);
    }
 
-	private static void babyGolemSpawner(World worldIn, BlockPos pos, BabyGolem babyGolemEntity, Block bodyBlock) {
+	private static void BabyGolemSpawner(World worldIn, BlockPos pos, BabyGolem babyGolemEntity, Block bodyBlock) {
 		BlockPattern.PatternHelper blockpattern$patternhelper = getBabyGolemPattern(bodyBlock).match(worldIn, pos);
 	    if (blockpattern$patternhelper != null) {
 	       for(int j = 0; j < getBabyGolemPattern(bodyBlock).getPalmLength(); ++j) {
@@ -105,7 +131,7 @@ public class EntitiesList {
 	       }
 	    }
 	}
-
+	
 	private static void AdultGolemSpawner(World worldIn, BlockPos pos, AdultGolem GolemEntity, Block bodyBlock) {
 		BlockPattern.PatternHelper blockpattern$patternhelper = getGolemPattern(bodyBlock).match(worldIn, pos);
 	    if (blockpattern$patternhelper != null) {
@@ -134,13 +160,14 @@ public class EntitiesList {
 	       }
 	    }
 	}
-
+	
 	private static BlockPattern getBabyGolemPattern(Block blockForBody) {
 		return BlockPatternBuilder.start().aisle("~~~", "~^~", "~#~").where('^', CachedBlockInfo.hasState(BlockStateMatcher.forBlock(BlockList.golem_head))).where('#', CachedBlockInfo.hasState(BlockStateMatcher.forBlock(blockForBody))).where('~', CachedBlockInfo.hasState(BlockMaterialMatcher.forMaterial(Material.AIR))).build();
 	}
-
+	
 	private static BlockPattern getGolemPattern(Block blockForBody) {
 		return BlockPatternBuilder.start().aisle("~^~", "###", "~#~").where('^', CachedBlockInfo.hasState(BlockStateMatcher.forBlock(BlockList.golem_head))).where('#', CachedBlockInfo.hasState(BlockStateMatcher.forBlock(blockForBody))).where('~', CachedBlockInfo.hasState(BlockMaterialMatcher.forMaterial(Material.AIR))).build();
 	}
 	
+
 }

@@ -41,7 +41,7 @@ public class BeastlyCustomizationMain {
 	public static final String modid = "beastly_customization";
 	public static final Logger logger = LogManager.getLogger(modid);
 	
-	public static final ItemGroup bcItemGroup = new GroupClass("beastly_customization_inv_group", ItemList.carbon_dust);
+	public static final ItemGroup bcItemGroup = new GroupClass("beastly_customization_inv_group");
 	
 	public BeastlyCustomizationMain() {
 		instance = this;
@@ -180,8 +180,12 @@ public class BeastlyCustomizationMain {
 		@SubscribeEvent
 		public static void registerEntities(final RegistryEvent.Register<EntityType<?>> event) {
 			event.getRegistry().registerAll(
-					EntitiesList.BABY_GOLEM,
-					EntitiesList.ADULT_GOLEM
+					EntitiesList.BS_BABY_GOLEM,
+					EntitiesList.BS_ADULT_GOLEM,
+					EntitiesList.RDS_BABY_GOLEM,
+					EntitiesList.RDS_ADULT_GOLEM,
+					EntitiesList.PPS_BABY_GOLEM,
+					EntitiesList.PPS_ADULT_GOLEM
 			);
 			EntitiesList.registerEntityWorldSpawns();
 		}
