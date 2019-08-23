@@ -26,6 +26,7 @@ public class ItemList {
 	
 	public static Item carbon_dust;
 	public static Item brain;
+	public static Item brain_fragment;
 	
 	public static Item bs_axe;
 	public static Item bs_hoe;

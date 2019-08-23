@@ -1,0 +1,19 @@
+{
+	"type": "minecraft:crafting_shaped",
+	
+	"pattern":
+	[
+		"NIN",
+		"IBI",
+		"NIN"
+	],
+	
+	"key":
+	{
+		"I": { "tag": "beastly_customization:bc_steel_ingot" },
+		"N": { "tag": "beastly_customization:bc_steel_nugget" },
+		"B": { "tag": "beastly_customization:brain_item" }
+	},
+	
+	"result": { "item": "beastly_customization:golem_head" }
+}

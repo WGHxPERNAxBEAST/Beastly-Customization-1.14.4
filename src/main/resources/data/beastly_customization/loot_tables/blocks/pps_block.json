@@ -8,6 +8,11 @@
 					"type": "minecraft:item",
 					"name": "beastly_customization:pps_block"
 				}
+			],
+			"conditions": [
+				{
+					"condition": "minecraft:survives_explosion"
+		        }
 			]
 		}
 	]

@@ -2,7 +2,7 @@
 	"type": "minecraft:entity",
 	"pools": [
 		{
-			"name": "bs_adult_golem",
+			"name": "pps_adult_golem",
 			"rolls": {
 				"min": 1,
 				"max": 2
@@ -23,7 +23,7 @@
 							}
 						}
 					],
-					"name": "beastly_customization:blue_steel_ingot",
+					"name": "beastly_customization:pps_ingot",
 					"weight": 60
 				},
 				{
@@ -48,7 +48,7 @@
 							"count": 1
 						}
 					],
-					"name": "beastly_customization:blue_steel_block",
+					"name": "beastly_customization:pps_block",
 					"weight": 3
 				}
 			]

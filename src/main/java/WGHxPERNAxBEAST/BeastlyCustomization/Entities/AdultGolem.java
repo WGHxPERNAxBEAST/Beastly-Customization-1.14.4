@@ -1,7 +1,9 @@
 package WGHxPERNAxBEAST.BeastlyCustomization.Entities;
 
 import WGHxPERNAxBEAST.BeastlyCustomization.BeastlyCustomizationMain;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.MobEntity;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.goal.DefendVillageTargetGoal;
@@ -18,7 +20,9 @@ import net.minecraft.entity.ai.goal.WaterAvoidingRandomWalkingGoal;
 import net.minecraft.entity.monster.IMob;
 import net.minecraft.entity.passive.IronGolemEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.util.DamageSource;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.SoundEvents;
 import net.minecraft.world.World;
 
 public class AdultGolem extends IronGolemEntity{
@@ -27,17 +31,19 @@ public class AdultGolem extends IronGolemEntity{
 	public static double move_speed = 0.5D;
 	public static double knock_back_resist = 1.5D;
 	public static float targeting_range = 35.0F;
+	public static int min_attack_damage = 9;
 	public static ResourceLocation textureLoc = BeastlyCustomizationMain.location("textures/entity/bs_golem.png");
 	
 	public AdultGolem(EntityType<? extends AdultGolem> type, World worldIn) {
 		super(type, worldIn);
 	}
 	
-	public AdultGolem setAttributes(EntityType<? extends AdultGolem> type, World worldIn, Double healthIn, Double speedIn, Double kb_resistIn, Float targetingRange, String name) {
+	public AdultGolem setAttributes(EntityType<? extends AdultGolem> type, World worldIn, Double healthIn, Double speedIn, Double kb_resistIn, Float targetingRange, int minAttackDamageIn, String name) {
 		health = healthIn;
 		move_speed = speedIn;
 		knock_back_resist = kb_resistIn;
 		targeting_range = targetingRange;
+		min_attack_damage = minAttackDamageIn;
 		textureLoc = BeastlyCustomizationMain.location("textures/entity/" + name + ".png");
 		return new AdultGolem(type, worldIn);
 	}
@@ -66,13 +72,38 @@ public class AdultGolem extends IronGolemEntity{
 		this.getAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(health);
 	    this.getAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(move_speed);
 	    this.getAttribute(SharedMonsterAttributes.KNOCKBACK_RESISTANCE).setBaseValue(knock_back_resist);
-	    //this.getAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(5.5D);
 	}
+	
 	@Override
-	public void onCollideWithPlayer(PlayerEntity entityIn) {
-		BeastlyCustomizationMain.logger.info("A {} has collided with the player. Its max health is {}", this.getCustomName(), this.getMaxHealth());
-		super.onCollideWithPlayer(entityIn);
-	}
+	protected void collideWithEntity(Entity entityIn) {
+	      if (entityIn instanceof IMob && this.getRNG().nextInt(20) == 0) {
+	         this.setAttackTarget((LivingEntity)entityIn);
+	      }
+
+	      super.collideWithEntity(entityIn);
+	   }
+	
+	@Override
+	public boolean canAttack(EntityType<?> typeIn) {
+	      if (this.isPlayerCreated() && typeIn == EntityType.PLAYER) {
+	         return false;
+	      } else {
+	         return super.canAttack(typeIn);
+	      }
+	   }
+	
+	@Override
+	public boolean attackEntityAsMob(Entity entityIn) {
+	      this.world.setEntityState(this, (byte)4);
+	      boolean flag = entityIn.attackEntityFrom(DamageSource.causeMobDamage(this), (float)(min_attack_damage + this.rand.nextInt(16)));
+	      if (flag) {
+	         entityIn.setMotion(entityIn.getMotion().add(0.0D, (double)0.4F, 0.0D));
+	         this.applyEnchantments(this, entityIn);
+	      }
+
+	      this.playSound(SoundEvents.ENTITY_IRON_GOLEM_ATTACK, 1.0F, 1.0F);
+	      return flag;
+	   }
 
 	public ResourceLocation getTextureLoc() {
 		return textureLoc;

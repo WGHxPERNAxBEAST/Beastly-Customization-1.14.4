@@ -2,14 +2,14 @@
 	"type": "minecraft:entity",
 	"pools": [
 		{
-			"name": "bs_adult_golem",
+			"name": "bs_baby_golem",
 			"rolls": {
-				"min": 1,
-				"max": 2
+				"min": 0,
+				"max": 1
 			},
 			"bonus_rolls": {
-				"min": 1,
-				"max": 3
+				"min": 0,
+				"max": 1
 			},
 			"entries": [
 				{
@@ -18,8 +18,8 @@
 						{
 							"function": "minecraft:set_count",
 							"count": {
-								"min": 2,
-								"max": 4
+								"min": 1,
+								"max": 3
 							}
 						}
 					],
@@ -33,23 +33,12 @@
 							"function": "set_count",
 							"count": {
 								"min": 0,
-								"max": 3
+								"max": 2
 							}
 						}
 					],
 					"name": "minecraft:poppy",
 					"weight": 37
-				},
-				{
-					"type": "minecraft:item",
-					"functions": [
-						{
-							"function": "minecraft:set_count",
-							"count": 1
-						}
-					],
-					"name": "beastly_customization:blue_steel_block",
-					"weight": 3
 				}
 			]
 		}

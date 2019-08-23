@@ -1,0 +1,19 @@
+{
+	"type": "minecraft:crafting_shaped",
+	
+	"pattern":
+	[
+		"FF",
+		"FF"
+	],
+	
+	"key":
+	{
+		"F": { "item": "beastly_customization:brain_frag" }
+	},
+	
+	"result": { 
+		"item": "beastly_customization:brain",
+		"count": 2
+	}
+}

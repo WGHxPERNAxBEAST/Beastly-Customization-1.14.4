@@ -7,7 +7,7 @@ import net.minecraft.world.World;
 
 public class BS_BabyGolem extends BabyGolem{
 	
-	public static String textName;
+	public static String textName = "bs_golem";
 	
 	public BS_BabyGolem(EntityType<? extends BabyGolem> type, World worldIn) {
 		super(type, worldIn);
@@ -15,9 +15,9 @@ public class BS_BabyGolem extends BabyGolem{
 	
 	@Override
 	public BabyGolem setAttributes(EntityType<? extends BabyGolem> type, World worldIn, Double healthIn,
-			Double speedIn, Double kb_resistIn, Float targetingRange, String name) {
+			Double speedIn, Double kb_resistIn, Float targetingRange, int minAttackDamageIn, String name) {
 		textName = name;
-		return super.setAttributes(type, worldIn, healthIn, speedIn, kb_resistIn, targetingRange, name);
+		return super.setAttributes(type, worldIn, healthIn, speedIn, kb_resistIn, targetingRange, minAttackDamageIn, name);
 	}
 	
 	@Override

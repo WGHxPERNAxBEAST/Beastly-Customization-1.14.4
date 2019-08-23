@@ -1,7 +1,7 @@
 {
 	"type": "minecraft:blasting",
 	
-	"ingredient": {"tag": "beastly_customization:pps_dust"},
+	"ingredient": {"item": "beastly_customization:pps_dust"},
 	
 	"result": "beastly_customization:pps_ingot",
 	

@@ -1,0 +1,9 @@
+ {
+	"replace": false,
+	"values":
+	[
+		"beastly_customization:blue_steel_ingot",
+		"beastly_customization:rds_ingot",
+		"beastly_customization:pps_ingot"
+	]	
+}

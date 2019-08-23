@@ -12,6 +12,7 @@ import WGHxPERNAxBEAST.BeastlyCustomization.lists.BlockList;
 import WGHxPERNAxBEAST.BeastlyCustomization.lists.EntitiesList;
 import WGHxPERNAxBEAST.BeastlyCustomization.lists.ItemList;
 import WGHxPERNAxBEAST.BeastlyCustomization.lists.ToolMatList;
+import WGHxPERNAxBEAST.BeastlyCustomization.utils.EventHandler;
 import WGHxPERNAxBEAST.BeastlyCustomization.world.OreGeneration;
 import net.minecraft.block.Block;
 import net.minecraft.block.SoundType;
@@ -41,6 +42,8 @@ public class BeastlyCustomizationMain {
 	public static final String modid = "beastly_customization";
 	public static final Logger logger = LogManager.getLogger(modid);
 	
+	public EventHandler eventHandler;
+	
 	public static final ItemGroup bcItemGroup = new GroupClass("beastly_customization_inv_group");
 	
 	public BeastlyCustomizationMain() {
@@ -54,6 +57,7 @@ public class BeastlyCustomizationMain {
 	
 	//pre-init
 	private void setup(final FMLCommonSetupEvent event) {
+		MinecraftForge.EVENT_BUS.register((this.eventHandler = new EventHandler()));
 		OreGeneration.setupOreGeneration();
 		logger.info("Setup method registered.");
 	}
@@ -92,6 +96,7 @@ public class BeastlyCustomizationMain {
 							
 					ItemList.carbon_dust = new Item(new Item.Properties().group(bcItemGroup)).setRegistryName(location("carbon_dust")),
 					ItemList.brain = new Item(new Item.Properties().group(bcItemGroup)).setRegistryName(location("brain")),
+					ItemList.brain_fragment = new Item(new Item.Properties().group(bcItemGroup)).setRegistryName(location("brain_frag")),
 									
 					ItemList.bs_axe = new ItemCustomAxe(ToolMatList.bs_mat, 7.5F, 1.5F, new Item.Properties().group(bcItemGroup)).setRegistryName(location("bs_axe")),
 					ItemList.bs_hoe = new HoeItem(ToolMatList.bs_mat, 0.5F, new Item.Properties().group(bcItemGroup)).setRegistryName(location("bs_hoe")),

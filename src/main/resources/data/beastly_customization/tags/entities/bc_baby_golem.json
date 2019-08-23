@@ -1,0 +1,9 @@
+ {
+	"replace": false,
+	"values":
+	[
+		"beastly_customization:bs_baby_golem",
+		"beastly_customization:rds_baby_golem",
+		"beastly_customization:pps_baby_golem"
+	]	
+}

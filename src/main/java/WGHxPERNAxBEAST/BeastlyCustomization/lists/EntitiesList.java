@@ -90,17 +90,17 @@ public class EntitiesList {
 	public static void trySpawnGolems(World worldIn, BlockPos pos){
 		BlockState underBlockState = worldIn.getBlockState(new BlockPos(pos.getX(), pos.getY() - 1, pos.getZ()));
 		if (underBlockState == BlockList.blue_steel_block.getDefaultState()) {
-			trySpawnGolemSet(worldIn, pos, BS_ADULT_GOLEM, BS_BABY_GOLEM, BlockList.blue_steel_block, 150.0D, 0.35D, 1.5D, 35.0F, "bs_golem");
+			trySpawnGolemSet(worldIn, pos, BS_ADULT_GOLEM, BS_BABY_GOLEM, BlockList.blue_steel_block, 150.0D, 0.35D, 1.5D, 35.0F, 10, "bs_golem");
 		} else if (underBlockState == BlockList.rds_block.getDefaultState()) {
-			trySpawnGolemSet(worldIn, pos, RDS_ADULT_GOLEM, RDS_BABY_GOLEM, BlockList.rds_block, 145.0D, 0.4D, 1.35D, 38.5F, "rds_golem");
+			trySpawnGolemSet(worldIn, pos, RDS_ADULT_GOLEM, RDS_BABY_GOLEM, BlockList.rds_block, 145.0D, 0.4D, 1.35D, 38.5F, 8, "rds_golem");
 		} else if (underBlockState == BlockList.pps_block.getDefaultState()) {
-			trySpawnGolemSet(worldIn, pos, PPS_ADULT_GOLEM, PPS_BABY_GOLEM, BlockList.pps_block, 187.5D, 0.6D, 1.8D, 49.25F, "pps_golem");
+			trySpawnGolemSet(worldIn, pos, PPS_ADULT_GOLEM, PPS_BABY_GOLEM, BlockList.pps_block, 187.5D, 0.6D, 1.8D, 49.25F, 12, "pps_golem");
 		}
 	}
 	
-	private static void trySpawnGolemSet(World worldIn, BlockPos pos, EntityType<? extends AdultGolem> AdultType, EntityType<? extends BabyGolem> babyType, Block bodyBlock, Double adultHealth, Double adultSpeed, Double adultKB_Resist, Float adultTargetingRange, String textureName){
-		AdultGolemSpawner(worldIn, pos, AdultType.create(worldIn).setAttributes(AdultType, worldIn, adultHealth, adultSpeed, adultKB_Resist, adultTargetingRange, textureName), bodyBlock);
-		BabyGolemSpawner(worldIn, pos, babyType.create(worldIn).setAttributes(babyType, worldIn, adultHealth / 5.0D, adultSpeed * 1.175D, adultKB_Resist / 1.2D, adultTargetingRange / 1.5F, textureName), bodyBlock);
+	private static void trySpawnGolemSet(World worldIn, BlockPos pos, EntityType<? extends AdultGolem> AdultType, EntityType<? extends BabyGolem> babyType, Block bodyBlock, Double adultHealth, Double adultSpeed, Double adultKB_Resist, Float adultTargetingRange, int adultMinAttackDamage, String textureName){
+		AdultGolemSpawner(worldIn, pos, AdultType.create(worldIn).setAttributes(AdultType, worldIn, adultHealth, adultSpeed, adultKB_Resist, adultTargetingRange, adultMinAttackDamage, textureName), bodyBlock);
+		BabyGolemSpawner(worldIn, pos, babyType.create(worldIn).setAttributes(babyType, worldIn, adultHealth / 5.0D, adultSpeed * 1.175D, adultKB_Resist / 1.2D, adultTargetingRange / 1.5F, (int)(adultMinAttackDamage / 1.5), textureName), bodyBlock);
    }
 
 	private static void BabyGolemSpawner(World worldIn, BlockPos pos, BabyGolem babyGolemEntity, Block bodyBlock) {

@@ -7,7 +7,7 @@ import net.minecraft.world.World;
 
 public class RDS_AdultGolem extends AdultGolem{
 	
-	public static String textName;
+	public static String textName = "rds_golem";
 	
 	public RDS_AdultGolem(EntityType<? extends AdultGolem> type, World worldIn) {
 		super(type, worldIn);
@@ -15,9 +15,9 @@ public class RDS_AdultGolem extends AdultGolem{
 	
 	@Override
 	public AdultGolem setAttributes(EntityType<? extends AdultGolem> type, World worldIn, Double healthIn,
-			Double speedIn, Double kb_resistIn, Float targetingRange, String name) {
+			Double speedIn, Double kb_resistIn, Float targetingRange, int minAttackDamageIn, String name) {
 		textName = name;
-		return super.setAttributes(type, worldIn, healthIn, speedIn, kb_resistIn, targetingRange, name);
+		return super.setAttributes(type, worldIn, healthIn, speedIn, kb_resistIn, targetingRange, minAttackDamageIn, name);
 	}
 	
 	@Override
