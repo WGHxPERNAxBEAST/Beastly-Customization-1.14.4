@@ -1,0 +1,10 @@
+{
+	"type": "minecraft:stonecutting",
+	
+	"ingredient": {
+		"item": "beastly_customization:bs_ingot"
+	},
+	
+	"result":"beastly_customization:bs_dust",
+	"count": 1
+}

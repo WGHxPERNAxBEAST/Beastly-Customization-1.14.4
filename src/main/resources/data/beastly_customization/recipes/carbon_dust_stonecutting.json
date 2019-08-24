@@ -1,0 +1,10 @@
+{
+	"type": "minecraft:stonecutting",
+	
+	"ingredient": {
+		"item": "minecraft:coal"
+	},
+	
+	"result":"beastly_customization:carbon_dust",
+	"count": 1
+}
