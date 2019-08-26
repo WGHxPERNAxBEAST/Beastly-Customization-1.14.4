@@ -15,9 +15,9 @@ public class EventHandler {
 		Entity source = event.getSource().getTrueSource();
 		if (source instanceof PlayerEntity) {
 			int rand = (((int)(Math.random() * 1000.0D) % 100) + 1);
-			if (rand % 7 == 0) {
+			if (rand % 9 == 0) {
 				entityIn.entityDropItem(ItemList.brain);
-			} else if (rand % 15 == 0) {
+			} else if (rand % 35 == 0) {
 				ItemStack fragStack = new ItemStack(ItemList.brain_fragment);
 				fragStack.setCount(randFlip(randFlip(1, 2), randFlip(3, randFlip(2, 4))));
 				entityIn.entityDropItem(fragStack);

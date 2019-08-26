@@ -15,8 +15,8 @@ public class OreGeneration {
 	public static void setupOreGeneration() {
 		for(Biome biome : ForgeRegistries.BIOMES) {
 			biome.addFeature(Decoration.UNDERGROUND_ORES, Biome.createDecoratedFeature(Feature.ORE, new OreFeatureConfig(FillerBlockType.NATURAL_STONE, BlockList.carbon_rock.getDefaultState(), 9), Placement.COUNT_RANGE, new CountRangeConfig(22, 4, 8, 200)));
-			biome.addFeature(Decoration.UNDERGROUND_ORES, Biome.createDecoratedFeature(Feature.ORE, new OreFeatureConfig(FillerBlockType.NATURAL_STONE, BlockList.azr_ore.getDefaultState(), 5), Placement.COUNT_RANGE, new CountRangeConfig(17, 4, 8, 150)));
-			biome.addFeature(Decoration.UNDERGROUND_ORES, Biome.createDecoratedFeature(Feature.ORE, new OreFeatureConfig(FillerBlockType.NATURAL_STONE, BlockList.pop_ore.getDefaultState(), 5), Placement.COUNT_RANGE, new CountRangeConfig(17, 4, 8, 150)));
+			biome.addFeature(Decoration.UNDERGROUND_ORES, Biome.createDecoratedFeature(Feature.ORE, new OreFeatureConfig(FillerBlockType.NATURAL_STONE, BlockList.azr_ore.getDefaultState(), 5), Placement.COUNT_RANGE, new CountRangeConfig(18, 4, 8, 150)));
+			biome.addFeature(Decoration.UNDERGROUND_ORES, Biome.createDecoratedFeature(Feature.ORE, new OreFeatureConfig(FillerBlockType.NATURAL_STONE, BlockList.pop_ore.getDefaultState(), 5), Placement.COUNT_RANGE, new CountRangeConfig(18, 4, 8, 150)));
 			
 		}
 	}
