@@ -10,7 +10,7 @@ loaderVersion="[28,)" #mandatory
 
 modId="beastly_customization" 
 
-version="0.1.0" 
+version="0.2.0" 
 
 displayName="Beastly Customization 1.14.4" 
 
@@ -25,7 +25,7 @@ credits="Me, cuz I am duh one dont weigh a ton, dont need a gun to get respect u
 authors="WGHxPERNAxBEAST"
 
 description='''
-This mod is intended to act similar to Tinker's Construct, but with a few twists.
+This mod adds a variety of things to the game. It was developed for the MMP Live Server.
 I hope you enjoy :)
 '''
 
