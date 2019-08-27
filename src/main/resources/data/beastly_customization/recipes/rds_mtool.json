@@ -1,0 +1,20 @@
+{
+	"type": "minecraft:crafting_shaped",
+	
+	"pattern":
+	[
+		"BSP",
+		"AB ",
+		" B "
+	],
+	
+	"key":
+	{
+		"B": { "item": "beastly_customization:rds_block" },
+		"P": { "item": "beastly_customization:rds_pick" },
+		"S": { "item": "beastly_customization:rds_shovel" },
+		"A": { "item": "beastly_customization:rds_axe" }
+	},
+	
+	"result": { "item": "beastly_customization:rds_mtool" }
+}

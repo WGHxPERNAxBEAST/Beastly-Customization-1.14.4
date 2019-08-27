@@ -1,0 +1,20 @@
+{
+	"type": "minecraft:crafting_shaped",
+	
+	"pattern":
+	[
+		"BSP",
+		"AB ",
+		" B "
+	],
+	
+	"key":
+	{
+		"B": { "item": "beastly_customization:pps_block" },
+		"P": { "item": "beastly_customization:pps_pick" },
+		"S": { "item": "beastly_customization:pps_shovel" },
+		"A": { "item": "beastly_customization:pps_axe" }
+	},
+	
+	"result": { "item": "beastly_customization:pps_mtool" }
+}
