@@ -31,30 +31,35 @@ public class ItemList {
 	public static Item bs_axe;
 	public static Item bs_hoe;
 	public static Item bs_pick;
+	public static Item bs_mtool;
 	public static Item bs_shovel;
 	public static Item bs_sword;
 	
 	public static Item azr_axe;
 	public static Item azr_hoe;
 	public static Item azr_pick;
+	public static Item azr_mtool;
 	public static Item azr_shovel;
 	public static Item azr_sword;
 	
 	public static Item pop_axe;
 	public static Item pop_hoe;
 	public static Item pop_pick;
+	public static Item pop_mtool;
 	public static Item pop_shovel;
 	public static Item pop_sword;
 	
 	public static Item rds_axe;
 	public static Item rds_hoe;
 	public static Item rds_pick;
+	public static Item rds_mtool;
 	public static Item rds_shovel;
 	public static Item rds_sword;
 	
 	public static Item pps_axe;
 	public static Item pps_hoe;
 	public static Item pps_pick;
+	public static Item pps_mtool;
 	public static Item pps_shovel;
 	public static Item pps_sword;
 	
