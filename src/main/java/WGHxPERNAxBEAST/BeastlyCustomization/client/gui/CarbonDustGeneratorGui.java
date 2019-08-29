@@ -24,13 +24,13 @@ public class CarbonDustGeneratorGui extends ContainerScreen<CarbonDustGeneratorC
         super.render(mouseX, mouseY, partialTicks);
         this.renderHoveredToolTip(mouseX, mouseY);
     }
-
+    
     @Override
     protected void drawGuiContainerForegroundLayer(int mouseX, int mouseY) {
-        drawString(Minecraft.getInstance().fontRenderer, "Energy: " + container.getEnergy(), 10, 10, 0xffffff);
-        drawString(Minecraft.getInstance().fontRenderer, "Counter: " + container.getCounter(), 10, 18, 0xffffff);
+        drawString(Minecraft.getInstance().fontRenderer, "Energy: " + container.getEnergy(), 6, 10, 0xffffff);
+        drawString(Minecraft.getInstance().fontRenderer, "Counter: " + container.getCounter(), 6, 20, 0xffffff);
     }
-
+    
     @Override
     protected void drawGuiContainerBackgroundLayer(float partialTicks, int mouseX, int mouseY) {
         GlStateManager.color4f(1.0F, 1.0F, 1.0F, 1.0F);

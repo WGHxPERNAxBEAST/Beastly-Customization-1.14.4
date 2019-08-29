@@ -61,7 +61,7 @@ public class CarbonDustGeneratorTile extends TileEntity implements ITickableTile
                 ItemStack stack = h.getStackInSlot(0);
                 if (stack.getItem() == ItemList.carbon_dust) {
                     h.extractItem(0, 1, false);
-                    counter = 25;
+                    counter = 40;
                     markDirty();
                 }
             });
@@ -161,7 +161,7 @@ public class CarbonDustGeneratorTile extends TileEntity implements ITickableTile
     }
 	
 	private IEnergyStorage createEnergy() {
-        return new CustomEnergyStorage(2000, 0);
+        return new CustomEnergyStorage(999, 0);
     }
 	
 	@Nonnull

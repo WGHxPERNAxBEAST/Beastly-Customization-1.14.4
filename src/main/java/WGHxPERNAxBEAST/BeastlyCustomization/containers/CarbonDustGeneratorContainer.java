@@ -34,7 +34,7 @@ public class CarbonDustGeneratorContainer extends Container{
         this.playerInventory = new InvWrapper(playerInventory);
 
         tileEntity.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY).ifPresent(h -> {
-            addSlot(new SlotItemHandler(h, 0, 64, 24));
+            addSlot(new SlotItemHandler(h, 0, 82, 26));
         });
         layoutPlayerInventorySlots(10, 70);
 
