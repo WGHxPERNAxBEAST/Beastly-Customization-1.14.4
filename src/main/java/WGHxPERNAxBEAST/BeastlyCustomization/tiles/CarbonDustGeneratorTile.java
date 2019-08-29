@@ -84,7 +84,7 @@ public class CarbonDustGeneratorTile extends TileEntity implements ITickableTile
                     if (te != null) {
                         boolean doContinue = te.getCapability(CapabilityEnergy.ENERGY, direction).map(handler -> {
                                     if (handler.canReceive()) {
-                                        int received = handler.receiveEnergy(Math.min(capacity.get(), 35), false);
+                                        int received = handler.receiveEnergy(Math.min(capacity.get(), 40), false);
                                         capacity.addAndGet(-received);
                                         ((CustomEnergyStorage) energy).consumeEnergy(received);
                                         markDirty();
@@ -161,7 +161,7 @@ public class CarbonDustGeneratorTile extends TileEntity implements ITickableTile
     }
 	
 	private IEnergyStorage createEnergy() {
-        return new CustomEnergyStorage(999, 0);
+        return new CustomEnergyStorage(3000, 40);
     }
 	
 	@Nonnull

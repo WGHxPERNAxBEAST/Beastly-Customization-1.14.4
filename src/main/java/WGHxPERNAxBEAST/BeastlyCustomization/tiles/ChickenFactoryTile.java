@@ -36,9 +36,7 @@ public class ChickenFactoryTile extends TileEntity implements ITickableTileEntit
 	private LazyOptional<IItemHandler> handler = LazyOptional.of(this::createHandler);
 	private LazyOptional<IEnergyStorage> energy = LazyOptional.of(this::createEnergy);
 	
-	private int counter;
-
-	private boolean canProduce = false;
+	private int counter = 20;
 
 	public ChickenFactoryTile() {
 		super(TileList.chicken_factory);
@@ -49,45 +47,30 @@ public class ChickenFactoryTile extends TileEntity implements ITickableTileEntit
 		if (world.isRemote) {
 			return;
 		}
-		 if (counter > 0) {
-	            counter--;
-	            if (counter <= 0) {
-	                energy.ifPresent(e -> {
-		        		CustomEnergyStorage cell = (CustomEnergyStorage) e;
-		        		if (cell.getEnergyStored() >= 25) {
-		        			cell.consumeEnergy(25);
-		        			canProduce = true;
-		        		} else {
-		        			canProduce = false;
-		        		}
-		        		e = cell;
-		        	});
-	            }
-	            markDirty();
+		if (counter > 0) {
+			counter--;
+	        if (counter <= 0) {
+	        	energy.ifPresent(e -> ((CustomEnergyStorage) e).consumeEnergy(25));
+	        	handler.ifPresent(h -> {
+	        		ItemStack eggStack = h.getStackInSlot(0);
+	        		ItemStack chickStack = new ItemStack(Items.COOKED_CHICKEN);
+	        		chickStack.setCount(1);
+	        		chickStack.setDisplayName(new StringTextComponent("Organic Chicken!"));
+	        		if (eggStack.getItem() == Items.EGG && (h.getStackInSlot(1).getCount() < h.getStackInSlot(1).getMaxStackSize() || h.getStackInSlot(1) == null)) {
+	        			h.extractItem(0, 1, false);
+	        			h.insertItem(1, chickStack, false);
+	        			counter = 75;
+	        			markDirty();
+	        		}
+	        	});
 	        }
-
-	        if (counter <= 0 && canProduce == true) {
-	            handler.ifPresent(h -> {
-	                ItemStack eggStack = h.getStackInSlot(0);
-	                ItemStack chickStack = new ItemStack(Items.COOKED_CHICKEN);
-	                chickStack.setCount(1);
-	                chickStack.setDisplayName(new StringTextComponent("Organic Chicken!"));
-	                if (eggStack.getItem() == Items.EGG && (h.getStackInSlot(1).getCount() < h.getStackInSlot(1).getMaxStackSize() || h.getStackInSlot(1) == null)) {
-	                    h.extractItem(0, 1, false);
-	                    h.insertItem(1, chickStack, false);
-	                    canProduce = false;
-	                    counter = 100;
-	                    markDirty();
-	                }
-	            });
-	        }
-
-	        BlockState blockState = world.getBlockState(pos);
-	        if (blockState.get(BlockStateProperties.POWERED) != counter > 0) {
-	            world.setBlockState(pos, blockState.with(BlockStateProperties.POWERED, counter > 0), 3);
-	        }
-	        
-	        takeInPower();
+	        markDirty();
+		}
+		BlockState blockState = world.getBlockState(pos);
+		if (blockState.get(BlockStateProperties.POWERED) != counter > 0) {
+			world.setBlockState(pos, blockState.with(BlockStateProperties.POWERED, counter > 0), 3);
+		}
+		takeInPower();
 	}
 	
 	private void takeInPower() {
@@ -99,7 +82,7 @@ public class ChickenFactoryTile extends TileEntity implements ITickableTileEntit
                     if (te != null) {
                         boolean doContinue = te.getCapability(CapabilityEnergy.ENERGY, direction).map(handler -> {
                                     if (handler.canExtract()) {
-                                        int sent = handler.extractEnergy(60, false);
+                                        int sent = handler.extractEnergy(40, false);
                                         capacity.addAndGet(-sent);
                                         ((CustomEnergyStorage) energy).addEnergy(sent);;
                                         markDirty();
@@ -184,7 +167,7 @@ public class ChickenFactoryTile extends TileEntity implements ITickableTileEntit
     }
 	
 	private IEnergyStorage createEnergy() {
-        return new CustomEnergyStorage(800, 0);
+        return new CustomEnergyStorage(800, 40);
     }
 	
 	@Nonnull
