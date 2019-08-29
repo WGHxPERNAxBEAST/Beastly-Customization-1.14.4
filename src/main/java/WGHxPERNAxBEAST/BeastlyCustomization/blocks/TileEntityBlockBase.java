@@ -2,7 +2,6 @@ package WGHxPERNAxBEAST.BeastlyCustomization.blocks;
 
 import javax.annotation.Nullable;
 
-import WGHxPERNAxBEAST.BeastlyCustomization.tiles.CarbonDustGeneratorTile;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.LivingEntity;
@@ -21,10 +20,13 @@ import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.network.NetworkHooks;
 
-public class CarbonDustGenerator extends Block{
+public class TileEntityBlockBase extends Block{
+	
+	private TileEntity te;
 
-	public CarbonDustGenerator(Properties properties) {
+	public TileEntityBlockBase(TileEntity teIn,Properties properties) {
 		super(properties);
+		this.te = teIn;
 	}
 	
 	@Override
@@ -41,7 +43,7 @@ public class CarbonDustGenerator extends Block{
 	@Nullable
     @Override
     public TileEntity createTileEntity(BlockState state, IBlockReader world) {
-        return new CarbonDustGeneratorTile();
+        return te;
     }
 	
 	 @Override
