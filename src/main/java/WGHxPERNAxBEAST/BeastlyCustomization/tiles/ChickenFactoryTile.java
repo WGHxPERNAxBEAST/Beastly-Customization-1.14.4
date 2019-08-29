@@ -37,6 +37,7 @@ public class ChickenFactoryTile extends TileEntity implements ITickableTileEntit
 	private LazyOptional<IEnergyStorage> energy = LazyOptional.of(this::createEnergy);
 	
 	private int counter = 20;
+	private int maxEnStorage = 800;
 
 	public ChickenFactoryTile() {
 		super(TileList.chicken_factory);
@@ -105,6 +106,10 @@ public class ChickenFactoryTile extends TileEntity implements ITickableTileEntit
 		return counter;
 	}
 	
+	public int getMaxEnergy() {
+		return maxEnStorage;
+	}
+	
 	@SuppressWarnings("unchecked")
 	@Override
     public void read(CompoundNBT tag) {
@@ -167,7 +172,7 @@ public class ChickenFactoryTile extends TileEntity implements ITickableTileEntit
     }
 	
 	private IEnergyStorage createEnergy() {
-        return new CustomEnergyStorage(800, 40);
+        return new CustomEnergyStorage(maxEnStorage, 40);
     }
 	
 	@Nonnull

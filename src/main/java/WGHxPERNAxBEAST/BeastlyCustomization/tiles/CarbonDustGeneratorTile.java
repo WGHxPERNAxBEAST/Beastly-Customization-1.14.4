@@ -48,25 +48,26 @@ public class CarbonDustGeneratorTile extends TileEntity implements ITickableTile
         if (world.isRemote) {
             return;
         }
-
+        
         if (counter > 0) {
-            counter--;
-            if (counter <= 0) {
-                energy.ifPresent(e -> ((CustomEnergyStorage) e).addEnergy(40));
-            }
-            markDirty();
-        }
-
-        if (counter <= 0) {
-            handler.ifPresent(h -> {
-                ItemStack stack = h.getStackInSlot(0);
-                if (stack.getItem() == ItemList.carbon_dust) {
-                    h.extractItem(0, 1, false);
-                    counter = 40;
-                    markDirty();
-                }
-            });
-        }
+			counter--;
+	        if (counter <= 0) {
+	        	energy.ifPresent(e -> {
+	        		if (e.getMaxEnergyStored() >= e.getEnergyStored() + 40) {
+	        			((CustomEnergyStorage) e).addEnergy(40);
+	        		}
+	        	});
+	        	handler.ifPresent(h -> {
+	        		ItemStack stack = h.getStackInSlot(0);
+	        		if (stack.getItem() == ItemList.carbon_dust) {
+	        			h.extractItem(0, 1, false);
+	        			counter = 40;
+	        			markDirty();
+	        		}
+	        	});
+	        }
+	        markDirty();
+		}
 
         BlockState blockState = world.getBlockState(pos);
         if (blockState.get(BlockStateProperties.POWERED) != counter > 0) {

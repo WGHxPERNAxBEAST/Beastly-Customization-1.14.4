@@ -31,7 +31,7 @@ public class ChickenFactoryGui extends ContainerScreen<ChickenFactoryContainer> 
     @Override
     protected void drawGuiContainerForegroundLayer(int mouseX, int mouseY) {
     	drawString(Minecraft.getInstance().fontRenderer, "Organic Chicken Factory", 3, 3, 0xffffff);
-        drawString(Minecraft.getInstance().fontRenderer, "Energy: " + container.getEnergy(), 6, 14, 0xffffff);
+        drawString(Minecraft.getInstance().fontRenderer, "Energy: " + container.getEnergy(), 100, 12, 0xffffff);
     }
 
     @Override
@@ -41,5 +41,7 @@ public class ChickenFactoryGui extends ContainerScreen<ChickenFactoryContainer> 
         int relX = (this.width - this.xSize) / 2;
         int relY = (this.height - this.ySize) / 2;
         this.blit(relX, relY, 0, 0, this.xSize, this.ySize);
+        int e = container.getEnergyScaled(43, container.getEnergy());
+        this.blit(this.guiLeft + 10, this.guiTop + 18 + 44 - e, 181, 0, 14, e);
     }
 }
