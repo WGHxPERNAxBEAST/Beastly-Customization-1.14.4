@@ -36,8 +36,8 @@ public class CarbonDustGeneratorTile extends TileEntity implements ITickableTile
 	private LazyOptional<IItemHandler> handler = LazyOptional.of(this::createHandler);
 	private LazyOptional<IEnergyStorage> energy = LazyOptional.of(this::createEnergy);
 	
-	private int counter;
-	private int maxEnStorage = 3000;
+	private int counter = 20;
+	private int maxEnStorage = 3840;
 
 	public CarbonDustGeneratorTile() {
 		super(TileList.cd_pow_gener);
@@ -53,15 +53,20 @@ public class CarbonDustGeneratorTile extends TileEntity implements ITickableTile
 			counter--;
 	        if (counter <= 0) {
 	        	energy.ifPresent(e -> {
-	        		if (e.getMaxEnergyStored() >= e.getEnergyStored() + 40) {
-	        			((CustomEnergyStorage) e).addEnergy(40);
+	        		CustomEnergyStorage e1 = (CustomEnergyStorage) e;
+	        		if (e1.getMaxEnergyStored() >= e1.getEnergyStored() + 40) {
+		        		e1.addEnergy(40);
+		        		counter = 40;
+		        	} else if ((e1.getMaxEnergyStored() > e1.getEnergyStored())) {
+		        		e1.addEnergy(e1.getMaxEnergyStored() - e1.getEnergyStored());
+		        		counter = 50;
 	        		}
+	        		e = e1;
 	        	});
 	        	handler.ifPresent(h -> {
 	        		ItemStack stack = h.getStackInSlot(0);
 	        		if (stack.getItem() == ItemList.carbon_dust) {
 	        			h.extractItem(0, 1, false);
-	        			counter = 40;
 	        			markDirty();
 	        		}
 	        	});
