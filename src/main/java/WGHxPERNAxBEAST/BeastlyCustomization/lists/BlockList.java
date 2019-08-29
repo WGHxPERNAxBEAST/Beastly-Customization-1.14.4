@@ -1,6 +1,8 @@
 package WGHxPERNAxBEAST.BeastlyCustomization.lists;
 
+import WGHxPERNAxBEAST.BeastlyCustomization.BeastlyCustomizationMain;
 import net.minecraft.block.Block;
+import net.minecraftforge.registries.ObjectHolder;
 
 public class BlockList {
 	public static Block blue_steel_block;
@@ -10,6 +12,8 @@ public class BlockList {
 	public static Block pps_block;
 	
 	public static Block golem_head;
+	
+	@ObjectHolder(BeastlyCustomizationMain.modid + ":chick_fact")
 	public static Block chicken_factory;
 	
 	public static Block carbon_rock;
