@@ -133,7 +133,7 @@ public class ChickenFactoryTile extends TileEntity implements ITickableTileEntit
     }
 	
 	private IItemHandler createHandler() {
-        return new ItemStackHandler(1) {
+        return new ItemStackHandler(2) {
 
             @Override
             protected void onContentsChanged(int slot) {
