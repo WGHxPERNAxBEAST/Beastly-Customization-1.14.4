@@ -22,10 +22,12 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.Direction;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.StringTextComponent;
+import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.util.INBTSerializable;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.energy.CapabilityEnergy;
 import net.minecraftforge.energy.IEnergyStorage;
+import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.ItemStackHandler;
 
@@ -168,6 +170,18 @@ public class ChickenFactoryTile extends TileEntity implements ITickableTileEntit
 	private IEnergyStorage createEnergy() {
         return new CustomEnergyStorage(800, 0);
     }
+	
+	@Nonnull
+	@Override
+	public <T> LazyOptional<T> getCapability(@Nonnull Capability<T> cap, @Nullable Direction side) {
+		if (cap == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY) {
+			return handler.cast();
+		}
+	    if (cap == CapabilityEnergy.ENERGY) {
+	        return energy.cast();
+	    }
+	    return super.getCapability(cap, side);
+	}
 	
 	@Override
 	public ITextComponent getDisplayName() {
