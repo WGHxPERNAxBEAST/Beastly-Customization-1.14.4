@@ -91,6 +91,7 @@
 	"block.beastly_customization.pps_block": "Purple Steel Block",
 	"block.beastly_customization.golem_head": "Golem Head",
 	"block.beastly_customization.chick_fact": "Organic Chicken Factory",
+	"block.beastly_customization.cd_pow_gener": "Carbon Dust Fueled Generator",
 	
 	"comment": "Inventory Tabs",
 	"itemGroup.beastly_customization_inv_group": "Beastly Customization Stuff",

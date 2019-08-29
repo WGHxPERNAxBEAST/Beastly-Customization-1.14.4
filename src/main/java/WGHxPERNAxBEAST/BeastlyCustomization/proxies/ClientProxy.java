@@ -1,5 +1,6 @@
 package WGHxPERNAxBEAST.BeastlyCustomization.proxies;
 
+import WGHxPERNAxBEAST.BeastlyCustomization.client.gui.CarbonDustGeneratorGui;
 import WGHxPERNAxBEAST.BeastlyCustomization.client.gui.ChickenFactoryGui;
 import WGHxPERNAxBEAST.BeastlyCustomization.lists.ContainerList;
 import net.minecraft.client.Minecraft;
@@ -12,6 +13,7 @@ public class ClientProxy implements IProxy {
     @Override
     public void init() {
         ScreenManager.registerFactory(ContainerList.chicken_factory, ChickenFactoryGui::new);
+        ScreenManager.registerFactory(ContainerList.cd_pow_gener, CarbonDustGeneratorGui::new);
     }
 
     @Override

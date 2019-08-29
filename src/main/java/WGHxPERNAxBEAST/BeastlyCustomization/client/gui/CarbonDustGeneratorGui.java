@@ -3,18 +3,18 @@ package WGHxPERNAxBEAST.BeastlyCustomization.client.gui;
 import com.mojang.blaze3d.platform.GlStateManager;
 
 import WGHxPERNAxBEAST.BeastlyCustomization.BeastlyCustomizationMain;
-import WGHxPERNAxBEAST.BeastlyCustomization.containers.ChickenFactoryContainer;
+import WGHxPERNAxBEAST.BeastlyCustomization.containers.CarbonDustGeneratorContainer;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screen.inventory.ContainerScreen;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.ITextComponent;
 
-public class ChickenFactoryGui extends ContainerScreen<ChickenFactoryContainer> {
+public class CarbonDustGeneratorGui extends ContainerScreen<CarbonDustGeneratorContainer> {
 
-    private ResourceLocation GUI = new ResourceLocation(BeastlyCustomizationMain.modid, "textures/gui/chick_fact_gui.png");
+    private ResourceLocation GUI = new ResourceLocation(BeastlyCustomizationMain.modid, "textures/gui/cd_pow_gener_gui.png");
 
-    public ChickenFactoryGui(ChickenFactoryContainer container, PlayerInventory inv, ITextComponent name) {
+    public CarbonDustGeneratorGui(CarbonDustGeneratorContainer container, PlayerInventory inv, ITextComponent name) {
         super(container, inv, name);
     }
 

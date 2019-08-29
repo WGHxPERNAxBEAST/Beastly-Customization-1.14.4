@@ -6,6 +6,7 @@ import org.apache.logging.log4j.Logger;
 import WGHxPERNAxBEAST.BeastlyCustomization.blocks.ChickenFactory;
 import WGHxPERNAxBEAST.BeastlyCustomization.blocks.GolemHead;
 import WGHxPERNAxBEAST.BeastlyCustomization.client.render.bcRenderRegistry;
+import WGHxPERNAxBEAST.BeastlyCustomization.containers.CarbonDustGeneratorContainer;
 import WGHxPERNAxBEAST.BeastlyCustomization.containers.ChickenFactoryContainer;
 import WGHxPERNAxBEAST.BeastlyCustomization.items.ItemCustomAxe;
 import WGHxPERNAxBEAST.BeastlyCustomization.items.ItemCustomPickaxe;
@@ -18,6 +19,7 @@ import WGHxPERNAxBEAST.BeastlyCustomization.lists.ToolMatList;
 import WGHxPERNAxBEAST.BeastlyCustomization.proxies.ClientProxy;
 import WGHxPERNAxBEAST.BeastlyCustomization.proxies.IProxy;
 import WGHxPERNAxBEAST.BeastlyCustomization.proxies.ServerProxy;
+import WGHxPERNAxBEAST.BeastlyCustomization.tiles.CarbonDustGeneratorTile;
 import WGHxPERNAxBEAST.BeastlyCustomization.tiles.ChickenFactoryTile;
 import WGHxPERNAxBEAST.BeastlyCustomization.utils.EventHandler;
 import WGHxPERNAxBEAST.BeastlyCustomization.world.OreGeneration;
@@ -171,7 +173,8 @@ public class BeastlyCustomizationMain {
 					ItemList.pps_block = new BlockItem(BlockList.pps_block, new Item.Properties().group(bcItemGroup)).setRegistryName(BlockList.pps_block.getRegistryName()),
 					ItemList.golem_head = new BlockItem(BlockList.golem_head, new Item.Properties().group(bcItemGroup)).setRegistryName(BlockList.golem_head.getRegistryName()),
 					ItemList.chicken_factory = new BlockItem(BlockList.chicken_factory, new Item.Properties().group(bcItemGroup)).setRegistryName(BlockList.chicken_factory.getRegistryName()),
-																					
+					ItemList.cd_pow_gener = new BlockItem(BlockList.cd_pow_gener, new Item.Properties().group(bcItemGroup)).setRegistryName(BlockList.cd_pow_gener.getRegistryName()),
+																							
 					ItemList.carbon_rock = new BlockItem(BlockList.carbon_rock, new Item.Properties().group(bcItemGroup)).setRegistryName(BlockList.carbon_rock.getRegistryName()),
 					ItemList.azr_ore = new BlockItem(BlockList.azr_ore, new Item.Properties().group(bcItemGroup)).setRegistryName(BlockList.azr_ore.getRegistryName()),
 					ItemList.pop_ore = new BlockItem(BlockList.pop_ore, new Item.Properties().group(bcItemGroup)).setRegistryName(BlockList.pop_ore.getRegistryName())
@@ -194,7 +197,8 @@ public class BeastlyCustomizationMain {
 					BlockList.pps_block = new Block(Block.Properties.create(Material.IRON).hardnessAndResistance(6.5F, 7.5F).lightValue(0).sound(SoundType.METAL)).setRegistryName(location("pps_block")),
 					BlockList.golem_head = new GolemHead(Block.Properties.create(Material.IRON).hardnessAndResistance(6.0F, 7.0F).lightValue(0).sound(SoundType.METAL)).setRegistryName(location("golem_head")),
 					BlockList.chicken_factory = new ChickenFactory(Block.Properties.create(Material.IRON).hardnessAndResistance(6.0F, 7.0F).lightValue(14).sound(SoundType.METAL)).setRegistryName(location("chick_fact")),
-																				
+					BlockList.cd_pow_gener = new ChickenFactory(Block.Properties.create(Material.IRON).hardnessAndResistance(6.0F, 7.0F).lightValue(14).sound(SoundType.METAL)).setRegistryName(location("cd_pow_gener")),
+																						
 					BlockList.carbon_rock = new Block(Block.Properties.create(Material.ROCK).hardnessAndResistance(3.0F, 3.0F).lightValue(0).sound(SoundType.STONE)).setRegistryName(location("carbon_rock")),
 					BlockList.azr_ore = new Block(Block.Properties.create(Material.ROCK).hardnessAndResistance(3.0F, 3.0F).lightValue(0).sound(SoundType.STONE)).setRegistryName(location("azr_ore")),
 					BlockList.pop_ore = new Block(Block.Properties.create(Material.ROCK).hardnessAndResistance(3.0F, 3.0F).lightValue(0).sound(SoundType.STONE)).setRegistryName(location("pop_ore"))
@@ -219,6 +223,7 @@ public class BeastlyCustomizationMain {
 		@SubscribeEvent
         public static void onTileEntityRegistry(final RegistryEvent.Register<TileEntityType<?>> event) {
             event.getRegistry().register(TileEntityType.Builder.create(ChickenFactoryTile::new, BlockList.chicken_factory).build(null).setRegistryName("chick_fact"));
+            event.getRegistry().register(TileEntityType.Builder.create(CarbonDustGeneratorTile::new, BlockList.cd_pow_gener).build(null).setRegistryName("cd_pow_gener"));
         }
 
         @SubscribeEvent
@@ -227,6 +232,10 @@ public class BeastlyCustomizationMain {
                 BlockPos pos = data.readBlockPos();
                 return new ChickenFactoryContainer(windowId, proxy.getClientWorld(), pos, inv, proxy.getClientPlayer());
             }).setRegistryName("chick_fact"));
+            event.getRegistry().register(IForgeContainerType.create((windowId, inv, data) -> {
+                BlockPos pos = data.readBlockPos();
+                return new CarbonDustGeneratorContainer(windowId, proxy.getClientWorld(), pos, inv, proxy.getClientPlayer());
+            }).setRegistryName("cd_pow_gener"));
         }
 		
 	}

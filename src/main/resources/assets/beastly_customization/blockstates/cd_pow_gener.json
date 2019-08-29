@@ -1,0 +1,16 @@
+{
+  "variants": {
+    "facing=north,powered=false": { "model": "beastly_customization:block/cd_pow_gener" },
+    "facing=south,powered=false": { "model": "beastly_customization:block/cd_pow_gener", "y": 180 },
+    "facing=west,powered=false": { "model": "beastly_customization:block/cd_pow_gener", "y": 270 },
+    "facing=east,powered=false": { "model": "beastly_customization:block/cd_pow_gener", "y": 90 },
+    "facing=up,powered=false": { "model": "beastly_customization:block/cd_pow_gener", "x": -90 },
+    "facing=down,powered=false": { "model": "beastly_customization:block/cd_pow_gener", "x": 90 },
+    "facing=north,powered=true": { "model": "beastly_customization:block/cd_pow_gener_powered" },
+    "facing=south,powered=true": { "model": "beastly_customization:block/cd_pow_gener_powered", "y": 180 },
+    "facing=west,powered=true": { "model": "beastly_customization:block/cd_pow_gener_powered", "y": 270 },
+    "facing=east,powered=true": { "model": "beastly_customization:block/cd_pow_gener_powered", "y": 90 },
+    "facing=up,powered=true": { "model": "beastly_customization:block/cd_pow_gener_powered", "x": -90 },
+    "facing=down,powered=true": { "model": "beastly_customization:block/cd_pow_gener_powered", "x": 90 }
+  }
+}

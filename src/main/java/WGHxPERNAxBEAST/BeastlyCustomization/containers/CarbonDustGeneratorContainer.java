@@ -2,14 +2,14 @@ package WGHxPERNAxBEAST.BeastlyCustomization.containers;
 
 import WGHxPERNAxBEAST.BeastlyCustomization.lists.BlockList;
 import WGHxPERNAxBEAST.BeastlyCustomization.lists.ContainerList;
-import WGHxPERNAxBEAST.BeastlyCustomization.tiles.ChickenFactoryTile;
+import WGHxPERNAxBEAST.BeastlyCustomization.lists.ItemList;
+import WGHxPERNAxBEAST.BeastlyCustomization.tiles.CarbonDustGeneratorTile;
 import WGHxPERNAxBEAST.BeastlyCustomization.utils.CustomEnergyStorage;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.container.Container;
 import net.minecraft.inventory.container.Slot;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
 import net.minecraft.util.IWorldPosCallable;
 import net.minecraft.util.IntReferenceHolder;
 import net.minecraft.util.math.BlockPos;
@@ -21,21 +21,20 @@ import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.SlotItemHandler;
 import net.minecraftforge.items.wrapper.InvWrapper;
 
-public class ChickenFactoryContainer extends Container{
+public class CarbonDustGeneratorContainer extends Container{
 	
-	private ChickenFactoryTile tileEntity;
+	private CarbonDustGeneratorTile tileEntity;
     private PlayerEntity playerEntity;
 	private IItemHandler playerInventory;
 
-	public ChickenFactoryContainer(int windowId, World world, BlockPos pos, PlayerInventory playerInventory, PlayerEntity player) {
-        super(ContainerList.chicken_factory, windowId);
-        tileEntity = (ChickenFactoryTile) world.getTileEntity(pos);
+	public CarbonDustGeneratorContainer(int windowId, World world, BlockPos pos, PlayerInventory playerInventory, PlayerEntity player) {
+        super(ContainerList.cd_pow_gener, windowId);
+        tileEntity = (CarbonDustGeneratorTile) world.getTileEntity(pos);
         this.playerEntity = player;
         this.playerInventory = new InvWrapper(playerInventory);
 
         tileEntity.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY).ifPresent(h -> {
             addSlot(new SlotItemHandler(h, 0, 64, 24));
-            addSlot(new SlotItemHandler(h, 1, 100, 24));
         });
         layoutPlayerInventorySlots(10, 70);
 
@@ -62,7 +61,7 @@ public class ChickenFactoryContainer extends Container{
 
     @Override
     public boolean canInteractWith(PlayerEntity playerIn) {
-        return isWithinUsableDistance(IWorldPosCallable.of(tileEntity.getWorld(), tileEntity.getPos()), playerEntity, BlockList.chicken_factory);
+        return isWithinUsableDistance(IWorldPosCallable.of(tileEntity.getWorld(), tileEntity.getPos()), playerEntity, BlockList.cd_pow_gener);
     }
 
     @Override
@@ -78,12 +77,8 @@ public class ChickenFactoryContainer extends Container{
                 }
                 slot.onSlotChange(stack, itemstack);
             } else {
-            	if (stack.getItem() == Items.EGG) {
+            	if (stack.getItem() == ItemList.carbon_dust) {
                     if (!this.mergeItemStack(stack, 0, 1, false)) {
-                        return ItemStack.EMPTY;
-                    }
-                } else if (stack.getItem() == Items.CHICKEN) {
-                    if (!this.mergeItemStack(stack, 1, 2, false)) {
                         return ItemStack.EMPTY;
                     }
                 } else if (index < 28) {

@@ -1,0 +1,12 @@
+{
+  "parent": "block/cube",
+  "textures": {
+    "particle": "beastly_customization:block/cd_pow_gener",
+    "down": "beastly_customization:block/cd_pow_gener",
+    "up": "beastly_customization:block/cd_pow_gener",
+    "east": "beastly_customization:block/cd_pow_gener",
+    "west": "beastly_customization:block/cd_pow_gener",
+    "north": "beastly_customization:block/cd_pow_gener_powered",
+    "south": "beastly_customization:block/cd_pow_gener"
+  }
+}
