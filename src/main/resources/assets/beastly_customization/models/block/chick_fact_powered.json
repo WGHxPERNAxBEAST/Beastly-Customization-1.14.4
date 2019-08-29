@@ -1,0 +1,12 @@
+{
+  "parent": "block/cube",
+  "textures": {
+    "particle": "beastly_customization:block/chick_fact",
+    "down": "beastly_customization:block/chick_fact",
+    "up": "beastly_customization:block/chick_fact",
+    "east": "beastly_customization:block/chick_fact",
+    "west": "beastly_customization:block/chick_fact",
+    "north": "beastly_customization:block/chick_fact_powered",
+    "south": "beastly_customization:block/chick_fact"
+  }
+}

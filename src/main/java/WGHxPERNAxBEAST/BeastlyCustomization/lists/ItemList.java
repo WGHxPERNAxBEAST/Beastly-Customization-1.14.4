@@ -95,6 +95,7 @@ public class ItemList {
 	public static Item pps_block;
 	
 	public static Item golem_head;
+	public static Item chicken_factory;
 	
 	public static Item carbon_rock;
 	public static Item azr_ore;

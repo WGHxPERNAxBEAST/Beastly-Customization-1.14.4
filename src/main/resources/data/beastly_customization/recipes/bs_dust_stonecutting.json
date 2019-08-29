@@ -2,7 +2,7 @@
 	"type": "minecraft:stonecutting",
 	
 	"ingredient": {
-		"item": "beastly_customization:bs_ingot"
+		"item": "beastly_customization:blue_steel_ingot"
 	},
 	
 	"result":"beastly_customization:bs_dust",

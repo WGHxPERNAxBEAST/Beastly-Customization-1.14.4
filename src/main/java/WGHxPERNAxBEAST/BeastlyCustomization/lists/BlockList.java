@@ -10,6 +10,7 @@ public class BlockList {
 	public static Block pps_block;
 	
 	public static Block golem_head;
+	public static Block chicken_factory;
 	
 	public static Block carbon_rock;
 	public static Block azr_ore;
