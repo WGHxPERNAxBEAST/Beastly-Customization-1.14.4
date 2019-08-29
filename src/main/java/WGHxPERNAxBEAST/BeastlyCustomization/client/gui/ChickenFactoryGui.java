@@ -9,7 +9,10 @@ import net.minecraft.client.gui.screen.inventory.ContainerScreen;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.ITextComponent;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 
+@OnlyIn(Dist.CLIENT)
 public class ChickenFactoryGui extends ContainerScreen<ChickenFactoryContainer> {
 
     private ResourceLocation GUI = new ResourceLocation(BeastlyCustomizationMain.modid, "textures/gui/chick_fact_gui.png");
