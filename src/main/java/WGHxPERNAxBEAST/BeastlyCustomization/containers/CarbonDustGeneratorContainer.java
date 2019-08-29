@@ -58,6 +58,12 @@ public class CarbonDustGeneratorContainer extends Container{
 	public int getCounter() {
         return tileEntity.getCounter();
     }
+	
+	public int getEnergyScaled(int pixels, int energy) {
+        int i = energy;
+        int c = tileEntity.getMaxEnergy();
+        return c != 0 && i != 0 ? i * pixels / c : 0;
+    }
 
     @Override
     public boolean canInteractWith(PlayerEntity playerIn) {

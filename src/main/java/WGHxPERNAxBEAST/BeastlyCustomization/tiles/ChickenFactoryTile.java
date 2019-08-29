@@ -1,12 +1,13 @@
 package WGHxPERNAxBEAST.BeastlyCustomization.tiles;
 
+import java.util.concurrent.atomic.AtomicInteger;
+
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import WGHxPERNAxBEAST.BeastlyCustomization.containers.ChickenFactoryContainer;
 import WGHxPERNAxBEAST.BeastlyCustomization.lists.TileList;
 import WGHxPERNAxBEAST.BeastlyCustomization.utils.CustomEnergyStorage;
-import WGHxPERNAxBEAST.BeastlyCustomization.utils.CustomEnergyTransferer;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
@@ -69,21 +70,36 @@ public class ChickenFactoryTile extends TileEntity implements ITickableTileEntit
 		if (blockState.get(BlockStateProperties.POWERED) != counter > 0) {
 			world.setBlockState(pos, blockState.with(BlockStateProperties.POWERED, counter > 0), 3);
 		}
-		CustomEnergyTransferer.takeInPower(energy, world, pos);
+		takeInPower();
 	}
 	
-	/*
-	 * private void takeInPower() { energy.ifPresent(energy -> { AtomicInteger
-	 * capacity = new AtomicInteger(energy.getEnergyStored()); if (capacity.get() <
-	 * energy.getMaxEnergyStored()) { for (Direction direction : Direction.values())
-	 * { TileEntity te = world.getTileEntity(pos.offset(direction)); if (te != null)
-	 * { boolean doContinue = te.getCapability(CapabilityEnergy.ENERGY,
-	 * direction).map(handler -> { if (handler.canExtract()) { int sent =
-	 * handler.extractEnergy(40, false); capacity.addAndGet(-sent);
-	 * ((CustomEnergyStorage) energy).addEnergy(sent); markDirty(); return
-	 * capacity.get() < energy.getMaxEnergyStored(); } else { return true; } }
-	 * ).orElse(true); if (!doContinue) { return; } } } } }); }
-	 */
+	private void takeInPower() {
+        energy.ifPresent(energy -> {
+            AtomicInteger capacity = new AtomicInteger(energy.getEnergyStored());
+            if (capacity.get() < energy.getMaxEnergyStored()) {
+                for (Direction direction : Direction.values()) {
+                    TileEntity te = world.getTileEntity(pos.offset(direction));
+                    if (te != null) {
+                        boolean doContinue = te.getCapability(CapabilityEnergy.ENERGY, direction).map(handler -> {
+                                    if (handler.canExtract()) {
+                                        int sent = handler.extractEnergy(40, false);
+                                        capacity.addAndGet(-sent);
+                                        ((CustomEnergyStorage) energy).addEnergy(sent);
+                                        markDirty();
+                                        return capacity.get() < energy.getMaxEnergyStored();
+                                    } else {
+                                        return true;
+                                    }
+                                }
+                        ).orElse(true);
+                        if (!doContinue) {
+                            return;
+                        }
+                    }
+                }
+            }
+        });
+    }
 	
 	public int getCounter() {
 		return counter;

@@ -3,8 +3,9 @@ package WGHxPERNAxBEAST.BeastlyCustomization;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import WGHxPERNAxBEAST.BeastlyCustomization.blocks.CarbonDustGeneratorBlock;
+import WGHxPERNAxBEAST.BeastlyCustomization.blocks.ChickenFactoryBlock;
 import WGHxPERNAxBEAST.BeastlyCustomization.blocks.GolemHead;
-import WGHxPERNAxBEAST.BeastlyCustomization.blocks.TileEntityBlockBase;
 import WGHxPERNAxBEAST.BeastlyCustomization.client.render.bcRenderRegistry;
 import WGHxPERNAxBEAST.BeastlyCustomization.containers.CarbonDustGeneratorContainer;
 import WGHxPERNAxBEAST.BeastlyCustomization.containers.ChickenFactoryContainer;
@@ -196,8 +197,8 @@ public class BeastlyCustomizationMain {
 					BlockList.rds_block = new Block(Block.Properties.create(Material.IRON).hardnessAndResistance(6.0F, 7.0F).lightValue(0).sound(SoundType.METAL)).setRegistryName(location("rds_block")),
 					BlockList.pps_block = new Block(Block.Properties.create(Material.IRON).hardnessAndResistance(6.5F, 7.5F).lightValue(0).sound(SoundType.METAL)).setRegistryName(location("pps_block")),
 					BlockList.golem_head = new GolemHead(Block.Properties.create(Material.IRON).hardnessAndResistance(6.0F, 7.0F).lightValue(0).sound(SoundType.METAL)).setRegistryName(location("golem_head")),
-					BlockList.chicken_factory = new TileEntityBlockBase(new ChickenFactoryTile(), Block.Properties.create(Material.IRON).hardnessAndResistance(6.0F, 7.0F).lightValue(14).sound(SoundType.METAL)).setRegistryName(location("chick_fact")),
-					BlockList.cd_pow_gener = new TileEntityBlockBase(new CarbonDustGeneratorTile(), Block.Properties.create(Material.IRON).hardnessAndResistance(6.0F, 7.0F).lightValue(14).sound(SoundType.METAL)).setRegistryName(location("cd_pow_gener")),
+					BlockList.chicken_factory = new ChickenFactoryBlock(Block.Properties.create(Material.IRON).hardnessAndResistance(6.0F, 7.0F).lightValue(14).sound(SoundType.METAL)).setRegistryName(location("chick_fact")),
+					BlockList.cd_pow_gener = new CarbonDustGeneratorBlock(Block.Properties.create(Material.IRON).hardnessAndResistance(6.0F, 7.0F).lightValue(14).sound(SoundType.METAL)).setRegistryName(location("cd_pow_gener")),
 																						
 					BlockList.carbon_rock = new Block(Block.Properties.create(Material.ROCK).hardnessAndResistance(3.0F, 3.0F).lightValue(0).sound(SoundType.STONE)).setRegistryName(location("carbon_rock")),
 					BlockList.azr_ore = new Block(Block.Properties.create(Material.ROCK).hardnessAndResistance(3.0F, 3.0F).lightValue(0).sound(SoundType.STONE)).setRegistryName(location("azr_ore")),
