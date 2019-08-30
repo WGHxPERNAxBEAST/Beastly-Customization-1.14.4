@@ -37,15 +37,20 @@ public class ChickenFactoryTile extends TileEntity implements ITickableTileEntit
 	
 	private int counter = 1000;
 	private int counterMax = 90;
-	private final int maxEnStorage = 500;
+	private int maxEnStorage = 500;
 	
 	private boolean canConsumeEnergy = false;
 	private boolean canConsumeEgg = false;
 
 	public ChickenFactoryTile() {
 		super(TileList.chicken_factory);
-		energy.ifPresent(e -> ((CustomEnergyStorage) e).setSendPriority(0));
-		energy.ifPresent(e -> ((CustomEnergyStorage) e).setTakePriority(2));
+		energy.ifPresent(e -> {
+    		CustomEnergyStorage e1 = (CustomEnergyStorage) e;
+    		e1.setSendPriority(0);
+    		e1.setTakePriority(2);
+    		maxEnStorage = e1.getMaxEnergyStored();
+    		e = e1;
+    	});
 	}
 	
 	@Override

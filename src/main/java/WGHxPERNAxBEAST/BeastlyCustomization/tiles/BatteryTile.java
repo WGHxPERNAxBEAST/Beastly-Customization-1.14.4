@@ -29,15 +29,20 @@ public class BatteryTile extends TileEntity implements ITickableTileEntity, INam
 	
 	private LazyOptional<IEnergyStorage> energy = LazyOptional.of(this::createEnergy);
 	
-	private final int maxEnStorage = 25000;
+	private int maxEnStorage = 25000;
 	private final int maxTransferRate = 60;
 	
 	private boolean hasEnergy = false;
 	
 	public BatteryTile() {
 		super(TileList.battery);
-		energy.ifPresent(e -> ((CustomEnergyStorage) e).setSendPriority(1));
-		energy.ifPresent(e -> ((CustomEnergyStorage) e).setTakePriority(1));
+		energy.ifPresent(e -> {
+    		CustomEnergyStorage e1 = (CustomEnergyStorage) e;
+    		e1.setSendPriority(1);
+    		e1.setTakePriority(1);
+    		maxEnStorage = e1.getMaxEnergyStored();
+    		e = e1;
+    	});
 	}
 	
 	@Override

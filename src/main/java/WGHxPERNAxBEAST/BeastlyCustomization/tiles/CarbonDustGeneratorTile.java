@@ -37,15 +37,20 @@ public class CarbonDustGeneratorTile extends TileEntity implements ITickableTile
 	
 	private int counter = 1000;
 	private int counterMax = 80;
-	private final int maxEnStorage = 4800;
+	private int maxEnStorage = 4800;
 	
 	private boolean canAddEnergy = false;
 	private boolean canAddTakeDust = false;
 
 	public CarbonDustGeneratorTile() {
 		super(TileList.cd_pow_gener);
-		energy.ifPresent(e -> ((CustomEnergyStorage) e).setSendPriority(2));
-		energy.ifPresent(e -> ((CustomEnergyStorage) e).setTakePriority(0));
+		energy.ifPresent(e -> {
+    		CustomEnergyStorage e1 = (CustomEnergyStorage) e;
+    		e1.setSendPriority(2);
+    		e1.setTakePriority(0);
+    		maxEnStorage = e1.getMaxEnergyStored();
+    		e = e1;
+    	});
 	}
 	
 	@Override

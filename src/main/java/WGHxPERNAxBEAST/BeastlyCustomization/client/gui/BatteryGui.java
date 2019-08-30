@@ -30,8 +30,8 @@ public class BatteryGui extends ContainerScreen<BatteryContainer> {
     
     @Override
     protected void drawGuiContainerForegroundLayer(int mouseX, int mouseY) {
-    	drawString(Minecraft.getInstance().fontRenderer, "Battery Cell", 3, 3, 0xffffff);
-        drawString(Minecraft.getInstance().fontRenderer, "Energy: " + container.getEnergy(), 26, 14, 0xffffff);
+    	drawCenteredString(Minecraft.getInstance().fontRenderer, "Battery Cell", 91, 3, 0xffffff);
+        drawString(Minecraft.getInstance().fontRenderer, "Energy: " + container.getEnergy() + "/" + container.getMaxEnergy(), 28, 16, 0xffffff);
     }
     
     @Override

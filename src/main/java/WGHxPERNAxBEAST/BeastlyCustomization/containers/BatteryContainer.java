@@ -50,6 +50,10 @@ public class BatteryContainer extends Container{
         return tileEntity.getCapability(CapabilityEnergy.ENERGY).map(IEnergyStorage::getEnergyStored).orElse(0);
     }
 	
+	public int getMaxEnergy() {
+        return tileEntity.getMaxEnergy();
+    }
+	
 	public int getEnergyScaled(int pixels) {
         int i = tileEntity.getCapability(CapabilityEnergy.ENERGY).map(IEnergyStorage::getEnergyStored).orElse(0);
         int c = tileEntity.getMaxEnergy();
