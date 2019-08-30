@@ -12,6 +12,6 @@ public class ContainerList {
 	public static ContainerType<ChickenFactoryContainer> chicken_factory;
 	@ObjectHolder(BeastlyCustomizationMain.modid + ":cd_pow_gener")
 	public static ContainerType<CarbonDustGeneratorContainer> cd_pow_gener;
-	@ObjectHolder(BeastlyCustomizationMain.modid + ":battery")
+	@ObjectHolder(BeastlyCustomizationMain.modid + ":bs_battery")
 	public static ContainerType<BatteryContainer> battery;
 }

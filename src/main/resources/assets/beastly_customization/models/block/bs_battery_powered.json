@@ -1,12 +1,12 @@
 {
   "parent": "block/cube",
   "textures": {
-    "particle": "beastly_customization:block/bs_battery",
-    "down": "beastly_customization:block/bs_battery",
-    "up": "beastly_customization:block/bs_battery",
-    "east": "beastly_customization:block/bs_battery",
-    "west": "beastly_customization:block/bs_battery",
+    "particle": "beastly_customization:block/bs_battery_powered",
+    "down": "beastly_customization:block/bs_battery_powered",
+    "up": "beastly_customization:block/bs_battery_powered",
+    "east": "beastly_customization:block/bs_battery_powered",
+    "west": "beastly_customization:block/bs_battery_powered",
     "north": "beastly_customization:block/bs_battery_powered",
-    "south": "beastly_customization:block/bs_battery"
+    "south": "beastly_customization:block/bs_battery_powered"
   }
 }
