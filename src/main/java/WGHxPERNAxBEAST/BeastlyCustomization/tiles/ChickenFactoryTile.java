@@ -36,8 +36,12 @@ public class ChickenFactoryTile extends TileEntity implements ITickableTileEntit
 	private LazyOptional<IItemHandler> handler = LazyOptional.of(this::createHandler);
 	private LazyOptional<IEnergyStorage> energy = LazyOptional.of(this::createEnergy);
 	
-	private int counter = 20;
-	private int maxEnStorage = 800;
+	private int counter = 0;
+	private int counterMax = 90;
+	private int maxEnStorage = 500;
+	
+	private boolean canConsumeEnergy = false;
+	private boolean canConsumeEgg = false;
 
 	public ChickenFactoryTile() {
 		super(TileList.chicken_factory);
@@ -48,22 +52,41 @@ public class ChickenFactoryTile extends TileEntity implements ITickableTileEntit
 		if (world.isRemote) {
 			return;
 		}
-		if (counter > 0) {
-			counter--;
-	        if (counter <= 0) {
+		if (counter >= counterMax) {
+			
+			energy.ifPresent(e -> {
+        		CustomEnergyStorage e1 = (CustomEnergyStorage) e;
+        		if (e1.getEnergyStored() >=  25 && canConsumeEnergy == false) {
+	        		canConsumeEnergy = true;
+	        	}
+        		e = e1;
+        	});
+			handler.ifPresent(h -> {
+	        	ItemStack eggStack = h.getStackInSlot(0);
+	        	if (eggStack.getItem() == Items.EGG && (h.getStackInSlot(1).getCount() < h.getStackInSlot(1).getMaxStackSize() || h.getStackInSlot(1) == null) && canConsumeEgg == false) {
+	        		canConsumeEgg = true;
+	        	}
+	        });
+			if (canConsumeEgg == true && canConsumeEnergy == true) {
+				counter = 0;
+				canConsumeEnergy = false;
+				canConsumeEgg = false;
+			}
+        }
+        
+		if (counter < counterMax) {
+			counter++;
+	        if (counter >= counterMax) {
 	        	energy.ifPresent(e -> ((CustomEnergyStorage) e).consumeEnergy(25));
+	        	markDirty();
 	        	handler.ifPresent(h -> {
-	        		ItemStack eggStack = h.getStackInSlot(0);
-	        		ItemStack chickStack = new ItemStack(Items.COOKED_CHICKEN);
-	        		chickStack.setCount(1);
-	        		chickStack.setDisplayName(new StringTextComponent("Organic Chicken!"));
-	        		if (eggStack.getItem() == Items.EGG && (h.getStackInSlot(1).getCount() < h.getStackInSlot(1).getMaxStackSize() || h.getStackInSlot(1) == null)) {
-	        			h.extractItem(0, 1, false);
-	        			h.insertItem(1, chickStack, false);
-	        			counter = 75;
-	        			markDirty();
-	        		}
-	        	});
+		        	ItemStack chickStack = new ItemStack(Items.COOKED_CHICKEN);
+		        	chickStack.setCount(1);
+		        	chickStack.setDisplayName(new StringTextComponent("Organic Chicken!"));
+		        	h.insertItem(1, chickStack, false);
+		        	h.extractItem(0, 1, false);
+		        	markDirty();
+		        });
 	        }
 	        markDirty();
 		}
@@ -108,6 +131,10 @@ public class ChickenFactoryTile extends TileEntity implements ITickableTileEntit
 	
 	public int getMaxEnergy() {
 		return maxEnStorage;
+	}
+	
+	public int getCounterMax() {
+		return counterMax;
 	}
 	
 	@SuppressWarnings("unchecked")

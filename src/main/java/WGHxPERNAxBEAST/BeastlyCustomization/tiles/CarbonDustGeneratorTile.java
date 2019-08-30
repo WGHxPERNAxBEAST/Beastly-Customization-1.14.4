@@ -36,8 +36,12 @@ public class CarbonDustGeneratorTile extends TileEntity implements ITickableTile
 	private LazyOptional<IItemHandler> handler = LazyOptional.of(this::createHandler);
 	private LazyOptional<IEnergyStorage> energy = LazyOptional.of(this::createEnergy);
 	
-	private int counter = 20;
-	private int maxEnStorage = 3840;
+	private int counter = 0;
+	private int counterMax = 80;
+	private int maxEnStorage = 4800;
+	
+	private boolean canAddEnergy = false;
+	private boolean canAddTakeDust = false;
 
 	public CarbonDustGeneratorTile() {
 		super(TileList.cd_pow_gener);
@@ -48,28 +52,44 @@ public class CarbonDustGeneratorTile extends TileEntity implements ITickableTile
         if (world.isRemote) {
             return;
         }
+        if (counter >= counterMax) {
+        	energy.ifPresent(e -> {
+        		CustomEnergyStorage e1 = (CustomEnergyStorage) e;
+        		if (e1.getMaxEnergyStored() >= e1.getEnergyStored() + 30) {
+        			canAddEnergy = true;
+	        	} 
+        		e = e1;
+        	});
+        	handler.ifPresent(h -> {
+        		ItemStack stack = h.getStackInSlot(0);
+        		if (stack.getItem() == ItemList.carbon_dust) {
+        			canAddTakeDust = true;
+        		}
+        	});
+        	if (canAddEnergy == true && canAddTakeDust == true) {
+        		counter = 0;
+        		canAddEnergy = false;
+        		canAddTakeDust = false;
+        	}
+        }
         
-        if (counter > 0) {
-			counter--;
-	        if (counter <= 0) {
-	        	energy.ifPresent(e -> {
-	        		CustomEnergyStorage e1 = (CustomEnergyStorage) e;
-	        		if (e1.getMaxEnergyStored() >= e1.getEnergyStored() + 40) {
-		        		e1.addEnergy(40);
-		        		counter = 40;
-		        	} else if ((e1.getMaxEnergyStored() > e1.getEnergyStored())) {
-		        		e1.addEnergy(e1.getMaxEnergyStored() - e1.getEnergyStored());
-		        		counter = 50;
-	        		}
-	        		e = e1;
-	        	});
-	        	handler.ifPresent(h -> {
-	        		ItemStack stack = h.getStackInSlot(0);
-	        		if (stack.getItem() == ItemList.carbon_dust) {
-	        			h.extractItem(0, 1, false);
-	        			markDirty();
-	        		}
-	        	});
+        if (counter < counterMax) {
+			counter++;
+	        if (counter >= counterMax) {
+	        		energy.ifPresent(e -> {
+		        		CustomEnergyStorage e1 = (CustomEnergyStorage) e;
+		        		if (e1.getMaxEnergyStored() >= e1.getEnergyStored() + 30) {
+			        		e1.addEnergy(30);
+			        	} else if ((e1.getMaxEnergyStored() > e1.getEnergyStored())) {
+			        		e1.addEnergy(e1.getMaxEnergyStored() - e1.getEnergyStored());
+		        		}
+		        		markDirty();
+		        		e = e1;
+		        	});
+	        		handler.ifPresent(h -> {
+	            		h.extractItem(0, 1, false);
+	            		markDirty();
+	            	});
 	        }
 	        markDirty();
 		}
@@ -117,6 +137,10 @@ public class CarbonDustGeneratorTile extends TileEntity implements ITickableTile
 	
 	public int getMaxEnergy() {
 		return maxEnStorage;
+	}
+	
+	public int getCounterMax() {
+		return counterMax;
 	}
 	
 	@SuppressWarnings("unchecked")

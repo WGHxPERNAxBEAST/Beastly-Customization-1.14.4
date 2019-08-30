@@ -41,7 +41,9 @@ public class CarbonDustGeneratorGui extends ContainerScreen<CarbonDustGeneratorC
         int relX = (this.width - this.xSize) / 2;
         int relY = (this.height - this.ySize) / 2;
         this.blit(relX, relY, 0, 0, this.xSize, this.ySize);
-        int e = container.getEnergyScaled(43, container.getEnergy());
+        int e = container.getEnergyScaled(43);
         this.blit(this.guiLeft + 10, this.guiTop + 18 + 44 - e, 181, 0, 14, e);
+        int c = container.getCounterScaled(14);
+        this.blit(this.guiLeft + 104, this.guiTop + 26 + 14 - c, 196, 0, 14, c);
     }
 }

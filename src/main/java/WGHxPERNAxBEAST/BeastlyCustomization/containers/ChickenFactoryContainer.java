@@ -60,8 +60,14 @@ public class ChickenFactoryContainer extends Container{
         return tileEntity.getCounter();
     }
 	
-	public int getEnergyScaled(int pixels, int energy) {
-        int i = energy;
+	public int getCounterScaled(int pixels) {
+        int i = tileEntity.getCounter();
+        int c = tileEntity.getCounterMax();
+        return c != 0 && i != 0 ? i * pixels / c : 0;
+    }
+	
+	public int getEnergyScaled(int pixels) {
+        int i = tileEntity.getCapability(CapabilityEnergy.ENERGY).map(IEnergyStorage::getEnergyStored).orElse(0);
         int c = tileEntity.getMaxEnergy();
         return c != 0 && i != 0 ? i * pixels / c : 0;
     }
