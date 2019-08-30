@@ -11,56 +11,61 @@ import net.minecraftforge.energy.CapabilityEnergy;
 import net.minecraftforge.energy.IEnergyStorage;
 
 public class CustomEnergyTransferer {
-	public static void takeInPower(LazyOptional<IEnergyStorage> energyIn, World world, BlockPos pos) {
-        energyIn.ifPresent(energy -> {
+	public static LazyOptional<IEnergyStorage> takeInPower(LazyOptional<IEnergyStorage> energyIn, World world, BlockPos pos, int maxTransferRate) {
+        energyIn.ifPresent(e1 -> {
+        	CustomEnergyStorage energy = (CustomEnergyStorage) e1;
             AtomicInteger capacity = new AtomicInteger(energy.getEnergyStored());
             if (capacity.get() < energy.getMaxEnergyStored()) {
                 for (Direction direction : Direction.values()) {
                     TileEntity te = world.getTileEntity(pos.offset(direction));
                     if (te != null) {
-                        boolean doContinue = te.getCapability(CapabilityEnergy.ENERGY, direction).map(handler -> {
-                                    if (handler.canExtract()) {
-                                        int sent = handler.extractEnergy(40, false);
-                                        capacity.addAndGet(-sent);
-                                        ((CustomEnergyStorage) energy).addEnergy(sent);
-                                        return capacity.get() < energy.getMaxEnergyStored();
-                                    } else {
-                                        return true;
-                                    }
-                                }
-                        ).orElse(true);
+                        boolean doContinue = te.getCapability(CapabilityEnergy.ENERGY, direction).map(h -> {
+                        	CustomEnergyStorage handler = (CustomEnergyStorage) h;
+                            if (handler.canExtract() && energy.getTakePriority() >= handler.getTakePriority()) {
+                            	int sent = handler.extractEnergy(maxTransferRate, false);
+                            	capacity.addAndGet(-sent);
+                            	energy.addEnergy(sent);
+                            	return capacity.get() < energy.getMaxEnergyStored();
+                            } else {
+                            	return true;
+                            }
+                        }).orElse(true);
                         if (!doContinue) {
                             return;
                         }
                     }
                 }
             }
+            e1 = energy;
         });
+        return energyIn;
     }
-	public static void sendOutPower(LazyOptional<IEnergyStorage> energyIn, World world, BlockPos pos) {
-        energyIn.ifPresent(energy -> {
+	public static LazyOptional<IEnergyStorage> sendOutPower(LazyOptional<IEnergyStorage> energyIn, World world, BlockPos pos, int maxTransferRate) {
+		energyIn.ifPresent(e1 -> {
+        	CustomEnergyStorage energy = (CustomEnergyStorage) e1;
             AtomicInteger capacity = new AtomicInteger(energy.getEnergyStored());
             if (capacity.get() > 0) {
                 for (Direction direction : Direction.values()) {
                     TileEntity te = world.getTileEntity(pos.offset(direction));
                     if (te != null) {
                         boolean doContinue = te.getCapability(CapabilityEnergy.ENERGY, direction).map(handler -> {
-                                    if (handler.canReceive()) {
-                                        int received = handler.receiveEnergy(Math.min(capacity.get(), 40), false);
-                                        capacity.addAndGet(-received);
-                                        ((CustomEnergyStorage) energy).consumeEnergy(received);
-                                        return capacity.get() > 0;
-                                    } else {
-                                        return true;
-                                    }
-                                }
-                        ).orElse(true);
+                        	if (handler.canReceive() && energy.getTakePriority() <= energy.getSendPriority()) {
+                        		int received = handler.receiveEnergy(Math.min(capacity.get(), maxTransferRate), false);
+                        		capacity.addAndGet(-received);
+                        		energy.consumeEnergy(received);
+                        		return capacity.get() > 0;
+                        	} else {
+                        		return true;
+                        	}
+                        }).orElse(true);
                         if (!doContinue) {
-                            return;
+                        	return;
                         }
                     }
                 }
             }
+            e1 = energy;
         });
+		return energyIn;
     }
 }

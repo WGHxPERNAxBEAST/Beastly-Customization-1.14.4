@@ -1,13 +1,12 @@
 package WGHxPERNAxBEAST.BeastlyCustomization.tiles;
 
-import java.util.concurrent.atomic.AtomicInteger;
-
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import WGHxPERNAxBEAST.BeastlyCustomization.containers.ChickenFactoryContainer;
 import WGHxPERNAxBEAST.BeastlyCustomization.lists.TileList;
 import WGHxPERNAxBEAST.BeastlyCustomization.utils.CustomEnergyStorage;
+import WGHxPERNAxBEAST.BeastlyCustomization.utils.CustomEnergyTransferer;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
@@ -45,6 +44,8 @@ public class ChickenFactoryTile extends TileEntity implements ITickableTileEntit
 
 	public ChickenFactoryTile() {
 		super(TileList.chicken_factory);
+		energy.ifPresent(e -> ((CustomEnergyStorage) e).setSendPriority(0));
+		energy.ifPresent(e -> ((CustomEnergyStorage) e).setTakePriority(2));
 	}
 	
 	@Override
@@ -94,36 +95,8 @@ public class ChickenFactoryTile extends TileEntity implements ITickableTileEntit
         if (blockState.get(BlockStateProperties.POWERED) != (this.counter > 0 && this.counter < counterMax + 10)) {
             world.setBlockState(pos, blockState.with(BlockStateProperties.POWERED, (this.counter > 0 && this.counter < counterMax + 10)), 3);
         }
-		takeInPower();
+        energy = CustomEnergyTransferer.takeInPower(energy, world, pos, 40);
 	}
-	
-	private void takeInPower() {
-        energy.ifPresent(energy -> {
-            AtomicInteger capacity = new AtomicInteger(energy.getEnergyStored());
-            if (capacity.get() < energy.getMaxEnergyStored()) {
-                for (Direction direction : Direction.values()) {
-                    TileEntity te = world.getTileEntity(pos.offset(direction));
-                    if (te != null) {
-                        boolean doContinue = te.getCapability(CapabilityEnergy.ENERGY, direction).map(handler -> {
-                                    if (handler.canExtract()) {
-                                        int sent = handler.extractEnergy(40, false);
-                                        capacity.addAndGet(-sent);
-                                        ((CustomEnergyStorage) energy).addEnergy(sent);
-                                        markDirty();
-                                        return capacity.get() < energy.getMaxEnergyStored();
-                                    } else {
-                                        return true;
-                                    }
-                                }
-                        ).orElse(true);
-                        if (!doContinue) {
-                            return;
-                        }
-                    }
-                }
-            }
-        });
-    }
 	
 	public int getTrueCounter() {
 		return this.counter;

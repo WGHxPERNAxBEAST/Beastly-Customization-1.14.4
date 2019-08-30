@@ -6,6 +6,9 @@ import net.minecraftforge.energy.EnergyStorage;
 
 public class CustomEnergyStorage extends EnergyStorage implements INBTSerializable<CompoundNBT> {
 
+	private int takePriority;
+	private int sendPriority;
+	
     public CustomEnergyStorage(int capacity, int maxTransfer) {
         super(capacity, maxTransfer);
     }
@@ -39,4 +42,20 @@ public class CustomEnergyStorage extends EnergyStorage implements INBTSerializab
     public void deserializeNBT(CompoundNBT nbt) {
         setEnergy(nbt.getInt("energy"));
     }
+
+	public int getTakePriority() {
+		return takePriority;
+	}
+
+	public void setTakePriority(int takePriority) {
+		this.takePriority = takePriority;
+	}
+
+	public int getSendPriority() {
+		return sendPriority;
+	}
+
+	public void setSendPriority(int sendPriority) {
+		this.sendPriority = sendPriority;
+	}
 }

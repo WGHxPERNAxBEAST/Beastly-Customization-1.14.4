@@ -1,7 +1,5 @@
 package WGHxPERNAxBEAST.BeastlyCustomization.tiles;
 
-import java.util.concurrent.atomic.AtomicInteger;
-
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
@@ -9,6 +7,7 @@ import WGHxPERNAxBEAST.BeastlyCustomization.containers.CarbonDustGeneratorContai
 import WGHxPERNAxBEAST.BeastlyCustomization.lists.ItemList;
 import WGHxPERNAxBEAST.BeastlyCustomization.lists.TileList;
 import WGHxPERNAxBEAST.BeastlyCustomization.utils.CustomEnergyStorage;
+import WGHxPERNAxBEAST.BeastlyCustomization.utils.CustomEnergyTransferer;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
@@ -45,6 +44,8 @@ public class CarbonDustGeneratorTile extends TileEntity implements ITickableTile
 
 	public CarbonDustGeneratorTile() {
 		super(TileList.cd_pow_gener);
+		energy.ifPresent(e -> ((CustomEnergyStorage) e).setSendPriority(2));
+		energy.ifPresent(e -> ((CustomEnergyStorage) e).setTakePriority(0));
 	}
 	
 	@Override
@@ -99,37 +100,8 @@ public class CarbonDustGeneratorTile extends TileEntity implements ITickableTile
             world.setBlockState(pos, blockState.with(BlockStateProperties.POWERED, (this.counter > 0 && this.counter < counterMax + 10)), 3);
         }
 
-        sendOutPower();
+        energy = CustomEnergyTransferer.sendOutPower(energy, world, pos, 40);
     }
-
-    private void sendOutPower() {
-        energy.ifPresent(energy -> {
-            AtomicInteger capacity = new AtomicInteger(energy.getEnergyStored());
-            if (capacity.get() > 0) {
-                for (Direction direction : Direction.values()) {
-                    TileEntity te = world.getTileEntity(pos.offset(direction));
-                    if (te != null) {
-                        boolean doContinue = te.getCapability(CapabilityEnergy.ENERGY, direction).map(handler -> {
-                                    if (handler.canReceive()) {
-                                        int received = handler.receiveEnergy(Math.min(capacity.get(), 40), false);
-                                        capacity.addAndGet(-received);
-                                        ((CustomEnergyStorage) energy).consumeEnergy(received);
-                                        markDirty();
-                                        return capacity.get() > 0;
-                                    } else {
-                                        return true;
-                                    }
-                                }
-                        ).orElse(true);
-                        if (!doContinue) {
-                            return;
-                        }
-                    }
-                }
-            }
-        });
-    }
-
 	
     public int getTrueCounter() {
 		return this.counter;
