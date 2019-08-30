@@ -92,6 +92,7 @@
 	"block.beastly_customization.golem_head": "Golem Head",
 	"block.beastly_customization.chick_fact": "Organic Chicken Factory",
 	"block.beastly_customization.cd_pow_gener": "Carbon Dust Fueled Generator",
+	"block.beastly_customization.bs_battery": "Blue Steel Battery",
 	
 	"comment": "Inventory Tabs",
 	"itemGroup.beastly_customization_inv_group": "Beastly Customization Stuff",

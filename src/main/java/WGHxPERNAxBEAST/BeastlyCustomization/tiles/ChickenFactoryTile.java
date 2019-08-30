@@ -36,9 +36,9 @@ public class ChickenFactoryTile extends TileEntity implements ITickableTileEntit
 	private LazyOptional<IItemHandler> handler = LazyOptional.of(this::createHandler);
 	private LazyOptional<IEnergyStorage> energy = LazyOptional.of(this::createEnergy);
 	
-	private int counter = 0;
+	private int counter = 1000;
 	private int counterMax = 90;
-	private int maxEnStorage = 500;
+	private final int maxEnStorage = 500;
 	
 	private boolean canConsumeEnergy = false;
 	private boolean canConsumeEgg = false;
@@ -52,7 +52,7 @@ public class ChickenFactoryTile extends TileEntity implements ITickableTileEntit
 		if (world.isRemote) {
 			return;
 		}
-		if (counter >= counterMax) {
+		if (this.counter >= counterMax) {
 			
 			energy.ifPresent(e -> {
         		CustomEnergyStorage e1 = (CustomEnergyStorage) e;
@@ -68,15 +68,15 @@ public class ChickenFactoryTile extends TileEntity implements ITickableTileEntit
 	        	}
 	        });
 			if (canConsumeEgg == true && canConsumeEnergy == true) {
-				counter = 0;
+				this.counter = 0;
 				canConsumeEnergy = false;
 				canConsumeEgg = false;
 			}
         }
         
-		if (counter < counterMax) {
-			counter++;
-	        if (counter >= counterMax) {
+		if (this.counter < counterMax) {
+			this.counter++;
+	        if (this.counter >= counterMax) {
 	        	energy.ifPresent(e -> ((CustomEnergyStorage) e).consumeEnergy(25));
 	        	markDirty();
 	        	handler.ifPresent(h -> {
@@ -91,9 +91,9 @@ public class ChickenFactoryTile extends TileEntity implements ITickableTileEntit
 	        markDirty();
 		}
 		BlockState blockState = world.getBlockState(pos);
-		if (blockState.get(BlockStateProperties.POWERED) != counter > 0) {
-			world.setBlockState(pos, blockState.with(BlockStateProperties.POWERED, counter > 0), 3);
-		}
+        if (blockState.get(BlockStateProperties.POWERED) != (this.counter > 0 && this.counter < counterMax + 10)) {
+            world.setBlockState(pos, blockState.with(BlockStateProperties.POWERED, (this.counter > 0 && this.counter < counterMax + 10)), 3);
+        }
 		takeInPower();
 	}
 	
@@ -125,8 +125,16 @@ public class ChickenFactoryTile extends TileEntity implements ITickableTileEntit
         });
     }
 	
+	public int getTrueCounter() {
+		return this.counter;
+	}
+	
 	public int getCounter() {
-		return counter;
+		if (this.counter > counterMax || this.counter < 0) {
+			return 0;
+		} else {
+			return this.counter;
+		}
 	}
 	
 	public int getMaxEnergy() {
@@ -145,7 +153,7 @@ public class ChickenFactoryTile extends TileEntity implements ITickableTileEntit
         CompoundNBT energyTag = tag.getCompound("energy");
         energy.ifPresent(h -> ((INBTSerializable<CompoundNBT>) h).deserializeNBT(energyTag));
 
-        counter = tag.getInt("counter");
+        this.counter = tag.getInt("counter");
         super.read(tag);
     }
 
@@ -161,7 +169,7 @@ public class ChickenFactoryTile extends TileEntity implements ITickableTileEntit
             tag.put("energy", compound);
         });
 
-        tag.putInt("counter", counter);
+        tag.putInt("counter", this.counter);
         return super.write(tag);
     }
 	

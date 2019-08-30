@@ -1,6 +1,7 @@
 package WGHxPERNAxBEAST.BeastlyCustomization.lists;
 
 import WGHxPERNAxBEAST.BeastlyCustomization.BeastlyCustomizationMain;
+import WGHxPERNAxBEAST.BeastlyCustomization.tiles.BatteryTile;
 import WGHxPERNAxBEAST.BeastlyCustomization.tiles.CarbonDustGeneratorTile;
 import WGHxPERNAxBEAST.BeastlyCustomization.tiles.ChickenFactoryTile;
 import net.minecraft.tileentity.TileEntityType;
@@ -11,4 +12,6 @@ public class TileList {
 	public static TileEntityType<ChickenFactoryTile> chicken_factory;
 	@ObjectHolder(BeastlyCustomizationMain.modid + ":cd_pow_gener")
 	public static TileEntityType<CarbonDustGeneratorTile> cd_pow_gener;
+	@ObjectHolder(BeastlyCustomizationMain.modid + ":battery")
+	public static TileEntityType<BatteryTile> battery;
 }

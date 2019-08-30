@@ -3,7 +3,7 @@ package WGHxPERNAxBEAST.BeastlyCustomization.client.gui;
 import com.mojang.blaze3d.platform.GlStateManager;
 
 import WGHxPERNAxBEAST.BeastlyCustomization.BeastlyCustomizationMain;
-import WGHxPERNAxBEAST.BeastlyCustomization.containers.CarbonDustGeneratorContainer;
+import WGHxPERNAxBEAST.BeastlyCustomization.containers.BatteryContainer;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screen.inventory.ContainerScreen;
 import net.minecraft.entity.player.PlayerInventory;
@@ -13,11 +13,11 @@ import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
 @OnlyIn(Dist.CLIENT)
-public class CarbonDustGeneratorGui extends ContainerScreen<CarbonDustGeneratorContainer> {
+public class BatteryGui extends ContainerScreen<BatteryContainer> {
 
-    private ResourceLocation GUI = new ResourceLocation(BeastlyCustomizationMain.modid, "textures/gui/cd_pow_gener_gui.png");
+    private ResourceLocation GUI = new ResourceLocation(BeastlyCustomizationMain.modid, "textures/gui/battery_gui.png");
 
-    public CarbonDustGeneratorGui(CarbonDustGeneratorContainer container, PlayerInventory inv, ITextComponent name) {
+    public BatteryGui(BatteryContainer container, PlayerInventory inv, ITextComponent name) {
         super(container, inv, name);
     }
 
@@ -30,9 +30,8 @@ public class CarbonDustGeneratorGui extends ContainerScreen<CarbonDustGeneratorC
     
     @Override
     protected void drawGuiContainerForegroundLayer(int mouseX, int mouseY) {
-    	drawString(Minecraft.getInstance().fontRenderer, "Carbon Fueled Generator", 3, 3, 0xffffff);
-        drawString(Minecraft.getInstance().fontRenderer, "Energy: " + container.getEnergy(), 105, 12, 0xffffff);
-        drawString(Minecraft.getInstance().fontRenderer, "Count: " + container.getCounter(), 120, 23, 0xffffff);
+    	drawString(Minecraft.getInstance().fontRenderer, "Battery Cell", 3, 3, 0xffffff);
+        drawString(Minecraft.getInstance().fontRenderer, "Energy: " + container.getEnergy(), 26, 14, 0xffffff);
     }
     
     @Override
@@ -44,7 +43,5 @@ public class CarbonDustGeneratorGui extends ContainerScreen<CarbonDustGeneratorC
         this.blit(relX, relY, 0, 0, this.xSize, this.ySize);
         int e = container.getEnergyScaled(43);
         this.blit(this.guiLeft + 10, this.guiTop + 18 + 44 - e, 181, 0, 14, e);
-        int c = container.getCounterScaled(14);
-        this.blit(this.guiLeft + 104, this.guiTop + 26 + 14 - c, 196, 0, 14, c);
     }
 }

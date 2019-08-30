@@ -36,9 +36,9 @@ public class CarbonDustGeneratorTile extends TileEntity implements ITickableTile
 	private LazyOptional<IItemHandler> handler = LazyOptional.of(this::createHandler);
 	private LazyOptional<IEnergyStorage> energy = LazyOptional.of(this::createEnergy);
 	
-	private int counter = 0;
+	private int counter = 1000;
 	private int counterMax = 80;
-	private int maxEnStorage = 4800;
+	private final int maxEnStorage = 4800;
 	
 	private boolean canAddEnergy = false;
 	private boolean canAddTakeDust = false;
@@ -52,7 +52,7 @@ public class CarbonDustGeneratorTile extends TileEntity implements ITickableTile
         if (world.isRemote) {
             return;
         }
-        if (counter >= counterMax) {
+        if (this.counter >= counterMax) {
         	energy.ifPresent(e -> {
         		CustomEnergyStorage e1 = (CustomEnergyStorage) e;
         		if (e1.getMaxEnergyStored() >= e1.getEnergyStored() + 30) {
@@ -67,15 +67,15 @@ public class CarbonDustGeneratorTile extends TileEntity implements ITickableTile
         		}
         	});
         	if (canAddEnergy == true && canAddTakeDust == true) {
-        		counter = 0;
+        		this.counter = 0;
         		canAddEnergy = false;
         		canAddTakeDust = false;
         	}
         }
         
-        if (counter < counterMax) {
-			counter++;
-	        if (counter >= counterMax) {
+        if (this.counter < counterMax) {
+        	this.counter++;
+	        if (this.counter >= counterMax) {
 	        		energy.ifPresent(e -> {
 		        		CustomEnergyStorage e1 = (CustomEnergyStorage) e;
 		        		if (e1.getMaxEnergyStored() >= e1.getEnergyStored() + 30) {
@@ -95,8 +95,8 @@ public class CarbonDustGeneratorTile extends TileEntity implements ITickableTile
 		}
 
         BlockState blockState = world.getBlockState(pos);
-        if (blockState.get(BlockStateProperties.POWERED) != counter > 0) {
-            world.setBlockState(pos, blockState.with(BlockStateProperties.POWERED, counter > 0), 3);
+        if (blockState.get(BlockStateProperties.POWERED) != (this.counter > 0 && this.counter < counterMax + 10)) {
+            world.setBlockState(pos, blockState.with(BlockStateProperties.POWERED, (this.counter > 0 && this.counter < counterMax + 10)), 3);
         }
 
         sendOutPower();
@@ -131,8 +131,16 @@ public class CarbonDustGeneratorTile extends TileEntity implements ITickableTile
     }
 
 	
+    public int getTrueCounter() {
+		return this.counter;
+	}
+	
 	public int getCounter() {
-		return counter;
+		if (this.counter > counterMax || this.counter < 0) {
+			return 0;
+		} else {
+			return this.counter;
+		}
 	}
 	
 	public int getMaxEnergy() {
@@ -151,7 +159,7 @@ public class CarbonDustGeneratorTile extends TileEntity implements ITickableTile
         CompoundNBT energyTag = tag.getCompound("energy");
         energy.ifPresent(h -> ((INBTSerializable<CompoundNBT>) h).deserializeNBT(energyTag));
 
-        counter = tag.getInt("counter");
+        this.counter = tag.getInt("counter");
         super.read(tag);
     }
 
@@ -167,7 +175,7 @@ public class CarbonDustGeneratorTile extends TileEntity implements ITickableTile
             tag.put("energy", compound);
         });
 
-        tag.putInt("counter", counter);
+        tag.putInt("counter", this.counter);
         return super.write(tag);
     }
 	

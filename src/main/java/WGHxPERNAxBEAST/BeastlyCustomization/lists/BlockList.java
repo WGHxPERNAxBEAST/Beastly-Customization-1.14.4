@@ -17,6 +17,8 @@ public class BlockList {
 	public static Block chicken_factory;
 	@ObjectHolder(BeastlyCustomizationMain.modid + ":cd_pow_gener")
 	public static Block cd_pow_gener;
+	@ObjectHolder(BeastlyCustomizationMain.modid + ":battery")
+	public static Block battery;
 	
 	public static Block carbon_rock;
 	public static Block azr_ore;
