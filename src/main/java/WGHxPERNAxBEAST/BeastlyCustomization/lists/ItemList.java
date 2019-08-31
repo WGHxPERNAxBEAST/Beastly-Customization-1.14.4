@@ -27,6 +27,7 @@ public class ItemList {
 	public static Item carbon_dust;
 	public static Item brain;
 	public static Item brain_fragment;
+	public static Item lazer_pow_cell;
 	
 	public static Item bs_axe;
 	public static Item bs_hoe;
@@ -34,6 +35,7 @@ public class ItemList {
 	public static Item bs_mtool;
 	public static Item bs_shovel;
 	public static Item bs_sword;
+	public static Item bs_lazer;
 	
 	public static Item azr_axe;
 	public static Item azr_hoe;
@@ -41,6 +43,7 @@ public class ItemList {
 	public static Item azr_mtool;
 	public static Item azr_shovel;
 	public static Item azr_sword;
+	public static Item azr_lazer;
 	
 	public static Item pop_axe;
 	public static Item pop_hoe;
@@ -48,6 +51,7 @@ public class ItemList {
 	public static Item pop_mtool;
 	public static Item pop_shovel;
 	public static Item pop_sword;
+	public static Item pop_lazer;
 	
 	public static Item rds_axe;
 	public static Item rds_hoe;
@@ -55,6 +59,7 @@ public class ItemList {
 	public static Item rds_mtool;
 	public static Item rds_shovel;
 	public static Item rds_sword;
+	public static Item rds_lazer;
 	
 	public static Item pps_axe;
 	public static Item pps_hoe;
@@ -62,6 +67,7 @@ public class ItemList {
 	public static Item pps_mtool;
 	public static Item pps_shovel;
 	public static Item pps_sword;
+	public static Item pps_lazer;
 	
 	public static Item bs_helmet;
 	public static Item bs_chestplate;

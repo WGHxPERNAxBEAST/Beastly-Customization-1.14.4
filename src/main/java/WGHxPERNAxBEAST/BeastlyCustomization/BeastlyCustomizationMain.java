@@ -13,7 +13,9 @@ import WGHxPERNAxBEAST.BeastlyCustomization.containers.CarbonDustGeneratorContai
 import WGHxPERNAxBEAST.BeastlyCustomization.containers.ChickenFactoryContainer;
 import WGHxPERNAxBEAST.BeastlyCustomization.items.ItemCustomAxe;
 import WGHxPERNAxBEAST.BeastlyCustomization.items.ItemCustomPickaxe;
+import WGHxPERNAxBEAST.BeastlyCustomization.items.ItemLazerGun;
 import WGHxPERNAxBEAST.BeastlyCustomization.items.ItemMegaTool;
+import WGHxPERNAxBEAST.BeastlyCustomization.items.LazerPowerCell;
 import WGHxPERNAxBEAST.BeastlyCustomization.lists.ArmorMatList;
 import WGHxPERNAxBEAST.BeastlyCustomization.lists.BlockList;
 import WGHxPERNAxBEAST.BeastlyCustomization.lists.EntitiesList;
@@ -117,6 +119,7 @@ public class BeastlyCustomizationMain {
 					ItemList.carbon_dust = new Item(new Item.Properties().group(bcItemGroup)).setRegistryName(location("carbon_dust")),
 					ItemList.brain = new Item(new Item.Properties().group(bcItemGroup)).setRegistryName(location("brain")),
 					ItemList.brain_fragment = new Item(new Item.Properties().group(bcItemGroup)).setRegistryName(location("brain_frag")),
+					ItemList.lazer_pow_cell = new LazerPowerCell(new Item.Properties().group(bcItemGroup)).setRegistryName(location("lazer_pow_cell")),
 									
 					ItemList.bs_axe = new ItemCustomAxe(ToolMatList.bs_mat, 7.5F, 1.5F, new Item.Properties().group(bcItemGroup)).setRegistryName(location("bs_axe")),
 					ItemList.bs_hoe = new HoeItem(ToolMatList.bs_mat, 0.5F, new Item.Properties().group(bcItemGroup)).setRegistryName(location("bs_hoe")),
@@ -124,6 +127,7 @@ public class BeastlyCustomizationMain {
 					ItemList.bs_mtool = new ItemMegaTool(ToolMatList.bs_mat, 2.5F, 1.3F, new Item.Properties().group(bcItemGroup)).setRegistryName(location("bs_mtool")),
 					ItemList.bs_shovel = new ShovelItem(ToolMatList.bs_mat, 2.25F, 1.5F, new Item.Properties().group(bcItemGroup)).setRegistryName(location("bs_shovel")),
 					ItemList.bs_sword = new SwordItem(ToolMatList.bs_mat, 5, 1.2F, new Item.Properties().group(bcItemGroup)).setRegistryName(location("bs_sword")),
+					ItemList.bs_lazer = new ItemLazerGun(6000, 2.0F, new Item.Properties().group(bcItemGroup)).setRegistryName(location("bs_lazer")),
 					ItemList.azr_axe = new ItemCustomAxe(ToolMatList.azr_mat, 5.0F, 0.5F, new Item.Properties().group(bcItemGroup)).setRegistryName(location("azr_axe")),
 					ItemList.azr_hoe = new HoeItem(ToolMatList.azr_mat, 0.25F, new Item.Properties().group(bcItemGroup)).setRegistryName(location("azr_hoe")),
 					ItemList.azr_pick = new ItemCustomPickaxe(ToolMatList.azr_mat, 1, 0.5F, new Item.Properties().group(bcItemGroup)).setRegistryName(location("azr_pick")),

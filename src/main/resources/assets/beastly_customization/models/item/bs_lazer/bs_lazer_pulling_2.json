@@ -1,0 +1,6 @@
+{
+    "parent": "item/bs_lazer",
+    "textures": {
+        "layer0": "item/bs_lazer_pulling_2"
+    }
+}
