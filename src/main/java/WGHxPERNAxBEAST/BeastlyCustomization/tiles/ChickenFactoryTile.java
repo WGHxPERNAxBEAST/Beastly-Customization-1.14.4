@@ -93,12 +93,13 @@ public class ChickenFactoryTile extends TileEntity implements ITickableTileEntit
 		        	h.extractItem(0, 1, false);
 		        	markDirty();
 		        });
+	        	this.counter++;
 	        }
 	        markDirty();
 		}
 		BlockState blockState = world.getBlockState(pos);
-        if (blockState.get(BlockStateProperties.POWERED) != (this.counter > 0 && this.counter < counterMax + 10)) {
-            world.setBlockState(pos, blockState.with(BlockStateProperties.POWERED, (this.counter > 0 && this.counter < counterMax + 10)), 3);
+        if (blockState.get(BlockStateProperties.POWERED) != (this.counter > 0 && this.counter < counterMax)) {
+            world.setBlockState(pos, blockState.with(BlockStateProperties.POWERED, (this.counter > 0 && this.counter < counterMax)), 3);
         }
         energy = CustomEnergyTransferer.takeInPower(energy, world, pos, 40);
 	}
