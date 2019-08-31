@@ -38,6 +38,7 @@ public class ChickenFactoryTile extends TileEntity implements ITickableTileEntit
 	private int counter = 1000;
 	private int counterMax = 90;
 	private int maxEnStorage = 500;
+	private int TickCount = 0;
 	
 	private boolean canConsumeEnergy = false;
 	private boolean canConsumeEgg = false;
@@ -58,50 +59,53 @@ public class ChickenFactoryTile extends TileEntity implements ITickableTileEntit
 		if (world.isRemote) {
 			return;
 		}
-		if (this.counter >= counterMax) {
-			
-			energy.ifPresent(e -> {
-        		CustomEnergyStorage e1 = (CustomEnergyStorage) e;
-        		if (e1.getEnergyStored() >=  25 && canConsumeEnergy == false) {
-	        		canConsumeEnergy = true;
-	        	}
-        		e = e1;
-        	});
-			handler.ifPresent(h -> {
-	        	ItemStack eggStack = h.getStackInSlot(0);
-	        	if (eggStack.getItem() == Items.EGG && (h.getStackInSlot(1).getCount() < h.getStackInSlot(1).getMaxStackSize() || h.getStackInSlot(1) == null) && canConsumeEgg == false) {
-	        		canConsumeEgg = true;
-	        	}
-	        });
-			if (canConsumeEgg == true && canConsumeEnergy == true) {
-				this.counter = 0;
-				canConsumeEnergy = false;
-				canConsumeEgg = false;
-			}
-        }
-        
-		if (this.counter < counterMax) {
-			this.counter++;
-	        if (this.counter >= counterMax) {
-	        	energy.ifPresent(e -> ((CustomEnergyStorage) e).consumeEnergy(25));
-	        	markDirty();
-	        	handler.ifPresent(h -> {
-		        	ItemStack chickStack = new ItemStack(Items.COOKED_CHICKEN);
-		        	chickStack.setCount(1);
-		        	chickStack.setDisplayName(new StringTextComponent("Organic Chicken!"));
-		        	h.insertItem(1, chickStack, false);
-		        	h.extractItem(0, 1, false);
-		        	markDirty();
+		if (TickCount > 2) {
+			if (this.counter >= counterMax) {
+				energy.ifPresent(e -> {
+	        		CustomEnergyStorage e1 = (CustomEnergyStorage) e;
+	        		if (e1.getEnergyStored() >=  25 && canConsumeEnergy == false) {
+		        		canConsumeEnergy = true;
+		        	}
+	        		e = e1;
+	        	});
+				handler.ifPresent(h -> {
+		        	ItemStack eggStack = h.getStackInSlot(0);
+		        	if (eggStack.getItem() == Items.EGG && (h.getStackInSlot(1).getCount() < h.getStackInSlot(1).getMaxStackSize() || h.getStackInSlot(1) == null) && canConsumeEgg == false) {
+		        		canConsumeEgg = true;
+		        	}
 		        });
-	        	this.counter++;
+				if (canConsumeEgg == true && canConsumeEnergy == true) {
+					this.counter = 0;
+					canConsumeEnergy = false;
+					canConsumeEgg = false;
+				}
 	        }
-	        markDirty();
+	        
+			if (this.counter < counterMax) {
+				this.counter++;
+		        if (this.counter >= counterMax) {
+		        	energy.ifPresent(e -> ((CustomEnergyStorage) e).consumeEnergy(25));
+		        	markDirty();
+		        	handler.ifPresent(h -> {
+			        	ItemStack chickStack = new ItemStack(Items.COOKED_CHICKEN);
+			        	chickStack.setCount(1);
+			        	chickStack.setDisplayName(new StringTextComponent("Organic Chicken!"));
+			        	h.insertItem(1, chickStack, false);
+			        	h.extractItem(0, 1, false);
+			        	markDirty();
+			        });
+		        	this.counter++;
+		        }
+		        markDirty();
+			}
+			BlockState blockState = world.getBlockState(pos);
+	        if (blockState.get(BlockStateProperties.POWERED) != (this.counter > 0 && this.counter < counterMax + 2)) {
+	            world.setBlockState(pos, blockState.with(BlockStateProperties.POWERED, (this.counter > 0 && this.counter < counterMax + 2)), 3);
+	        }
+	        energy = CustomEnergyTransferer.takeInPower(energy, world, pos, 40);
+		} else {
+			TickCount++;
 		}
-		BlockState blockState = world.getBlockState(pos);
-        if (blockState.get(BlockStateProperties.POWERED) != (this.counter > 0 && this.counter < counterMax)) {
-            world.setBlockState(pos, blockState.with(BlockStateProperties.POWERED, (this.counter > 0 && this.counter < counterMax)), 3);
-        }
-        energy = CustomEnergyTransferer.takeInPower(energy, world, pos, 40);
 	}
 	
 	public int getTrueCounter() {

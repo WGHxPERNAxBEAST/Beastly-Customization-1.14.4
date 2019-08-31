@@ -38,6 +38,7 @@ public class CarbonDustGeneratorTile extends TileEntity implements ITickableTile
 	private int counter = 1000;
 	private int counterMax = 80;
 	private int maxEnStorage = 4800;
+	private int TickCount = 0;
 	
 	private boolean canAddEnergy = false;
 	private boolean canAddTakeDust = false;
@@ -58,55 +59,59 @@ public class CarbonDustGeneratorTile extends TileEntity implements ITickableTile
         if (world.isRemote) {
             return;
         }
-        if (this.counter >= counterMax) {
-        	energy.ifPresent(e -> {
-        		CustomEnergyStorage e1 = (CustomEnergyStorage) e;
-        		if (e1.getMaxEnergyStored() >= e1.getEnergyStored() + 30) {
-        			canAddEnergy = true;
-	        	} 
-        		e = e1;
-        	});
-        	handler.ifPresent(h -> {
-        		ItemStack stack = h.getStackInSlot(0);
-        		if (stack.getItem() == ItemList.carbon_dust) {
-        			canAddTakeDust = true;
-        		}
-        	});
-        	if (canAddEnergy == true && canAddTakeDust == true) {
-        		this.counter = 0;
-        		canAddEnergy = false;
-        		canAddTakeDust = false;
-        	}
-        }
-        
-        if (this.counter < counterMax) {
-        	this.counter++;
+        if (TickCount > 2) {
 	        if (this.counter >= counterMax) {
-	        		energy.ifPresent(e -> {
-		        		CustomEnergyStorage e1 = (CustomEnergyStorage) e;
-		        		if (e1.getMaxEnergyStored() >= e1.getEnergyStored() + 30) {
-			        		e1.addEnergy(30);
-			        	} else if ((e1.getMaxEnergyStored() > e1.getEnergyStored())) {
-			        		e1.addEnergy(e1.getMaxEnergyStored() - e1.getEnergyStored());
-		        		}
-		        		markDirty();
-		        		e = e1;
-		        	});
-	        		handler.ifPresent(h -> {
-	            		h.extractItem(0, 1, false);
-	            		markDirty();
-	            	});
-	        		this.counter++;
+	        	energy.ifPresent(e -> {
+	        		CustomEnergyStorage e1 = (CustomEnergyStorage) e;
+	        		if (e1.getMaxEnergyStored() >= e1.getEnergyStored() + 30) {
+	        			canAddEnergy = true;
+		        	} 
+	        		e = e1;
+	        	});
+	        	handler.ifPresent(h -> {
+	        		ItemStack stack = h.getStackInSlot(0);
+	        		if (stack.getItem() == ItemList.carbon_dust) {
+	        			canAddTakeDust = true;
+	        		}
+	        	});
+	        	if (canAddEnergy == true && canAddTakeDust == true) {
+	        		this.counter = 0;
+	        		canAddEnergy = false;
+	        		canAddTakeDust = false;
+	        	}
 	        }
-	        markDirty();
+	        
+	        if (this.counter < counterMax) {
+	        	this.counter++;
+		        if (this.counter >= counterMax) {
+		        		energy.ifPresent(e -> {
+			        		CustomEnergyStorage e1 = (CustomEnergyStorage) e;
+			        		if (e1.getMaxEnergyStored() >= e1.getEnergyStored() + 30) {
+				        		e1.addEnergy(30);
+				        	} else if ((e1.getMaxEnergyStored() > e1.getEnergyStored())) {
+				        		e1.addEnergy(e1.getMaxEnergyStored() - e1.getEnergyStored());
+			        		}
+			        		markDirty();
+			        		e = e1;
+			        	});
+		        		handler.ifPresent(h -> {
+		            		h.extractItem(0, 1, false);
+		            		markDirty();
+		            	});
+		        		this.counter++;
+		        }
+		        markDirty();
+			}
+	
+	        BlockState blockState = world.getBlockState(pos);
+	        if (blockState.get(BlockStateProperties.POWERED) != (this.counter > 0 && this.counter < counterMax + 2)) {
+	            world.setBlockState(pos, blockState.with(BlockStateProperties.POWERED, (this.counter > 0 && this.counter < counterMax + 2)), 3);
+	        }
+	
+	        energy = CustomEnergyTransferer.sendOutPower(energy, world, pos, 40);
+        } else {
+			TickCount++;
 		}
-
-        BlockState blockState = world.getBlockState(pos);
-        if (blockState.get(BlockStateProperties.POWERED) != (this.counter > 0 && this.counter < counterMax)) {
-            world.setBlockState(pos, blockState.with(BlockStateProperties.POWERED, (this.counter > 0 && this.counter < counterMax)), 3);
-        }
-
-        energy = CustomEnergyTransferer.sendOutPower(energy, world, pos, 40);
     }
 	
     public int getTrueCounter() {

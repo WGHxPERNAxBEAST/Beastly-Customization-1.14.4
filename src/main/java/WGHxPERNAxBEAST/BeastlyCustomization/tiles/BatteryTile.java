@@ -31,6 +31,7 @@ public class BatteryTile extends TileEntity implements ITickableTileEntity, INam
 	
 	private int maxEnStorage = 25000;
 	private final int maxTransferRate = 60;
+	private int TickCount = 0;
 	
 	private boolean hasEnergy = false;
 	
@@ -50,20 +51,24 @@ public class BatteryTile extends TileEntity implements ITickableTileEntity, INam
         if (world.isRemote) {
             return;
         }
-        energy.ifPresent(e -> {
-    		CustomEnergyStorage e1 = (CustomEnergyStorage) e;
-    		if (e1.getEnergyStored() >  0) {
-        		hasEnergy = true;
-        	}
-    		e = e1;
-    	});
-        BlockState blockState = world.getBlockState(pos);
-        if (blockState.get(BlockStateProperties.POWERED) != hasEnergy) {
-            world.setBlockState(pos, blockState.with(BlockStateProperties.POWERED, hasEnergy), 3);
-        }
-
-        energy = CustomEnergyTransferer.sendOutPower(energy, world, pos, maxTransferRate);
-        energy =CustomEnergyTransferer.takeInPower(energy, world, pos, maxTransferRate);
+        if (TickCount > 2) {
+	        energy.ifPresent(e -> {
+	    		CustomEnergyStorage e1 = (CustomEnergyStorage) e;
+	    		if (e1.getEnergyStored() >  0) {
+	        		hasEnergy = true;
+	        	}
+	    		e = e1;
+	    	});
+	        BlockState blockState = world.getBlockState(pos);
+	        if (blockState.get(BlockStateProperties.POWERED) != hasEnergy) {
+	            world.setBlockState(pos, blockState.with(BlockStateProperties.POWERED, hasEnergy), 3);
+	        }
+	
+	        energy = CustomEnergyTransferer.sendOutPower(energy, world, pos, maxTransferRate);
+	        energy =CustomEnergyTransferer.takeInPower(energy, world, pos, maxTransferRate);
+		} else {
+			TickCount++;
+		}
     }
 
 	public int getMaxEnergy() {

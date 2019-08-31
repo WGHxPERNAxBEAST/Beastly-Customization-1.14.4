@@ -22,10 +22,17 @@ public class CustomEnergyTransferer {
                         boolean doContinue = te.getCapability(CapabilityEnergy.ENERGY, direction).map(h -> {
                         	CustomEnergyStorage handler = (CustomEnergyStorage) h;
                             if (handler.canExtract() && energy.getTakePriority() >= handler.getTakePriority()) {
-                            	int sent = handler.extractEnergy(maxTransferRate, false);
-                            	capacity.addAndGet(-sent);
-                            	energy.addEnergy(sent);
-                            	return capacity.get() < energy.getMaxEnergyStored();
+                            	if (energy.getMaxEnergyStored() > energy.getEnergyStored() + maxTransferRate) {
+	                            	int sent = handler.extractEnergy(energy.getMaxEnergyStored() - energy.getEnergyStored(), false);
+	                            	capacity.addAndGet(-sent);
+	                            	energy.addEnergy(sent);
+	                            	return capacity.get() < energy.getMaxEnergyStored();
+                            	} else {
+                            		int sent = handler.extractEnergy(maxTransferRate, false);
+	                            	capacity.addAndGet(-sent);
+	                            	energy.addEnergy(sent);
+	                            	return capacity.get() < energy.getMaxEnergyStored();
+                            	}
                             } else {
                             	return true;
                             }
@@ -50,10 +57,17 @@ public class CustomEnergyTransferer {
                     if (te != null) {
                         boolean doContinue = te.getCapability(CapabilityEnergy.ENERGY, direction).map(handler -> {
                         	if (handler.canReceive() && energy.getTakePriority() <= energy.getSendPriority()) {
-                        		int received = handler.receiveEnergy(Math.min(capacity.get(), maxTransferRate), false);
-                        		capacity.addAndGet(-received);
-                        		energy.consumeEnergy(received);
-                        		return capacity.get() > 0;
+                        		if (handler.getMaxEnergyStored() > handler.getEnergyStored() + maxTransferRate) {
+	                            	int received = handler.receiveEnergy(Math.min(capacity.get(), handler.getMaxEnergyStored() - handler.getEnergyStored()), false);
+                            		capacity.addAndGet(-received);
+                            		energy.consumeEnergy(received);
+                            		return capacity.get() > 0;
+                            	} else {
+                            		int received = handler.receiveEnergy(Math.min(capacity.get(), maxTransferRate), false);
+                            		capacity.addAndGet(-received);
+                            		energy.consumeEnergy(received);
+                            		return capacity.get() > 0;
+                            	}
                         	} else {
                         		return true;
                         	}
