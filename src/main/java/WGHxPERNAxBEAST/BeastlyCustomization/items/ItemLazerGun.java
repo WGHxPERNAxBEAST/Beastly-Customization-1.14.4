@@ -25,6 +25,14 @@ public class ItemLazerGun extends ShootableItem{
 	private int useTime;
 	private float maxVelocity;
 	
+	public static final Predicate<ItemStack> LaserCell = (stack) -> {
+		if (stack.getItem() == ItemList.lazer_pow_cell) {
+			return true;
+		} else {
+			return false;
+		}
+	};
+	
 	public ItemLazerGun(int useTimeIn, float maxVelocityIn, Properties builder) {
 		super(builder);
 		this.useTime = useTimeIn;
@@ -128,7 +136,7 @@ public class ItemLazerGun extends ShootableItem{
 
 	@Override
 	public Predicate<ItemStack> getInventoryAmmoPredicate() {
-		return null;
+		return LaserCell;
 	}
 
 }
