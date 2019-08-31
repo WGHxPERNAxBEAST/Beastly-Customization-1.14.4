@@ -2,12 +2,12 @@ package WGHxPERNAxBEAST.BeastlyCustomization.items;
 
 import java.util.function.Predicate;
 
+import WGHxPERNAxBEAST.BeastlyCustomization.Entities.projectiles.LaserBeamProjectile;
 import WGHxPERNAxBEAST.BeastlyCustomization.lists.ItemList;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.enchantment.Enchantments;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.projectile.AbstractArrowEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ShootableItem;
 import net.minecraft.item.UseAction;
@@ -70,7 +70,7 @@ public class ItemLazerGun extends ShootableItem{
 	               boolean flag1 = playerentity.abilities.isCreativeMode || (itemstack.getItem() instanceof LazerPowerCell && ((LazerPowerCell)itemstack.getItem()).isInfinite(itemstack, stack, playerentity));
 	               if (!worldIn.isRemote) {
 	            	  LazerPowerCell arrowitem = (LazerPowerCell)(itemstack.getItem() instanceof LazerPowerCell ? itemstack.getItem() : ItemList.lazer_pow_cell);
-	                  AbstractArrowEntity abstractarrowentity = arrowitem.createArrow(worldIn, itemstack, playerentity);
+	                  LaserBeamProjectile abstractarrowentity = (LaserBeamProjectile) arrowitem.createArrow(worldIn, itemstack, playerentity);
 	                  abstractarrowentity = customeArrow(abstractarrowentity);
 	                  abstractarrowentity.shoot(playerentity, playerentity.rotationPitch, playerentity.rotationYaw, 0.0F, f * 3.0F, 1.0F);
 	                  if (f == 1.0F) {
@@ -113,7 +113,7 @@ public class ItemLazerGun extends ShootableItem{
 	      }
 	   }
 
-	private AbstractArrowEntity customeArrow(AbstractArrowEntity arrow) {
+	private LaserBeamProjectile customeArrow(LaserBeamProjectile arrow) {
 		return arrow;
 	}
 	
