@@ -32,7 +32,6 @@ public class CarbonDustGeneratorGui extends ContainerScreen<CarbonDustGeneratorC
     protected void drawGuiContainerForegroundLayer(int mouseX, int mouseY) {
     	drawCenteredString(Minecraft.getInstance().fontRenderer, "Carbon Fueled Generator", 91, 3, 0xffffff);
         drawString(Minecraft.getInstance().fontRenderer, "Energy: " + container.getEnergy(), 105, 12, 0xffffff);
-        drawString(Minecraft.getInstance().fontRenderer, "Count: " + container.getCounter(), 120, 23, 0xffffff);
     }
     
     @Override
