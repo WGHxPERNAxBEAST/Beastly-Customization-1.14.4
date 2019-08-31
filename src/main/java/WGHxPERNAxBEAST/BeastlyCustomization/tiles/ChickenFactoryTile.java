@@ -115,6 +115,10 @@ public class ChickenFactoryTile extends TileEntity implements ITickableTileEntit
 		}
 	}
 	
+	public void setCounter(int counterIn) {
+		this.counter = counterIn;
+	}
+	
 	public int getMaxEnergy() {
 		return maxEnStorage;
 	}

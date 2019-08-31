@@ -58,7 +58,7 @@ public class ChickenFactoryContainer extends Container{
 
 			@Override
 			public void set(int counter) {
-				//do nothing
+				tileEntity.setCounter(counter);
 			}
         });
     }

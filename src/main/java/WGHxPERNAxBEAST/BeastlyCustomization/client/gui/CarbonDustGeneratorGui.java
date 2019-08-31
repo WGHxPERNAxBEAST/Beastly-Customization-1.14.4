@@ -47,6 +47,6 @@ public class CarbonDustGeneratorGui extends ContainerScreen<CarbonDustGeneratorC
         this.blit(this.guiLeft + 10, this.guiTop + 18 + 44 - e, 181, 0, 14, e);
         //rising flame
         int c = container.getCounterScaled(14);
-        this.blit(this.guiLeft + 104, this.guiTop + 26 + 14 - c, 196, 0, 14, c);
+        this.blit(this.guiLeft + 104, this.guiTop + 27 + 14 - c, 196, 0, 14, c);
     }
 }
