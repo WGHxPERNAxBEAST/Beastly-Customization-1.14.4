@@ -1,0 +1,21 @@
+{
+	"type": "minecraft:crafting_shaped",
+	
+	"pattern":
+	[
+		"IBI",
+		"IRI",
+		"NCN"
+	],
+	
+	"key":
+	{
+		"I": { "tag": "beastly_customization:bc_steel_ingot" },
+		"N": { "tag": "beastly_customization:bc_steel_nugget" },
+		"B": { "tag": "beastly_customization:bc_steel_block" },
+		"C": { "tag": "beastly_customization:coal_dust" },
+		"R": { "item": "minecraft:redstone" }
+	},
+	
+	"result": { "item": "beastly_customization:cd_pow_gener" }
+}

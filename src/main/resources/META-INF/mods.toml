@@ -10,7 +10,7 @@ loaderVersion="[28,)" #mandatory
 
 modId="beastly_customization" 
 
-version="0.2.1" 
+version="2.5.1" 
 
 displayName="Beastly Customization 1.14.4" 
 
@@ -18,7 +18,7 @@ displayName="Beastly Customization 1.14.4"
 
 #displayURL="http://example.com/" #optional
 
-#logoFile="examplemod.png" #optional
+logoFile="CoverImg.png" #optional
 
 credits="Me, cuz I am duh one dont weigh a ton, dont need a gun to get respect up on the streets."
 

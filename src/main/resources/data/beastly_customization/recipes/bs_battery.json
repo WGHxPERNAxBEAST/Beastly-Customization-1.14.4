@@ -1,0 +1,20 @@
+{
+	"type": "minecraft:crafting_shaped",
+	
+	"pattern":
+	[
+		"NIN",
+		"IRI",
+		"IBI"
+	],
+	
+	"key":
+	{
+		"I": { "item": "beastly_customization:blue_steel_ingot" },
+		"N": { "item": "beastly_customization:blue_steel_nug" },
+		"B": { "item": "beastly_customization:blue_steel_block" },
+		"R": { "item": "minecraft:redstone" }
+	},
+	
+	"result": { "item": "beastly_customization:bs_battery" }
+}
