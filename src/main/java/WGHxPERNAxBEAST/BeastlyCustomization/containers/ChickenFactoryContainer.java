@@ -50,6 +50,17 @@ public class ChickenFactoryContainer extends Container{
                 tileEntity.getCapability(CapabilityEnergy.ENERGY).ifPresent(h -> ((CustomEnergyStorage)h).setEnergy(value));
             }
         });
+        trackInt(new IntReferenceHolder() {
+            @Override
+            public int get() {
+                return getCounter();
+            }
+
+			@Override
+			public void set(int counter) {
+				//do nothing
+			}
+        });
     }
 
 	public int getEnergy() {

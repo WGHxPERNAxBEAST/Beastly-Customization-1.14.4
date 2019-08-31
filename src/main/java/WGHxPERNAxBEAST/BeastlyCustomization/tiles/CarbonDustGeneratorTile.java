@@ -120,6 +120,10 @@ public class CarbonDustGeneratorTile extends TileEntity implements ITickableTile
 		}
 	}
 	
+	public void setCounter(int counterIn) {
+		this.counter = counterIn;
+	}
+	
 	public int getMaxEnergy() {
 		return maxEnStorage;
 	}

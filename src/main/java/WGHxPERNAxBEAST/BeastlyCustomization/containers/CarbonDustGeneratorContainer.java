@@ -49,6 +49,17 @@ public class CarbonDustGeneratorContainer extends Container{
                 tileEntity.getCapability(CapabilityEnergy.ENERGY).ifPresent(h -> ((CustomEnergyStorage)h).setEnergy(value));
             }
         });
+        trackInt(new IntReferenceHolder() {
+            @Override
+            public int get() {
+                return getCounter();
+            }
+
+			@Override
+			public void set(int counter) {
+				tileEntity.setCounter(counter);
+			}
+        });
     }
 
 	public int getEnergy() {
@@ -57,6 +68,10 @@ public class CarbonDustGeneratorContainer extends Container{
 	
 	public int getCounter() {
         return tileEntity.getCounter();
+    }
+	
+	public void setCounter(int count) {
+        tileEntity.setCounter(count);
     }
 	
 	public int getCounterScaled(int pixels) {
