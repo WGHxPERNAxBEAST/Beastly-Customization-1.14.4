@@ -10,7 +10,7 @@
 	
 	"key":
 	{
-		"I": { "item": "beastly_customization:pps_ingot" }
+		"I": { "item": "beastly_customization:pps_block" }
 	},
 	
 	"result": { "item": "beastly_customization:pps_leggings" }

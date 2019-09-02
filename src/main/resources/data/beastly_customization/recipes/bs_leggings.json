@@ -10,7 +10,7 @@
 	
 	"key":
 	{
-		"I": { "item": "beastly_customization:blue_steel_ingot" }
+		"I": { "item": "beastly_customization:blue_steel_block" }
 	},
 	
 	"result": { "item": "beastly_customization:bs_leggings" }

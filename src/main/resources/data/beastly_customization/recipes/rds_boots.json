@@ -10,7 +10,7 @@
 	
 	"key":
 	{
-		"I": { "item": "beastly_customization:rds_ingot" }
+		"I": { "item": "beastly_customization:rds_block" }
 	},
 	
 	"result": { "item": "beastly_customization:rds_boots" }

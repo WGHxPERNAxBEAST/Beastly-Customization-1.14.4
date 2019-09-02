@@ -1,9 +1,9 @@
 {
 	"type": "minecraft:blasting",
 	
-	"ingredient": {"item": "beastly_customization:pop_dust"},
+	"ingredient": {"item": "beastly_customization:rds_dust"},
 	
-	"result": "beastly_customization:pop_ingot",
+	"result": "beastly_customization:rds_ingot",
 	
 	"experience": 0.5,
 	"cookingtime": 75
