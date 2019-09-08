@@ -8,6 +8,7 @@ import WGHxPERNAxBEAST.BeastlyCustomization.BeastlyCustomizationMain;
 import WGHxPERNAxBEAST.BeastlyCustomization.Entities.AdultGolem;
 import WGHxPERNAxBEAST.BeastlyCustomization.Entities.BS_AdultGolem;
 import WGHxPERNAxBEAST.BeastlyCustomization.Entities.BS_BabyGolem;
+import WGHxPERNAxBEAST.BeastlyCustomization.Entities.BS_Skelly;
 import WGHxPERNAxBEAST.BeastlyCustomization.Entities.BabyGolem;
 import WGHxPERNAxBEAST.BeastlyCustomization.Entities.PPS_AdultGolem;
 import WGHxPERNAxBEAST.BeastlyCustomization.Entities.PPS_BabyGolem;
@@ -54,15 +55,17 @@ public class EntitiesList {
 	public static EntityType<?extends PPS_BabyGolem> PPS_BABY_GOLEM = (EntityType<? extends PPS_BabyGolem>) EntityType.Builder.create(PPS_BabyGolem::new, EntityClassification.CREATURE).build(BeastlyCustomizationMain.modid + ":pps_baby_golem").setRegistryName(BeastlyCustomizationMain.location("pps_baby_golem"));
 	@SuppressWarnings("unchecked")
 	public static EntityType<?extends PPS_AdultGolem> PPS_ADULT_GOLEM = (EntityType<? extends PPS_AdultGolem>) EntityType.Builder.create(PPS_AdultGolem::new, EntityClassification.CREATURE).build(BeastlyCustomizationMain.modid + ":pps_adult_golem").setRegistryName(BeastlyCustomizationMain.location("pps_adult_golem"));
+	@SuppressWarnings("unchecked")
+	public static EntityType<?extends BS_Skelly> BS_SKELLY = (EntityType<? extends BS_Skelly>) EntityType.Builder.create(BS_Skelly::new, EntityClassification.CREATURE).build(BeastlyCustomizationMain.modid + ":bs_skelly").setRegistryName(BeastlyCustomizationMain.location("bs_skelly"));
 	
 	public static void registerEntitySpawnEggs(final RegistryEvent.Register<Item> event) {
 		event.getRegistry().registerAll(
-				
+				registerEntitySpawnEgg(BS_SKELLY, 0x2800db, 0x4f7ff7, BeastlyCustomizationMain.bcItemGroup, "bs_skelly_egg")
 		);
 	}
 	
 	public static void registerEntityWorldSpawns() {
-		//registerEntityWorldSpawn(BS_BABY_GOLEM, Biome.BIOMES);
+		registerEntityWorldSpawn(BS_SKELLY, Biome.BIOMES);
 	}
 
 	public static Item registerEntitySpawnEgg(EntityType<?> type, int color1, int color2, ItemGroup itemGroup, String name) {
