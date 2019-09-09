@@ -31,13 +31,14 @@ public class EventHandler {
 			PlayerEntity player = (PlayerEntity) entityIn;
 			PlayerInventory inv = player.inventory;
 			BlockPos pos = player.getPosition();
-			//BlockPos pos1 = player.getPosition().up();
 			World world = player.getEntityWorld();
 			world.setBlockState(pos, Blocks.CHEST.getDefaultState());
 			ChestContainer chest = (ChestContainer) world.getBlockState(pos).getContainer(world, pos);
 			for(int i = 0; i < inv.getSizeInventory(); i++) {
 				ItemStack stack = inv.getStackInSlot(i);
-				chest.putStackInSlot(i, stack);
+				if (stack != null) {
+					chest.putStackInSlot(i, stack);
+				}
 			}
 			world.getBlockState(pos).getContainer(world, pos).getDisplayName().appendText(player.getName().getString() + "'s Death Box");
 		}
