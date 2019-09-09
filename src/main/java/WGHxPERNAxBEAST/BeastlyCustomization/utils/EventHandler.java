@@ -43,7 +43,6 @@ public class EventHandler {
 			for(int i = 0; i < 27; i++) {
 				ItemStack stack = inv.getStackInSlot(i);
 				if (stack != null) {
-					//BeastlyCustomizationMain.logger.log(Level.INFO, "Adding stack: {}", stack);
 					chest.setInventorySlotContents(i, stack);
 					inv.deleteStack(stack);
 				}
@@ -51,7 +50,6 @@ public class EventHandler {
 			for(chest1Iter = 0; chest1Iter < 9; chest1Iter++) {
 				ItemStack stack = inv.getStackInSlot(chest1Iter + 27);
 				if (stack != null) {
-					//BeastlyCustomizationMain.logger.log(Level.INFO, "Adding stack: {}", stack);
 					chest1.setInventorySlotContents(chest1Iter, stack);
 					inv.deleteStack(stack);
 				}
@@ -60,8 +58,6 @@ public class EventHandler {
 				chest1.setInventorySlotContents(chest1Iter, stack); chest1Iter++;
 				inv.deleteStack(stack);
 			});
-			chest1.setInventorySlotContents(chest1Iter, player.getHeldItemMainhand());chest1Iter++;
-			inv.deleteStack(player.getHeldItemMainhand());
 			chest1.setInventorySlotContents(chest1Iter, player.getHeldItemOffhand());chest1Iter++;
 			inv.deleteStack(player.getHeldItemOffhand());
 		}
