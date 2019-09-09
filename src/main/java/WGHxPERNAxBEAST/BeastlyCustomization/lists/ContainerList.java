@@ -14,4 +14,6 @@ public class ContainerList {
 	public static ContainerType<CarbonDustGeneratorContainer> cd_pow_gener;
 	@ObjectHolder(BeastlyCustomizationMain.modid + ":bs_battery")
 	public static ContainerType<BatteryContainer> battery;
+	//@ObjectHolder(BeastlyCustomizationMain.modid + ":death_box")
+	//public static PlayerInventory death_box;
 }

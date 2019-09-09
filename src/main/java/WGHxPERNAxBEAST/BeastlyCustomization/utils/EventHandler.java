@@ -5,9 +5,8 @@ import net.minecraft.block.Blocks;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.inventory.container.ChestContainer;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.INameable;
+import net.minecraft.tileentity.ChestTileEntity;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
@@ -15,6 +14,9 @@ import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 
 public class EventHandler {
+	
+	private int chest1Iter = 0;
+	
 	@SubscribeEvent(priority = EventPriority.LOWEST)
 	public void onEntityDeath(LivingDeathEvent event) {
 		Entity entityIn = event.getEntity();
@@ -32,16 +34,36 @@ public class EventHandler {
 			PlayerEntity player = (PlayerEntity) entityIn;
 			PlayerInventory inv = player.inventory;
 			BlockPos pos = player.getPosition();
+			BlockPos pos1 = player.getPosition().up();
 			World world = player.getEntityWorld();
 			world.setBlockState(pos, Blocks.CHEST.getDefaultState());
-			ChestContainer chest = (ChestContainer) world.getBlockState(pos).getContainer(world, pos);
-			for(int i = 0; i < inv.getSizeInventory(); i++) {
+			world.setBlockState(pos1, Blocks.CHEST.getDefaultState());
+			ChestTileEntity chest = (ChestTileEntity) world.getBlockState(pos).getContainer(world, pos);
+			ChestTileEntity chest1 = (ChestTileEntity) world.getBlockState(pos1).getContainer(world, pos1);
+			for(int i = 0; i < 27; i++) {
 				ItemStack stack = inv.getStackInSlot(i);
 				if (stack != null) {
-					chest.putStackInSlot(i, stack);
+					//BeastlyCustomizationMain.logger.log(Level.INFO, "Adding stack: {}", stack);
+					chest.setInventorySlotContents(i, stack);
+					inv.deleteStack(stack);
 				}
 			}
-			((INameable) chest).getDisplayName().appendText(player.getName().getString() + "'s Death Box");
+			for(chest1Iter = 0; chest1Iter < 9; chest1Iter++) {
+				ItemStack stack = inv.getStackInSlot(chest1Iter + 27);
+				if (stack != null) {
+					//BeastlyCustomizationMain.logger.log(Level.INFO, "Adding stack: {}", stack);
+					chest1.setInventorySlotContents(chest1Iter, stack);
+					inv.deleteStack(stack);
+				}
+			}
+			player.getArmorInventoryList().forEach(stack->{
+				chest1.setInventorySlotContents(chest1Iter, stack); chest1Iter++;
+				inv.deleteStack(stack);
+			});
+			chest1.setInventorySlotContents(chest1Iter, player.getHeldItemMainhand());chest1Iter++;
+			inv.deleteStack(player.getHeldItemMainhand());
+			chest1.setInventorySlotContents(chest1Iter, player.getHeldItemOffhand());chest1Iter++;
+			inv.deleteStack(player.getHeldItemOffhand());
 		}
 	}
 
