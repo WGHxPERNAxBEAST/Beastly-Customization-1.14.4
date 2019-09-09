@@ -7,6 +7,7 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.container.ChestContainer;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.INameable;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
@@ -40,7 +41,7 @@ public class EventHandler {
 					chest.putStackInSlot(i, stack);
 				}
 			}
-			world.getBlockState(pos).getContainer(world, pos).getDisplayName().appendText(player.getName().getString() + "'s Death Box");
+			((INameable) chest).getDisplayName().appendText(player.getName().getString() + "'s Death Box");
 		}
 	}
 
