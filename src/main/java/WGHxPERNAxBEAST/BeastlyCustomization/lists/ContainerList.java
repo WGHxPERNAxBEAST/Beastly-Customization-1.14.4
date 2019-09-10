@@ -4,6 +4,7 @@ import WGHxPERNAxBEAST.BeastlyCustomization.BeastlyCustomizationMain;
 import WGHxPERNAxBEAST.BeastlyCustomization.containers.BatteryContainer;
 import WGHxPERNAxBEAST.BeastlyCustomization.containers.CarbonDustGeneratorContainer;
 import WGHxPERNAxBEAST.BeastlyCustomization.containers.ChickenFactoryContainer;
+import WGHxPERNAxBEAST.BeastlyCustomization.containers.DeathBoxContainer;
 import net.minecraft.inventory.container.ContainerType;
 import net.minecraftforge.registries.ObjectHolder;
 
@@ -16,4 +17,6 @@ public class ContainerList {
 	public static ContainerType<BatteryContainer> battery;
 	//@ObjectHolder(BeastlyCustomizationMain.modid + ":death_box")
 	//public static PlayerInventory death_box;
+	@ObjectHolder(BeastlyCustomizationMain.modid + ":death_box")
+	public static ContainerType<DeathBoxContainer> GENERIC_9X10;
 }

@@ -6,6 +6,7 @@ import org.apache.logging.log4j.Logger;
 import WGHxPERNAxBEAST.BeastlyCustomization.blocks.BatteryBlock;
 import WGHxPERNAxBEAST.BeastlyCustomization.blocks.CarbonDustGeneratorBlock;
 import WGHxPERNAxBEAST.BeastlyCustomization.blocks.ChickenFactoryBlock;
+import WGHxPERNAxBEAST.BeastlyCustomization.blocks.DeathBoxBlock;
 import WGHxPERNAxBEAST.BeastlyCustomization.blocks.GolemHead;
 import WGHxPERNAxBEAST.BeastlyCustomization.client.render.bcRenderRegistry;
 import WGHxPERNAxBEAST.BeastlyCustomization.containers.BatteryContainer;
@@ -25,6 +26,7 @@ import WGHxPERNAxBEAST.BeastlyCustomization.proxies.ServerProxy;
 import WGHxPERNAxBEAST.BeastlyCustomization.tiles.BatteryTile;
 import WGHxPERNAxBEAST.BeastlyCustomization.tiles.CarbonDustGeneratorTile;
 import WGHxPERNAxBEAST.BeastlyCustomization.tiles.ChickenFactoryTile;
+import WGHxPERNAxBEAST.BeastlyCustomization.tiles.DeathBoxTile;
 import WGHxPERNAxBEAST.BeastlyCustomization.utils.EventHandler;
 import WGHxPERNAxBEAST.BeastlyCustomization.world.OreGeneration;
 import net.minecraft.block.Block;
@@ -181,7 +183,7 @@ public class BeastlyCustomizationMain {
 					ItemList.chicken_factory = new BlockItem(BlockList.chicken_factory, new Item.Properties().group(bcItemGroup)).setRegistryName(BlockList.chicken_factory.getRegistryName()),
 					ItemList.cd_pow_gener = new BlockItem(BlockList.cd_pow_gener, new Item.Properties().group(bcItemGroup)).setRegistryName(BlockList.cd_pow_gener.getRegistryName()),
 					ItemList.battery = new BlockItem(BlockList.battery, new Item.Properties().group(bcItemGroup)).setRegistryName(BlockList.battery.getRegistryName()),
-					//ItemList.death_box = new BlockItem(BlockList.death_box, new Item.Properties().group(bcItemGroup)).setRegistryName(BlockList.death_box.getRegistryName()),	
+					ItemList.death_box = new BlockItem(BlockList.death_box, new Item.Properties().group(bcItemGroup)).setRegistryName(BlockList.death_box.getRegistryName()),	
 					
 					ItemList.carbon_rock = new BlockItem(BlockList.carbon_rock, new Item.Properties().group(bcItemGroup)).setRegistryName(BlockList.carbon_rock.getRegistryName()),
 					ItemList.azr_ore = new BlockItem(BlockList.azr_ore, new Item.Properties().group(bcItemGroup)).setRegistryName(BlockList.azr_ore.getRegistryName()),
@@ -207,7 +209,7 @@ public class BeastlyCustomizationMain {
 					BlockList.chicken_factory = new ChickenFactoryBlock(Block.Properties.create(Material.IRON).hardnessAndResistance(6.0F, 7.0F).lightValue(14).sound(SoundType.METAL)).setRegistryName(location("chick_fact")),
 					BlockList.cd_pow_gener = new CarbonDustGeneratorBlock(Block.Properties.create(Material.IRON).hardnessAndResistance(6.0F, 7.0F).lightValue(14).sound(SoundType.METAL)).setRegistryName(location("cd_pow_gener")),
 					BlockList.battery = new BatteryBlock(Block.Properties.create(Material.IRON).hardnessAndResistance(6.0F, 7.0F).lightValue(14).sound(SoundType.METAL)).setRegistryName(location("bs_battery")),
-					//BlockList.death_box = new DeathBoxBlock(Block.Properties.create(Material.WOOD).hardnessAndResistance(1.0F, 1.0F).lightValue(0).sound(SoundType.WOOD)).setRegistryName(location("death_box")),
+					BlockList.death_box = new DeathBoxBlock(Block.Properties.create(Material.IRON).hardnessAndResistance(4.0F, 5.0F).lightValue(0).sound(SoundType.METAL)).setRegistryName(location("death_box")),
 																										
 					BlockList.carbon_rock = new Block(Block.Properties.create(Material.ROCK).hardnessAndResistance(3.0F, 3.0F).lightValue(0).sound(SoundType.STONE)).setRegistryName(location("carbon_rock")),
 					BlockList.azr_ore = new Block(Block.Properties.create(Material.ROCK).hardnessAndResistance(3.0F, 3.0F).lightValue(0).sound(SoundType.STONE)).setRegistryName(location("azr_ore")),
@@ -236,7 +238,7 @@ public class BeastlyCustomizationMain {
             event.getRegistry().register(TileEntityType.Builder.create(ChickenFactoryTile::new, BlockList.chicken_factory).build(null).setRegistryName("chick_fact"));
             event.getRegistry().register(TileEntityType.Builder.create(CarbonDustGeneratorTile::new, BlockList.cd_pow_gener).build(null).setRegistryName("cd_pow_gener"));
             event.getRegistry().register(TileEntityType.Builder.create(BatteryTile::new, BlockList.battery).build(null).setRegistryName("bs_battery"));
-            //event.getRegistry().register(TileEntityType.Builder.create(DeathBoxTile::new, BlockList.death_box).build(null).setRegistryName("death_box"));
+            event.getRegistry().register(TileEntityType.Builder.create(DeathBoxTile::new, BlockList.death_box).build(null).setRegistryName("death_box"));
         }
 
         @SubscribeEvent

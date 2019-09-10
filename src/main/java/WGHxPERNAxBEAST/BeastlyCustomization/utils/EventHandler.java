@@ -1,12 +1,13 @@
 package WGHxPERNAxBEAST.BeastlyCustomization.utils;
 
+import WGHxPERNAxBEAST.BeastlyCustomization.blocks.DeathBoxBlock;
+import WGHxPERNAxBEAST.BeastlyCustomization.lists.BlockList;
 import WGHxPERNAxBEAST.BeastlyCustomization.lists.ItemList;
-import net.minecraft.block.Blocks;
+import WGHxPERNAxBEAST.BeastlyCustomization.tiles.DeathBoxTile;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.item.ItemStack;
-import net.minecraft.tileentity.ChestTileEntity;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
@@ -15,7 +16,7 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 
 public class EventHandler {
 	
-	private int chest1Iter = 0;
+	//private int chest1Iter = 0;
 	
 	@SubscribeEvent(priority = EventPriority.LOWEST)
 	public void onEntityDeath(LivingDeathEvent event) {
@@ -34,32 +35,12 @@ public class EventHandler {
 			PlayerEntity player = (PlayerEntity) entityIn;
 			PlayerInventory inv = player.inventory;
 			BlockPos pos = player.getPosition();
-			BlockPos pos1 = player.getPosition().up();
 			World world = player.getEntityWorld();
-			world.setBlockState(pos, Blocks.CHEST.getDefaultState());
-			world.setBlockState(pos1, Blocks.CHEST.getDefaultState());
-			ChestTileEntity chest = (ChestTileEntity) world.getBlockState(pos).getContainer(world, pos);
-			ChestTileEntity chest1 = (ChestTileEntity) world.getBlockState(pos1).getContainer(world, pos1);
-			for(int i = 0; i < 27; i++) {
-				ItemStack stack = inv.getStackInSlot(i);
-				if (stack != null) {
-					chest.setInventorySlotContents(i, stack);
-					inv.deleteStack(stack);
-				}
-			}
-			for(chest1Iter = 0; chest1Iter < 9; chest1Iter++) {
-				ItemStack stack = inv.getStackInSlot(chest1Iter + 27);
-				if (stack != null) {
-					chest1.setInventorySlotContents(chest1Iter, stack);
-					inv.deleteStack(stack);
-				}
-			}
-			player.getArmorInventoryList().forEach(stack->{
-				chest1.setInventorySlotContents(chest1Iter, stack); chest1Iter++;
-				inv.deleteStack(stack);
-			});
-			chest1.setInventorySlotContents(chest1Iter, player.getHeldItemOffhand());chest1Iter++;
-			inv.deleteStack(player.getHeldItemOffhand());
+			world.setBlockState(pos, BlockList.death_box.getBlock().getDefaultState());
+			DeathBoxBlock deathBox = (DeathBoxBlock) world.getBlockState(pos).getBlock();
+			deathBox.setBoxOwner(player);
+			DeathBoxTile chest = (DeathBoxTile) deathBox.getContainer(world.getBlockState(pos), world, pos);
+			deathBox.setBoxContense(chest, inv);
 		}
 	}
 
