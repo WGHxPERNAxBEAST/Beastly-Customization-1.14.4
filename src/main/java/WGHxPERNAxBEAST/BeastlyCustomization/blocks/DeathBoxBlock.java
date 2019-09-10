@@ -261,7 +261,7 @@ public class DeathBoxBlock extends ContainerBlock implements IWaterLoggable {
 			            player.addStat(this.getOpenStat());
 			         }
 	    	  } else {
-	    		  if (this.owner != null) {
+	    		  if (this.owner == null) {
 		    		    BeastlyCustomizationMain.logger.log(Level.INFO, "Death Box @{} has no owner", pos);
 		    	  } else if (player == this.owner) {
 			  			BeastlyCustomizationMain.logger.log(Level.INFO, "Transfering items to {}'s inventory", this.owner.getName().getString());
@@ -273,7 +273,7 @@ public class DeathBoxBlock extends ContainerBlock implements IWaterLoggable {
 				           player.addStat(this.getOpenStat());
 				        }
 			  	  } else {
-			  			BeastlyCustomizationMain.logger.log(Level.INFO, "You ({}) can not access {}'s items", player.getName().getString(), this.owner.getName().getString());
+			  			BeastlyCustomizationMain.logger.log(Level.INFO, "{} can not access {}'s items", player.getName().getString(), this.owner.getName().getString());
 			  			player.sendMessage(new StringTextComponent("You can not access this player's items. They are not yours."));
 			  	  }	 
 	    	 }
