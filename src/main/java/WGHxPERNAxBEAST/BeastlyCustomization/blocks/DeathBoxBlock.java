@@ -15,6 +15,7 @@ import net.minecraft.block.BlockState;
 import net.minecraft.block.ContainerBlock;
 import net.minecraft.block.HorizontalBlock;
 import net.minecraft.block.IWaterLoggable;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.passive.CatEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -107,6 +108,7 @@ public class DeathBoxBlock extends ContainerBlock implements IWaterLoggable {
 	   };
 	   private PlayerEntity owner;
 	   private PlayerInventory playerInv;
+	   private int playerXP;
 
 	   public DeathBoxBlock(Block.Properties properties) {
 	      super(properties);
@@ -416,6 +418,17 @@ public class DeathBoxBlock extends ContainerBlock implements IWaterLoggable {
 			}
 		}
 	}
+	
+	@Override
+	public boolean canEntityDestroy(BlockState state, IBlockReader world, BlockPos pos, Entity entity) {
+		return false;
+	}
+	
+	@Override
+	public void dropXpOnBlockBreak(World worldIn, BlockPos pos, int amount) {
+		super.dropXpOnBlockBreak(worldIn, pos, this.playerXP);
+		this.playerXP = 0;
+	}
 	   
 	public void transferItemsToPlayer(BlockState state, World worldIn, BlockPos pos, PlayerEntity playerIn) {
 		PlayerInventory playerInvIn = playerIn.inventory;
@@ -423,6 +436,8 @@ public class DeathBoxBlock extends ContainerBlock implements IWaterLoggable {
 		DeathBoxTile dbInv = (DeathBoxTile) state.getContainer(worldIn, pos);
 		setInventoryContense(inv, playerInvIn);
 		setBoxContense(dbInv, inv);
+		playerIn.giveExperiencePoints(this.playerXP);
+		this.playerXP = 0;
 	}
 	
 	public void setBoxContense(DeathBoxTile dbInv, PlayerInventory playerInv) {
@@ -448,6 +463,7 @@ public class DeathBoxBlock extends ContainerBlock implements IWaterLoggable {
 	public void setBoxOwner(PlayerEntity playerIn) {
 		this.owner = playerIn;
 		this.playerInv = playerIn.inventory;
+		this.playerXP = (int)(playerIn.experienceTotal / 1.25);
 	}
 	   
 }
