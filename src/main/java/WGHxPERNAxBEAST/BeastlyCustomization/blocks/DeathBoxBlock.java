@@ -404,6 +404,19 @@ public class DeathBoxBlock extends ContainerBlock implements IWaterLoggable {
 	      T forSingle(DeathBoxTile p_212856_1_);
 	   }
 	   
+	@Override
+	public boolean canHarvestBlock(BlockState state, IBlockReader world, BlockPos pos, PlayerEntity player) {
+		if (player.isCreative()) {
+			return true;
+		} else {
+			if (player == this.owner) {
+				return super.canHarvestBlock(state, world, pos, player);
+			} else {
+				return false;
+			}
+		}
+	}
+	   
 	public void transferItemsToPlayer(BlockState state, World worldIn, BlockPos pos, PlayerEntity playerIn) {
 		PlayerInventory playerInvIn = playerIn.inventory;
 		PlayerInventory inv = this.playerInv;
