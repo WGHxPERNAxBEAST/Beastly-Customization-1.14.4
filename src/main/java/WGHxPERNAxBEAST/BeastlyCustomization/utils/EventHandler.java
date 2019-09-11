@@ -16,8 +16,6 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 
 public class EventHandler {
 	
-	//private int chest1Iter = 0;
-	
 	@SubscribeEvent(priority = EventPriority.LOWEST)
 	public void onEntityDeath(LivingDeathEvent event) {
 		Entity entityIn = event.getEntity();
@@ -36,9 +34,9 @@ public class EventHandler {
 			PlayerInventory inv = player.inventory;
 			BlockPos pos = player.getPosition();
 			World world = player.getEntityWorld();
-			world.setBlockState(pos, BlockList.death_box.getBlock().getDefaultState());
-			DeathBoxBlock deathBox = (DeathBoxBlock) world.getBlockState(pos).getBlock();
+			DeathBoxBlock deathBox = (DeathBoxBlock) BlockList.death_box.getBlock();
 			deathBox.setBoxOwner(player);
+			world.setBlockState(pos, deathBox.getDefaultState());
 			DeathBoxTile chest = (DeathBoxTile) deathBox.getContainer(world.getBlockState(pos), world, pos);
 			deathBox.setBoxContense(chest, inv);
 		}
