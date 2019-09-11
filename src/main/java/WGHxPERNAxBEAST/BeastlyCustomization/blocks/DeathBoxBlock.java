@@ -4,9 +4,6 @@ import java.util.List;
 
 import javax.annotation.Nullable;
 
-import org.apache.logging.log4j.Level;
-
-import WGHxPERNAxBEAST.BeastlyCustomization.BeastlyCustomizationMain;
 import WGHxPERNAxBEAST.BeastlyCustomization.containers.DeathBoxContainer;
 import WGHxPERNAxBEAST.BeastlyCustomization.tiles.DeathBoxTile;
 import net.minecraft.block.Block;
@@ -107,7 +104,6 @@ public class DeathBoxBlock extends ContainerBlock implements IWaterLoggable {
 	      }
 	   };
 	   private static PlayerEntity owner;
-	   private static PlayerInventory playerInv;
 	   private static int playerXP;
 
 	   public DeathBoxBlock(Block.Properties properties) {
@@ -443,19 +439,8 @@ public class DeathBoxBlock extends ContainerBlock implements IWaterLoggable {
 	   
 	public static void transferItemsToPlayer(BlockState state, World worldIn, BlockPos pos, PlayerEntity playerIn) {
 		PlayerInventory playerInvIn = playerIn.inventory;
-		if (playerInvIn == null) {
-			BeastlyCustomizationMain.logger.log(Level.INFO, "playerInvIn is null (transferItemsToPlayer)");
-		}
-		PlayerInventory inv = playerInv;
-		if (inv == null) {
-			BeastlyCustomizationMain.logger.log(Level.INFO, "inv is null (transferItemsToPlayer)");
-		}
 		DeathBoxTile dbInv = (DeathBoxTile) worldIn.getBlockState(pos).getContainer(worldIn, pos);
-		if (dbInv == null) {
-			BeastlyCustomizationMain.logger.log(Level.INFO, "dbInv is null (transferItemsToPlayer)");
-		}
-		setInventoryContense(inv, playerInvIn);
-		setBoxContense(dbInv, inv);
+		setInventoryContense(dbInv, playerInvIn);
 		playerIn.giveExperiencePoints(playerXP);
 		playerXP = 0;
 	}
@@ -470,19 +455,17 @@ public class DeathBoxBlock extends ContainerBlock implements IWaterLoggable {
 		}
 	}
 	
-	private static void setInventoryContense(PlayerInventory savedInv, PlayerInventory currentInv) {
-		for(int i = 0; i < savedInv.getSizeInventory(); /*- 1;*//*36;*/ i++) {
-			ItemStack stack = savedInv.getStackInSlot(i);
+	private static void setInventoryContense(DeathBoxTile dbInv, PlayerInventory currentInv) {
+		for(int i = 0; i < dbInv.getSizeInventory(); /*- 1;*//*36;*/ i++) {
+			ItemStack stack = dbInv.getStackInSlot(i);
+			ItemStack stack1 = currentInv.getStackInSlot(i);
 			currentInv.setInventorySlotContents(i, stack);
-			if (stack != null) {
-				savedInv.deleteStack(stack);
-			}
+			dbInv.setInventorySlotContents(i, stack1);
 		}
 	}
 	
 	public void setBoxOwner(PlayerEntity playerIn) {
 		owner = playerIn;
-		playerInv = playerIn.inventory;
 		playerXP = (int)(playerIn.experienceTotal / 1.25);
 	}
 	   
