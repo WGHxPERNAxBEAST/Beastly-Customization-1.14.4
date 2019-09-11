@@ -261,7 +261,9 @@ public class DeathBoxBlock extends ContainerBlock implements IWaterLoggable {
 			            player.addStat(this.getOpenStat());
 			         }
 	    	  } else {
-	    		  BeastlyCustomizationMain.logger.log(Level.INFO, "\"{} == {}\" evaluates to: {}", player.getName().getString(), owner.getName().getString(), (player.getName().getString() == owner.getName().getString()));
+	    		  if (owner != null) {
+	    			  BeastlyCustomizationMain.logger.log(Level.INFO, "\"{} == {}\" evaluates to: {}", player.getName().getString(), owner.getName().getString(), (player.getName().getString() == owner.getName().getString()));
+	    		  }
 	    		  if (owner == null) {
 		    		    BeastlyCustomizationMain.logger.log(Level.INFO, "Death Box @{} has no owner", pos);
 		    	  } else if (player.getName().getString() == owner.getName().getString()) {
