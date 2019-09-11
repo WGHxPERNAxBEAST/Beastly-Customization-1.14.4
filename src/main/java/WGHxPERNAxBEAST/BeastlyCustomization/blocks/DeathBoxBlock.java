@@ -261,14 +261,16 @@ public class DeathBoxBlock extends ContainerBlock implements IWaterLoggable {
 			            player.addStat(this.getOpenStat());
 			         }
 	    	  } else {
+	    		  /*
 	    		  if (owner != null) {
 	    			  BeastlyCustomizationMain.logger.log(Level.INFO, "\"{} == {}\" evaluates to: {}", player.getName().getString(), owner.getName().getString(), (player.getName().getString().matches(owner.getName().getString())));
 	    		  }
+	    		  */
 	    		  if (owner == null) {
-		    		    BeastlyCustomizationMain.logger.log(Level.INFO, "Death Box @{} has no owner", pos);
-		    	  } else if (player.getName().getString().matches(owner.getName().getString())) {//if (player.getName().getString() == owner.getName().getString()) {
+		    		    //BeastlyCustomizationMain.logger.log(Level.INFO, "Death Box @{} has no owner", pos);
+		    	  } else if (player.getName().getString().matches(owner.getName().getString())) {
 			  			if (player.isSneaking()) {
-			    		    BeastlyCustomizationMain.logger.log(Level.INFO, "Transfering items to {}'s inventory", owner.getName().getString());
+			    		    //BeastlyCustomizationMain.logger.log(Level.INFO, "Transfering items to {}'s inventory", owner.getName().getString());
 				  			player.sendMessage(new StringTextComponent("Transfering items to your inventory."));
 				  			transferItemsToPlayer(state, worldIn, pos, player);
 			  			}
@@ -278,7 +280,7 @@ public class DeathBoxBlock extends ContainerBlock implements IWaterLoggable {
 				           player.addStat(this.getOpenStat());
 				        }
 			  	  } else {
-			  			BeastlyCustomizationMain.logger.log(Level.INFO, "{} can not access {}'s items", player.getName().getString(), owner.getName().getString());
+			  			//BeastlyCustomizationMain.logger.log(Level.INFO, "{} can not access {}'s items", player.getName().getString(), owner.getName().getString());
 			  			player.sendMessage(new StringTextComponent("You can not access this player's items. They are not yours."));
 			  	  }	 
 	    	 }
@@ -413,14 +415,18 @@ public class DeathBoxBlock extends ContainerBlock implements IWaterLoggable {
 	   
 	@Override
 	public boolean canHarvestBlock(BlockState state, IBlockReader world, BlockPos pos, PlayerEntity player) {
-		if (player.isCreative()) {
-			return true;
-		} else {
-			if (player.getName().getString() == owner.getName().getString()) {
-				return super.canHarvestBlock(state, world, pos, player);
+		if (owner != null) {
+			if (player.isCreative()) {
+				return true;
 			} else {
-				return false;
+				if (player.getName().getString().matches(owner.getName().getString())) {
+					return super.canHarvestBlock(state, world, pos, player);
+				} else {
+					return false;
+				}
 			}
+		} else {
+			return super.canHarvestBlock(state, world, pos, player);
 		}
 	}
 	
@@ -435,17 +441,26 @@ public class DeathBoxBlock extends ContainerBlock implements IWaterLoggable {
 		playerXP = 0;
 	}
 	   
-	public void transferItemsToPlayer(BlockState state, World worldIn, BlockPos pos, PlayerEntity playerIn) {
+	public static void transferItemsToPlayer(BlockState state, World worldIn, BlockPos pos, PlayerEntity playerIn) {
 		PlayerInventory playerInvIn = playerIn.inventory;
+		if (playerInvIn == null) {
+			BeastlyCustomizationMain.logger.log(Level.INFO, "playerInvIn is null (transferItemsToPlayer)");
+		}
 		PlayerInventory inv = playerInv;
-		DeathBoxTile dbInv = (DeathBoxTile) state.getContainer(worldIn, pos);
+		if (inv == null) {
+			BeastlyCustomizationMain.logger.log(Level.INFO, "inv is null (transferItemsToPlayer)");
+		}
+		DeathBoxTile dbInv = (DeathBoxTile) worldIn.getBlockState(pos).getContainer(worldIn, pos);
+		if (dbInv == null) {
+			BeastlyCustomizationMain.logger.log(Level.INFO, "dbInv is null (transferItemsToPlayer)");
+		}
 		setInventoryContense(inv, playerInvIn);
 		setBoxContense(dbInv, inv);
 		playerIn.giveExperiencePoints(playerXP);
 		playerXP = 0;
 	}
 	
-	public void setBoxContense(DeathBoxTile dbInv, PlayerInventory playerInv) {
+	public static void setBoxContense(DeathBoxTile dbInv, PlayerInventory playerInv) {
 		for(int i = 0; i < playerInv.getSizeInventory(); /*- 1;*//*36;*/ i++) {
 			ItemStack stack = playerInv.getStackInSlot(i);
 			dbInv.setInventorySlotContents(i, stack);
@@ -455,7 +470,7 @@ public class DeathBoxBlock extends ContainerBlock implements IWaterLoggable {
 		}
 	}
 	
-	private void setInventoryContense(PlayerInventory savedInv, PlayerInventory currentInv) {
+	private static void setInventoryContense(PlayerInventory savedInv, PlayerInventory currentInv) {
 		for(int i = 0; i < savedInv.getSizeInventory(); /*- 1;*//*36;*/ i++) {
 			ItemStack stack = savedInv.getStackInSlot(i);
 			currentInv.setInventorySlotContents(i, stack);
