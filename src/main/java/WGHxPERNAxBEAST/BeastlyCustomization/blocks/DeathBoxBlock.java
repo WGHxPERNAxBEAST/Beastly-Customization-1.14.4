@@ -229,7 +229,7 @@ public class DeathBoxBlock extends ContainerBlock implements IWaterLoggable {
 	         }
 	      }
 	      if (placer instanceof PlayerEntity) {
-	    	  setBoxOwner((PlayerEntity)placer);
+	    	  setBoxOwner((PlayerEntity)placer, false);
 	      }
 	   }
 
@@ -464,9 +464,29 @@ public class DeathBoxBlock extends ContainerBlock implements IWaterLoggable {
 		}
 	}
 	
-	public void setBoxOwner(PlayerEntity playerIn) {
+	public void setBoxOwner(PlayerEntity playerIn, Boolean shouldSaveLevels) {
 		owner = playerIn;
-		playerXP = (int)(playerIn.experienceTotal / 1.25);
+		if (shouldSaveLevels) {
+			int xp = (int)(playerIn.experienceTotal / 1.25);
+			if (xp > 0) {
+				playerXP = xp;
+			} else {
+				playerXP = 1;
+			}
+		}
+	}	
+	
+	public PlayerEntity getOwner() {
+		return owner;
+	}
+	
+	public int getXP() {
+		return playerXP;
+	}
+	
+	public void updateOwner(PlayerEntity playerIn, int xpIn) {
+		owner = playerIn;
+		playerXP = xpIn;
 	}
 	   
 }

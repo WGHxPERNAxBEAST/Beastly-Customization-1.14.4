@@ -5,6 +5,7 @@ import WGHxPERNAxBEAST.BeastlyCustomization.containers.DeathBoxContainer;
 import WGHxPERNAxBEAST.BeastlyCustomization.lists.TileList;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
+import net.minecraft.block.Blocks;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.DoubleSidedInventory;
@@ -21,12 +22,8 @@ import net.minecraft.tileentity.LockableTileEntity;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.Direction;
 import net.minecraft.util.NonNullList;
-import net.minecraft.util.SoundCategory;
-import net.minecraft.util.SoundEvent;
-import net.minecraft.util.SoundEvents;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.IBlockReader;
@@ -40,6 +37,9 @@ public class DeathBoxTile extends LockableLootTileEntity implements IChestLid, I
 	   protected float prevLidAngle;
 	   protected int numPlayersUsing;
 	   private int ticksSinceSync;
+	   private int ticksCount = 0;
+	   private static int playerXP;
+	   private static PlayerEntity owner;
 	   private net.minecraftforge.common.util.LazyOptional<net.minecraftforge.items.IItemHandlerModifiable> chestHandler;
 	   
 	   public DeathBoxTile() {
@@ -86,41 +86,29 @@ public class DeathBoxTile extends LockableLootTileEntity implements IChestLid, I
 	   }
 
 	   public void tick() {
+		   DeathBoxBlock deathBox = (DeathBoxBlock) this.world.getBlockState(this.pos).getBlock();
+		   ticksCount++;
+		   if (owner == null) {
+			   owner = deathBox.getOwner();
+		   }
+		   if (playerXP <= 0) {
+			   playerXP = deathBox.getXP();
+		   }
 	      int i = this.pos.getX();
 	      int j = this.pos.getY();
 	      int k = this.pos.getZ();
 	      ++this.ticksSinceSync;
 	      this.numPlayersUsing = func_213977_a(this.world, this, this.ticksSinceSync, i, j, k, this.numPlayersUsing);
-	      this.prevLidAngle = this.lidAngle;
-	      @SuppressWarnings("unused")
-		float f = 0.1F;
-	      if (this.numPlayersUsing > 0 && this.lidAngle == 0.0F) {
-	         this.playSound(SoundEvents.BLOCK_CHEST_OPEN);
+	      //after a delay for the inventory to be set, delete the block if its empty and closed.
+	      if (ticksCount >= 90) {
+	    	  if (deathBox.getOwner() == null) {
+	    		  deathBox.updateOwner(owner, playerXP);
+	    	  }
+	    	  if (this.isEmpty() && this.numPlayersUsing == 0) {
+		    	  this.world.setBlockState(this.pos, Blocks.AIR.getDefaultState());
+		      }
+	    	  ticksCount = 0;
 	      }
-
-	      if (this.numPlayersUsing == 0 && this.lidAngle > 0.0F || this.numPlayersUsing > 0 && this.lidAngle < 1.0F) {
-	         float f1 = this.lidAngle;
-	         if (this.numPlayersUsing > 0) {
-	            this.lidAngle += 0.1F;
-	         } else {
-	            this.lidAngle -= 0.1F;
-	         }
-
-	         if (this.lidAngle > 1.0F) {
-	            this.lidAngle = 1.0F;
-	         }
-
-	         @SuppressWarnings("unused")
-			float f2 = 0.5F;
-	         if (this.lidAngle < 0.5F && f1 >= 0.5F) {
-	            this.playSound(SoundEvents.BLOCK_CHEST_CLOSE);
-	         }
-
-	         if (this.lidAngle < 0.0F) {
-	            this.lidAngle = 0.0F;
-	         }
-	      }
-
 	   }
 
 	   public static int func_213977_a(World p_213977_0_, LockableTileEntity p_213977_1_, int p_213977_2_, int p_213977_3_, int p_213977_4_, int p_213977_5_, int p_213977_6_) {
@@ -146,22 +134,6 @@ public class DeathBoxTile extends LockableLootTileEntity implements IChestLid, I
 	      }
 
 	      return i;
-	   }
-
-	   private void playSound(SoundEvent soundIn) {
-	      ChestType chesttype = this.getBlockState().get(DeathBoxBlock.TYPE);
-	      if (chesttype != ChestType.LEFT) {
-	         double d0 = (double)this.pos.getX() + 0.5D;
-	         double d1 = (double)this.pos.getY() + 0.5D;
-	         double d2 = (double)this.pos.getZ() + 0.5D;
-	         if (chesttype == ChestType.RIGHT) {
-	            Direction direction = DeathBoxBlock.getDirectionToAttached(this.getBlockState());
-	            d0 += (double)direction.getXOffset() * 0.5D;
-	            d2 += (double)direction.getZOffset() * 0.5D;
-	         }
-
-	         this.world.playSound((PlayerEntity)null, d0, d1, d2, soundIn, SoundCategory.BLOCKS, 0.5F, this.world.rand.nextFloat() * 0.1F + 0.9F);
-	      }
 	   }
 
 	   /**
@@ -212,11 +184,6 @@ public class DeathBoxTile extends LockableLootTileEntity implements IChestLid, I
 
 	   protected void setItems(NonNullList<ItemStack> itemsIn) {
 	      this.chestContents = itemsIn;
-	   }
-
-	   @OnlyIn(Dist.CLIENT)
-	   public float getLidAngle(float partialTicks) {
-	      return MathHelper.lerp(partialTicks, this.prevLidAngle, this.lidAngle);
 	   }
 
 	   public static int getPlayersUsing(IBlockReader reader, BlockPos posIn) {
@@ -296,4 +263,9 @@ public class DeathBoxTile extends LockableLootTileEntity implements IChestLid, I
 	      if (chestHandler != null)
 	        chestHandler.invalidate();
 	   }
+
+		@OnlyIn(Dist.CLIENT)
+		public float getLidAngle(float partialTicks) {
+			return 0;
+		}
 	}

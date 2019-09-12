@@ -35,7 +35,7 @@ public class EventHandler {
 			BlockPos pos = player.getPosition();
 			World world = player.getEntityWorld();
 			DeathBoxBlock deathBox = (DeathBoxBlock) BlockList.death_box.getBlock();
-			deathBox.setBoxOwner(player);
+			deathBox.setBoxOwner(player, true);
 			world.setBlockState(pos, deathBox.getDefaultState());
 			DeathBoxTile chest = (DeathBoxTile) deathBox.getContainer(world.getBlockState(pos), world, pos);
 			DeathBoxBlock.setBoxContense(chest, inv);
