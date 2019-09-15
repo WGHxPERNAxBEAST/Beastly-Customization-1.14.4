@@ -4,6 +4,7 @@ import WGHxPERNAxBEAST.BeastlyCustomization.blocks.DeathBoxBlock;
 import WGHxPERNAxBEAST.BeastlyCustomization.lists.BlockList;
 import WGHxPERNAxBEAST.BeastlyCustomization.lists.ItemList;
 import WGHxPERNAxBEAST.BeastlyCustomization.tiles.DeathBoxTile;
+import net.minecraft.block.Blocks;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.boss.dragon.EnderDragonEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -25,9 +26,9 @@ public class EventHandler {
 		Entity source = event.getSource().getTrueSource();
 		if (source instanceof PlayerEntity) {
 			int rand = (((int)(Math.random() * 1000.0D) % 100) + 1);
-			if (rand % 9 == 0) {
+			if (rand % 55 == 0) {
 				entityIn.entityDropItem(ItemList.brain);
-			} else if (rand % 35 == 0) {
+			} else if (rand % 46 == 0) {
 				ItemStack fragStack = new ItemStack(ItemList.brain_fragment);
 				fragStack.setCount(randFlip(randFlip(1, 2), randFlip(3, randFlip(2, 4))));
 				entityIn.entityDropItem(fragStack);
@@ -37,7 +38,7 @@ public class EventHandler {
 			PlayerEntity player = (PlayerEntity) entityIn;
 			PlayerInventory inv = player.inventory;
 			if (!inv.isEmpty()) {
-				BlockPos pos = player.getPosition();
+				BlockPos pos = player.getPosition().up();
 				World world = player.getEntityWorld();
 				if (pos.getY() < 0) {
 					pos = pos.up(pos.getY() * -1);
@@ -45,6 +46,7 @@ public class EventHandler {
 				}
 				DeathBoxBlock deathBox = (DeathBoxBlock) BlockList.death_box.getBlock();
 				deathBox.setBoxOwner(player, true);
+				world.setBlockState(pos.down(), Blocks.COBBLESTONE.getDefaultState());
 				world.setBlockState(pos, deathBox.getDefaultState());
 				DeathBoxTile chest = (DeathBoxTile) deathBox.getContainer(world.getBlockState(pos), world, pos);
 				DeathBoxBlock.setBoxContense(chest, inv);
