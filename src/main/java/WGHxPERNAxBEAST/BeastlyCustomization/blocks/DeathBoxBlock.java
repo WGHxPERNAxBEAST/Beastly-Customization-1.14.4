@@ -126,7 +126,7 @@ public class DeathBoxBlock extends ContainerBlock implements IWaterLoggable {
 	    * @deprecated call via {@link IBlockState#getRenderType()} whenever possible. Implementing/overriding is fine.
 	    */
 	   public BlockRenderType getRenderType(BlockState state) {
-	      return BlockRenderType.ENTITYBLOCK_ANIMATED;
+	      return BlockRenderType.MODEL;
 	   }
 
 	   /**
