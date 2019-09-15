@@ -9,7 +9,6 @@ import WGHxPERNAxBEAST.BeastlyCustomization.blocks.ChickenFactoryBlock;
 import WGHxPERNAxBEAST.BeastlyCustomization.blocks.DeathBoxBlock;
 import WGHxPERNAxBEAST.BeastlyCustomization.blocks.GolemHead;
 import WGHxPERNAxBEAST.BeastlyCustomization.client.render.bcRenderRegistry;
-import WGHxPERNAxBEAST.BeastlyCustomization.client.render.tiles.BcTileEntityRendererDispatcher;
 import WGHxPERNAxBEAST.BeastlyCustomization.containers.BatteryContainer;
 import WGHxPERNAxBEAST.BeastlyCustomization.containers.CarbonDustGeneratorContainer;
 import WGHxPERNAxBEAST.BeastlyCustomization.containers.ChickenFactoryContainer;
@@ -65,7 +64,7 @@ public class BeastlyCustomizationMain {
 	
 	public EventHandler eventHandler;
 	public static IProxy proxy = DistExecutor.runForDist(() -> () -> new ClientProxy(), () -> () -> new ServerProxy());
-	public static BcTileEntityRendererDispatcher tileRender = BcTileEntityRendererDispatcher.instance;
+	//public static BcTileEntityRendererDispatcher tileRender = BcTileEntityRendererDispatcher.instance;
 	
 	public static final ItemGroup bcItemGroup = new GroupClass("beastly_customization_inv_group");
 	
