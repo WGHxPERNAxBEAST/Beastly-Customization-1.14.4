@@ -3,44 +3,33 @@ package WGHxPERNAxBEAST.BeastlyCustomization.tiles;
 import WGHxPERNAxBEAST.BeastlyCustomization.blocks.DeathBoxBlock;
 import WGHxPERNAxBEAST.BeastlyCustomization.containers.DeathBoxContainer;
 import WGHxPERNAxBEAST.BeastlyCustomization.lists.TileList;
-import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.inventory.DoubleSidedInventory;
 import net.minecraft.inventory.IInventory;
-import net.minecraft.inventory.ItemStackHelper;
 import net.minecraft.inventory.container.Container;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.state.properties.ChestType;
-import net.minecraft.tileentity.IChestLid;
-import net.minecraft.tileentity.ITickableTileEntity;
-import net.minecraft.tileentity.LockableLootTileEntity;
-import net.minecraft.tileentity.LockableTileEntity;
+import net.minecraft.tileentity.ChestTileEntity;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.Direction;
 import net.minecraft.util.NonNullList;
-import net.minecraft.util.math.AxisAlignedBB;
+import net.minecraft.util.SoundCategory;
+import net.minecraft.util.SoundEvent;
+import net.minecraft.util.SoundEvents;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.TranslationTextComponent;
-import net.minecraft.world.IBlockReader;
-import net.minecraft.world.World;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
+import net.minecraft.util.text.StringTextComponent;
 
-public class DeathBoxTile extends LockableLootTileEntity implements IChestLid, ITickableTileEntity {
-	   private NonNullList<ItemStack> chestContents = NonNullList.withSize(45, ItemStack.EMPTY);
-	   protected float lidAngle;
-	   protected float prevLidAngle;
-	   protected int numPlayersUsing;
+public class DeathBoxTile extends ChestTileEntity {
+	   @SuppressWarnings("unused")
+	private NonNullList<ItemStack> chestContents = NonNullList.withSize(45, ItemStack.EMPTY);
+	   private net.minecraftforge.common.util.LazyOptional<net.minecraftforge.items.IItemHandlerModifiable> chestHandler;
 	   private int ticksSinceSync;
 	   private int ticksCount = 0;
 	   private static int playerXP;
 	   private static PlayerEntity owner;
-	   private net.minecraftforge.common.util.LazyOptional<net.minecraftforge.items.IItemHandlerModifiable> chestHandler;
 	   
 	   public DeathBoxTile() {
 	      super(TileList.death_box);
@@ -49,42 +38,18 @@ public class DeathBoxTile extends LockableLootTileEntity implements IChestLid, I
 	   /**
 	    * Returns the number of slots in the inventory.
 	    */
+	   @Override
 	   public int getSizeInventory() {
 	      return 45;
 	   }
-
-	   public boolean isEmpty() {
-	      for(ItemStack itemstack : this.chestContents) {
-	         if (!itemstack.isEmpty()) {
-	            return false;
-	         }
-	      }
-
-	      return true;
+	   
+	   @Override
+	   public ITextComponent getDisplayName() {
+			return new StringTextComponent(getType().getRegistryName().getPath());
 	   }
-
-	   protected ITextComponent getDefaultName() {
-	      return new TranslationTextComponent("container.chest");
-	   }
-
-	   public void read(CompoundNBT compound) {
-	      super.read(compound);
-	      this.chestContents = NonNullList.withSize(this.getSizeInventory(), ItemStack.EMPTY);
-	      if (!this.checkLootAndRead(compound)) {
-	         ItemStackHelper.loadAllItems(compound, this.chestContents);
-	      }
-
-	   }
-
-	   public CompoundNBT write(CompoundNBT compound) {
-	      super.write(compound);
-	      if (!this.checkLootAndWrite(compound)) {
-	         ItemStackHelper.saveAllItems(compound, this.chestContents);
-	      }
-
-	      return compound;
-	   }
-
+	   
+	   @SuppressWarnings("unused")
+	@Override
 	   public void tick() {
 		   DeathBoxBlock deathBox = (DeathBoxBlock) this.world.getBlockState(this.pos).getBlock();
 		   ticksCount++;
@@ -94,129 +59,51 @@ public class DeathBoxTile extends LockableLootTileEntity implements IChestLid, I
 		   if (playerXP <= 0) {
 			   playerXP = deathBox.getXP();
 		   }
-	      int i = this.pos.getX();
-	      int j = this.pos.getY();
-	      int k = this.pos.getZ();
-	      ++this.ticksSinceSync;
-	      this.numPlayersUsing = func_213977_a(this.world, this, this.ticksSinceSync, i, j, k, this.numPlayersUsing);
-	      //after a delay for the inventory to be set, delete the block if its empty and closed.
-	      if (ticksCount >= 90) {
-	    	  if (deathBox.getOwner() == null) {
-	    		  deathBox.updateOwner(owner, playerXP);
-	    	  }
-	    	  if (this.isEmpty() && this.numPlayersUsing == 0) {
-		    	  this.world.setBlockState(this.pos, Blocks.AIR.getDefaultState());
+		      int i = this.pos.getX();
+		      int j = this.pos.getY();
+		      int k = this.pos.getZ();
+		      ++this.ticksSinceSync;
+		      this.numPlayersUsing = func_213977_a(this.world, this, this.ticksSinceSync, i, j, k, this.numPlayersUsing);
+		      this.prevLidAngle = this.lidAngle;
+		      float f = 0.1F;
+		      if (this.numPlayersUsing > 0 && this.lidAngle == 0.0F) {
+		         this.playSound(SoundEvents.BLOCK_CHEST_OPEN);
 		      }
-	    	  ticksCount = 0;
-	      }
-	   }
 
-	   public static int func_213977_a(World p_213977_0_, LockableTileEntity p_213977_1_, int p_213977_2_, int p_213977_3_, int p_213977_4_, int p_213977_5_, int p_213977_6_) {
-	      if (!p_213977_0_.isRemote && p_213977_6_ != 0 && (p_213977_2_ + p_213977_3_ + p_213977_4_ + p_213977_5_) % 200 == 0) {
-	         p_213977_6_ = func_213976_a(p_213977_0_, p_213977_1_, p_213977_3_, p_213977_4_, p_213977_5_);
-	      }
+		      if (this.numPlayersUsing == 0 && this.lidAngle > 0.0F || this.numPlayersUsing > 0 && this.lidAngle < 1.0F) {
+		         float f1 = this.lidAngle;
+		         if (this.numPlayersUsing > 0) {
+		            this.lidAngle += 0.1F;
+		         } else {
+		            this.lidAngle -= 0.1F;
+		         }
 
-	      return p_213977_6_;
-	   }
+		         if (this.lidAngle > 1.0F) {
+		            this.lidAngle = 1.0F;
+		         }
 
-	   public static int func_213976_a(World p_213976_0_, LockableTileEntity p_213976_1_, int p_213976_2_, int p_213976_3_, int p_213976_4_) {
-	      int i = 0;
-	      @SuppressWarnings("unused")
-		float f = 5.0F;
+		         float f2 = 0.5F;
+		         if (this.lidAngle < 0.5F && f1 >= 0.5F) {
+		            this.playSound(SoundEvents.BLOCK_CHEST_CLOSE);
+		         }
 
-	      for(PlayerEntity playerentity : p_213976_0_.getEntitiesWithinAABB(PlayerEntity.class, new AxisAlignedBB((double)((float)p_213976_2_ - 5.0F), (double)((float)p_213976_3_ - 5.0F), (double)((float)p_213976_4_ - 5.0F), (double)((float)(p_213976_2_ + 1) + 5.0F), (double)((float)(p_213976_3_ + 1) + 5.0F), (double)((float)(p_213976_4_ + 1) + 5.0F)))) {
-	         if (playerentity.openContainer instanceof DeathBoxContainer) {
-	            IInventory iinventory = ((DeathBoxContainer)playerentity.openContainer).getLowerDeathBoxInventory();
-	            if (iinventory == p_213976_1_ || iinventory instanceof DoubleSidedInventory && ((DoubleSidedInventory)iinventory).isPartOfLargeChest(p_213976_1_)) {
-	               ++i;
-	            }
-	         }
-	      }
+		         if (this.lidAngle < 0.0F) {
+		            this.lidAngle = 0.0F;
+		         }
+		      }
+		    //after a delay for the inventory to be set, delete the block if its empty and closed.
+		      if (ticksCount >= 90) {
+		    	  if (deathBox.getOwner() == null) {
+		    		  deathBox.updateOwner(owner, playerXP);
+		    	  }
+		    	  if (this.isEmpty() && this.numPlayersUsing == 0) {
+			    	  this.world.setBlockState(this.pos, Blocks.AIR.getDefaultState());
+			      }
+		    	  ticksCount = 0;
+		      }
 
-	      return i;
-	   }
-
-	   /**
-	    * See {@link Block#eventReceived} for more information. This must return true serverside before it is called
-	    * clientside.
-	    */
-	   public boolean receiveClientEvent(int id, int type) {
-	      if (id == 1) {
-	         this.numPlayersUsing = type;
-	         return true;
-	      } else {
-	         return super.receiveClientEvent(id, type);
-	      }
-	   }
-
-	   public void openInventory(PlayerEntity player) {
-	      if (!player.isSpectator()) {
-	         if (this.numPlayersUsing < 0) {
-	            this.numPlayersUsing = 0;
-	         }
-
-	         ++this.numPlayersUsing;
-	         this.onOpenOrClose();
-	      }
-
-	   }
-
-	   public void closeInventory(PlayerEntity player) {
-	      if (!player.isSpectator()) {
-	         --this.numPlayersUsing;
-	         this.onOpenOrClose();
-	      }
-
-	   }
-
-	   protected void onOpenOrClose() {
-	      Block block = this.getBlockState().getBlock();
-	      if (block instanceof DeathBoxBlock) {
-	         this.world.addBlockEvent(this.pos, block, 1, this.numPlayersUsing);
-	         this.world.notifyNeighborsOfStateChange(this.pos, block);
-	      }
-
-	   }
-
-	   protected NonNullList<ItemStack> getItems() {
-	      return this.chestContents;
-	   }
-
-	   protected void setItems(NonNullList<ItemStack> itemsIn) {
-	      this.chestContents = itemsIn;
-	   }
-
-	   public static int getPlayersUsing(IBlockReader reader, BlockPos posIn) {
-	      BlockState blockstate = reader.getBlockState(posIn);
-	      if (blockstate.hasTileEntity()) {
-	         TileEntity tileentity = reader.getTileEntity(posIn);
-	         if (tileentity instanceof DeathBoxTile) {
-	            return ((DeathBoxTile)tileentity).numPlayersUsing;
-	         }
-	      }
-
-	      return 0;
-	   }
-
-	   public static void swapContents(DeathBoxTile chest, DeathBoxTile otherDeathBox) {
-	      NonNullList<ItemStack> nonnulllist = chest.getItems();
-	      chest.setItems(otherDeathBox.getItems());
-	      otherDeathBox.setItems(nonnulllist);
-	   }
-
-	   protected Container createMenu(int id, PlayerInventory player) {
-	      return DeathBoxContainer.createGeneric9X5(id, player, this);
-	   }
-
-	   @Override
-	   public void updateContainingBlockInfo() {
-	      super.updateContainingBlockInfo();
-	      if (this.chestHandler != null) {
-	         this.chestHandler.invalidate();
-	         this.chestHandler = null;
-	      }
-	   }
-
+		   }
+	   
 	   @Override
 	   public <T> net.minecraftforge.common.util.LazyOptional<T> getCapability(net.minecraftforge.common.capabilities.Capability<T> cap, Direction side) {
 	       if (!this.removed && cap == net.minecraftforge.items.CapabilityItemHandler.ITEM_HANDLER_CAPABILITY) {
@@ -241,7 +128,7 @@ public class DeathBoxTile extends LockableLootTileEntity implements IChestLid, I
 	            ChestType otype = ostate.get(DeathBoxBlock.TYPE);
 	            if (otype != ChestType.SINGLE && type != otype && state.get(DeathBoxBlock.FACING) == ostate.get(DeathBoxBlock.FACING)) {
 	               TileEntity ote = this.getWorld().getTileEntity(opos);
-	               if (ote instanceof DeathBoxTile) {
+	               if (ote instanceof DeathBoxTileOrig) {
 	                  IInventory top    = type == ChestType.RIGHT ? this : (IInventory)ote;
 	                  IInventory bottom = type == ChestType.RIGHT ? (IInventory)ote : this;
 	                  return new net.minecraftforge.items.wrapper.CombinedInvWrapper(
@@ -253,19 +140,26 @@ public class DeathBoxTile extends LockableLootTileEntity implements IChestLid, I
 	      }
 	      return new net.minecraftforge.items.wrapper.InvWrapper(this);
 	   }
+	   
+	   private void playSound(SoundEvent soundIn) {
+		      ChestType chesttype = this.getBlockState().get(DeathBoxBlock.TYPE);
+		      if (chesttype != ChestType.LEFT) {
+		         double d0 = (double)this.pos.getX() + 0.5D;
+		         double d1 = (double)this.pos.getY() + 0.5D;
+		         double d2 = (double)this.pos.getZ() + 0.5D;
+		         if (chesttype == ChestType.RIGHT) {
+		            Direction direction = DeathBoxBlock.getDirectionToAttached(this.getBlockState());
+		            d0 += (double)direction.getXOffset() * 0.5D;
+		            d2 += (double)direction.getZOffset() * 0.5D;
+		         }
 
-	   /**
-	    * invalidates a tile entity
-	    */
+		         this.world.playSound((PlayerEntity)null, d0, d1, d2, soundIn, SoundCategory.BLOCKS, 0.5F, this.world.rand.nextFloat() * 0.1F + 0.9F);
+		      }
+		   }
+
 	   @Override
-	   public void remove() {
-	      super.remove();
-	      if (chestHandler != null)
-	        chestHandler.invalidate();
+	   protected Container createMenu(int id, PlayerInventory player) {
+	      return DeathBoxContainer.createGeneric9X5(id, player, this);
 	   }
 
-		@OnlyIn(Dist.CLIENT)
-		public float getLidAngle(float partialTicks) {
-			return 0;
-		}
 	}

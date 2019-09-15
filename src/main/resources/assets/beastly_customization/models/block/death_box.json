@@ -1,6 +1,5 @@
 {
-    "parent": "block/cube_all",
     "textures": {
-        "all": "beastly_customization:block/death_box"
+        "particle": "beastly_customization:block/death_box"
     }
 }

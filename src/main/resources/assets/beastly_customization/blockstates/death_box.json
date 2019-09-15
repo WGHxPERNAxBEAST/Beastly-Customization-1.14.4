@@ -1,40 +1,5 @@
 {
 	"variants": {
-	    "facing=north,type=single,waterlogged=false": { "model": "beastly_customization:block/death_box" },
-	    "facing=south,type=single,waterlogged=false": { "model": "beastly_customization:block/death_box", "y": 180 },
-	    "facing=west,type=single,waterlogged=false": { "model": "beastly_customization:block/death_box", "y": 270 },
-	    "facing=east,type=single,waterlogged=false": { "model": "beastly_customization:block/death_box", "y": 90 },
-	    "facing=up,type=single,waterlogged=false": { "model": "beastly_customization:block/death_box", "x": -90 },
-	    "facing=down,type=single,waterlogged=true": { "model": "beastly_customization:block/death_box", "x": 90 },
-	    "facing=north,type=single,waterlogged=true": { "model": "beastly_customization:block/death_box" },
-	    "facing=south,type=single,waterlogged=true": { "model": "beastly_customization:block/death_box", "y": 180 },
-	    "facing=west,type=single,waterlogged=true": { "model": "beastly_customization:block/death_box", "y": 270 },
-	    "facing=east,type=single,waterlogged=true": { "model": "beastly_customization:block/death_box", "y": 90 },
-	    "facing=up,type=single,waterlogged=true": { "model": "beastly_customization:block/death_box", "x": -90 },
-	    "facing=down,type=single,waterlogged=true": { "model": "beastly_customization:block/death_box", "x": 90 },
-		"facing=north,type=left,waterlogged=false": { "model": "beastly_customization:block/death_box" },
-	    "facing=south,type=left,waterlogged=false": { "model": "beastly_customization:block/death_box", "y": 180 },
-	    "facing=west,type=left,waterlogged=false": { "model": "beastly_customization:block/death_box", "y": 270 },
-	    "facing=east,type=left,waterlogged=false": { "model": "beastly_customization:block/death_box", "y": 90 },
-	    "facing=up,type=left,waterlogged=false": { "model": "beastly_customization:block/death_box", "x": -90 },
-	    "facing=down,type=left,waterlogged=true": { "model": "beastly_customization:block/death_box", "x": 90 },
-	    "facing=north,type=left,waterlogged=true": { "model": "beastly_customization:block/death_box" },
-	    "facing=south,type=left,waterlogged=true": { "model": "beastly_customization:block/death_box", "y": 180 },
-	    "facing=west,type=left,waterlogged=true": { "model": "beastly_customization:block/death_box", "y": 270 },
-	    "facing=east,type=left,waterlogged=true": { "model": "beastly_customization:block/death_box", "y": 90 },
-	    "facing=up,type=left,waterlogged=true": { "model": "beastly_customization:block/death_box", "x": -90 },
-	    "facing=down,type=left,waterlogged=true": { "model": "beastly_customization:block/death_box", "x": 90 },
-		"facing=north,type=right,waterlogged=false": { "model": "beastly_customization:block/death_box" },
-	    "facing=south,type=right,waterlogged=false": { "model": "beastly_customization:block/death_box", "y": 180 },
-	    "facing=west,type=right,waterlogged=false": { "model": "beastly_customization:block/death_box", "y": 270 },
-	    "facing=east,type=right,waterlogged=false": { "model": "beastly_customization:block/death_box", "y": 90 },
-	    "facing=up,type=right,waterlogged=false": { "model": "beastly_customization:block/death_box", "x": -90 },
-	    "facing=down,type=right,waterlogged=true": { "model": "beastly_customization:block/death_box", "x": 90 },
-	    "facing=north,type=right,waterlogged=true": { "model": "beastly_customization:block/death_box" },
-	    "facing=south,type=right,waterlogged=true": { "model": "beastly_customization:block/death_box", "y": 180 },
-	    "facing=west,type=right,waterlogged=true": { "model": "beastly_customization:block/death_box", "y": 270 },
-	    "facing=east,type=right,waterlogged=true": { "model": "beastly_customization:block/death_box", "y": 90 },
-	    "facing=up,type=right,waterlogged=true": { "model": "beastly_customization:block/death_box", "x": -90 },
-	    "facing=down,type=right,waterlogged=true": { "model": "beastly_customization:block/death_box", "x": 90 }
-	  }
+        "": { "model": "beastly_customization:block/death_box" }
+    }
 }
