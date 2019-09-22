@@ -103,7 +103,7 @@ public class DeathBoxBlock extends ContainerBlock implements IWaterLoggable {
 	         return p_212856_1_;
 	      }
 	   };
-	   private static PlayerEntity owner;
+	   private static String owner;
 	   private static int playerXP;
 
 	   public DeathBoxBlock(Block.Properties properties) {
@@ -126,7 +126,8 @@ public class DeathBoxBlock extends ContainerBlock implements IWaterLoggable {
 	    * @deprecated call via {@link IBlockState#getRenderType()} whenever possible. Implementing/overriding is fine.
 	    */
 	   public BlockRenderType getRenderType(BlockState state) {
-	      return BlockRenderType.ENTITYBLOCK_ANIMATED;
+	       return BlockRenderType.ENTITYBLOCK_ANIMATED;
+		   //return BlockRenderType.MODEL;
 	   }
 
 	   /**
@@ -250,21 +251,14 @@ public class DeathBoxBlock extends ContainerBlock implements IWaterLoggable {
 	      if (worldIn.isRemote) {
 	         return true;
 	      } else {
-	    	  if (player.isCreative()) {
+	    	  if (player.isCreative() || owner == null) {
 	    		     INamedContainerProvider inamedcontainerprovider = this.getContainer(state, worldIn, pos);
 			         if (inamedcontainerprovider != null) {
 			            player.openContainer(inamedcontainerprovider);
 			            player.addStat(this.getOpenStat());
 			         }
 	    	  } else {
-	    		  /*
-	    		  if (owner != null) {
-	    			  BeastlyCustomizationMain.logger.log(Level.INFO, "\"{} == {}\" evaluates to: {}", player.getName().getString(), owner.getName().getString(), (player.getName().getString().matches(owner.getName().getString())));
-	    		  }
-	    		  */
-	    		  if (owner == null) {
-		    		    //BeastlyCustomizationMain.logger.log(Level.INFO, "Death Box @{} has no owner", pos);
-		    	  } else if (player.getName().getString().matches(owner.getName().getString())) {
+	    		  if (player.getName().getString().matches(owner)) {
 			  			if (player.isSneaking()) {
 			    		    //BeastlyCustomizationMain.logger.log(Level.INFO, "Transfering items to {}'s inventory", owner.getName().getString());
 				  			player.sendMessage(new StringTextComponent("Transfering items to your inventory."));
@@ -276,7 +270,7 @@ public class DeathBoxBlock extends ContainerBlock implements IWaterLoggable {
 				           player.addStat(this.getOpenStat());
 				        }
 			  	  } else {
-			  			//BeastlyCustomizationMain.logger.log(Level.INFO, "{} can not access {}'s items", player.getName().getString(), owner.getName().getString());
+			  			//BeastlyCustomizationMain.logger.log(Level.INFO, "{} can not access {}'s items.", player.getName().getString(), owner);
 			  			player.sendMessage(new StringTextComponent("You can not access this player's items. They are not yours."));
 			  	  }	 
 	    	 }
@@ -415,7 +409,7 @@ public class DeathBoxBlock extends ContainerBlock implements IWaterLoggable {
 			if (player.isCreative()) {
 				return true;
 			} else {
-				if (player.getName().getString().matches(owner.getName().getString())) {
+				if (player.getName().getString().matches(owner)) {
 					return super.canHarvestBlock(state, world, pos, player);
 				} else {
 					return false;
@@ -465,7 +459,7 @@ public class DeathBoxBlock extends ContainerBlock implements IWaterLoggable {
 	}
 	
 	public void setBoxOwner(PlayerEntity playerIn, Boolean shouldSaveLevels) {
-		owner = playerIn;
+		owner = playerIn.getName().getString();
 		if (shouldSaveLevels) {
 			int xp = (int)(playerIn.experienceTotal / 1.25);
 			if (xp > 0) {
@@ -476,7 +470,7 @@ public class DeathBoxBlock extends ContainerBlock implements IWaterLoggable {
 		}
 	}	
 	
-	public PlayerEntity getOwner() {
+	public String getOwner() {
 		return owner;
 	}
 	
@@ -484,7 +478,7 @@ public class DeathBoxBlock extends ContainerBlock implements IWaterLoggable {
 		return playerXP;
 	}
 	
-	public void updateOwner(PlayerEntity playerIn, int xpIn) {
+	public void updateOwner(String playerIn, int xpIn) {
 		owner = playerIn;
 		playerXP = xpIn;
 	}

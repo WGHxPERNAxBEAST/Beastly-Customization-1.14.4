@@ -1,5 +1,8 @@
 package WGHxPERNAxBEAST.BeastlyCustomization.tiles;
 
+import org.apache.logging.log4j.Level;
+
+import WGHxPERNAxBEAST.BeastlyCustomization.BeastlyCustomizationMain;
 import WGHxPERNAxBEAST.BeastlyCustomization.blocks.DeathBoxBlock;
 import WGHxPERNAxBEAST.BeastlyCustomization.containers.DeathBoxContainer;
 import WGHxPERNAxBEAST.BeastlyCustomization.lists.TileList;
@@ -39,7 +42,7 @@ public class DeathBoxTile extends LockableLootTileEntity implements IChestLid, I
 	   private int ticksSinceSync;
 	   private int ticksCount = 0;
 	   private static int playerXP;
-	   private static PlayerEntity owner;
+	   private static String owner;
 	   private net.minecraftforge.common.util.LazyOptional<net.minecraftforge.items.IItemHandlerModifiable> chestHandler;
 	   
 	   public DeathBoxTile() {
@@ -73,7 +76,8 @@ public class DeathBoxTile extends LockableLootTileEntity implements IChestLid, I
 	      if (!this.checkLootAndRead(compound)) {
 	         ItemStackHelper.loadAllItems(compound, this.chestContents);
 	      }
-
+	      owner = compound.getString("owner");
+	      playerXP = compound.getInt("xp");
 	   }
 
 	   public CompoundNBT write(CompoundNBT compound) {
@@ -81,15 +85,23 @@ public class DeathBoxTile extends LockableLootTileEntity implements IChestLid, I
 	      if (!this.checkLootAndWrite(compound)) {
 	         ItemStackHelper.saveAllItems(compound, this.chestContents);
 	      }
-
+	      compound.putString("owner", owner);
+	      compound.putInt("xp", playerXP);
+	      
 	      return compound;
 	   }
 
 	   public void tick() {
 		   DeathBoxBlock deathBox = (DeathBoxBlock) this.world.getBlockState(this.pos).getBlock();
 		   ticksCount++;
-		   if (owner == null) {
+		   if (owner == null && deathBox.getOwner() == null) {
+			   BeastlyCustomizationMain.logger.log(Level.INFO, "No stored owner info.");
+		   } else if (deathBox.getOwner() == null){
+			   deathBox.updateOwner(owner, playerXP);
+		   } else if (owner == null) {
 			   owner = deathBox.getOwner();
+		   } else {
+			   
 		   }
 		   if (playerXP <= 0) {
 			   playerXP = deathBox.getXP();
@@ -101,7 +113,7 @@ public class DeathBoxTile extends LockableLootTileEntity implements IChestLid, I
 	      this.numPlayersUsing = func_213977_a(this.world, this, this.ticksSinceSync, i, j, k, this.numPlayersUsing);
 	      //after a delay for the inventory to be set, delete the block if its empty and closed.
 	      if (ticksCount >= 90) {
-	    	  if (deathBox.getOwner() == null) {
+	    	  if (!(deathBox.getOwner().equals(owner))) {
 	    		  deathBox.updateOwner(owner, playerXP);
 	    	  }
 	    	  if (this.isEmpty() && this.numPlayersUsing == 0) {

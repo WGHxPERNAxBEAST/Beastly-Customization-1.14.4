@@ -105,6 +105,7 @@ public class ItemList {
 	public static Item cd_pow_gener;
 	public static Item battery;
 	public static Item death_box;
+	public static Item tool_crafter;
 	
 	public static Item carbon_rock;
 	public static Item azr_ore;

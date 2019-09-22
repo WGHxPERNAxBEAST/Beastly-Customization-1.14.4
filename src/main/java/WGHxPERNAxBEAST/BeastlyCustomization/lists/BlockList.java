@@ -21,6 +21,8 @@ public class BlockList {
 	public static Block battery;
 	@ObjectHolder(BeastlyCustomizationMain.modid + ":death_box")
 	public static Block death_box;
+	@ObjectHolder(BeastlyCustomizationMain.modid + ":tool_crafter")
+	public static Block tool_crafter;
 	
 	public static Block carbon_rock;
 	public static Block azr_ore;

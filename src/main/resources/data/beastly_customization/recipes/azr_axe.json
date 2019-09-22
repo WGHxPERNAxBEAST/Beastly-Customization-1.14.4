@@ -1,11 +1,11 @@
 {
-	"type": "minecraft:crafting_shaped",
+	"type": "beastly_customization:tool_crafting",
 	
 	"pattern":
 	[
-		" II",
-		" SI",
-		" S "
+		"II",
+		"SI",
+		"S"
 	],
 	
 	"key":

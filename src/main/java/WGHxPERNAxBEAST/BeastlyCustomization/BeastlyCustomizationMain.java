@@ -185,7 +185,8 @@ public class BeastlyCustomizationMain {
 					ItemList.cd_pow_gener = new BlockItem(BlockList.cd_pow_gener, new Item.Properties().group(bcItemGroup)).setRegistryName(BlockList.cd_pow_gener.getRegistryName()),
 					ItemList.battery = new BlockItem(BlockList.battery, new Item.Properties().group(bcItemGroup)).setRegistryName(BlockList.battery.getRegistryName()),
 					ItemList.death_box = new BlockItem(BlockList.death_box, new Item.Properties().group(bcItemGroup)).setRegistryName(BlockList.death_box.getRegistryName()),	
-					
+					//ItemList.tool_crafter = new BlockItem(BlockList.tool_crafter, new Item.Properties().group(bcItemGroup)).setRegistryName(BlockList.tool_crafter.getRegistryName()),	
+							
 					ItemList.carbon_rock = new BlockItem(BlockList.carbon_rock, new Item.Properties().group(bcItemGroup)).setRegistryName(BlockList.carbon_rock.getRegistryName()),
 					ItemList.azr_ore = new BlockItem(BlockList.azr_ore, new Item.Properties().group(bcItemGroup)).setRegistryName(BlockList.azr_ore.getRegistryName()),
 					ItemList.pop_ore = new BlockItem(BlockList.pop_ore, new Item.Properties().group(bcItemGroup)).setRegistryName(BlockList.pop_ore.getRegistryName())
@@ -211,7 +212,8 @@ public class BeastlyCustomizationMain {
 					BlockList.cd_pow_gener = new CarbonDustGeneratorBlock(Block.Properties.create(Material.IRON).hardnessAndResistance(6.0F, 7.0F).lightValue(14).sound(SoundType.METAL)).setRegistryName(location("cd_pow_gener")),
 					BlockList.battery = new BatteryBlock(Block.Properties.create(Material.IRON).hardnessAndResistance(6.0F, 7.0F).lightValue(14).sound(SoundType.METAL)).setRegistryName(location("bs_battery")),
 					BlockList.death_box = new DeathBoxBlock(Block.Properties.create(Material.IRON).hardnessAndResistance(4.0F, 5.0F).lightValue(0).sound(SoundType.METAL)).setRegistryName(location("death_box")),
-																										
+					//BlockList.tool_crafter = new ToolCrafter(Block.Properties.create(Material.IRON).hardnessAndResistance(6.0F, 7.0F).lightValue(0).sound(SoundType.METAL)).setRegistryName(location("tool_crafter")),
+																												
 					BlockList.carbon_rock = new Block(Block.Properties.create(Material.ROCK).hardnessAndResistance(3.0F, 3.0F).lightValue(0).sound(SoundType.STONE)).setRegistryName(location("carbon_rock")),
 					BlockList.azr_ore = new Block(Block.Properties.create(Material.ROCK).hardnessAndResistance(3.0F, 3.0F).lightValue(0).sound(SoundType.STONE)).setRegistryName(location("azr_ore")),
 					BlockList.pop_ore = new Block(Block.Properties.create(Material.ROCK).hardnessAndResistance(3.0F, 3.0F).lightValue(0).sound(SoundType.STONE)).setRegistryName(location("pop_ore"))
@@ -256,6 +258,23 @@ public class BeastlyCustomizationMain {
                 BlockPos pos = data.readBlockPos();
                 return new BatteryContainer(windowId, proxy.getClientWorld(), pos, inv, proxy.getClientPlayer());
             }).setRegistryName("bs_battery"));
+            /*
+            event.getRegistry().register(IForgeContainerType.create((windowId, inv, data) -> {
+            	//BlockPos pos = data.readBlockPos();
+            	if (proxy.getClientWorld() == null) {
+            		logger.log(Level.INFO, "world is null.");
+            	} else if (data.readBlockPos().equals(null)) {
+            		logger.log(Level.INFO, "pos is null.");
+            	} else if (inv == null) {
+            		logger.log(Level.INFO, "inv is null.");
+            	} else if (proxy.getClientPlayer() == null) {
+            		logger.log(Level.INFO, "player is null.");
+            	} else {
+            		logger.log(Level.INFO, "everything should be fine.");
+            	}
+                return new ToolCrafterContainer(windowId, proxy.getClientWorld(), data.readBlockPos(), inv, proxy.getClientPlayer());
+            }).setRegistryName("tool_crafter"));
+            */
         }
 		
 	}
