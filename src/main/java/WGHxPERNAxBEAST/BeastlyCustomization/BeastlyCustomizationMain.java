@@ -30,6 +30,7 @@ import WGHxPERNAxBEAST.BeastlyCustomization.tiles.BatteryTile;
 import WGHxPERNAxBEAST.BeastlyCustomization.tiles.CarbonDustGeneratorTile;
 import WGHxPERNAxBEAST.BeastlyCustomization.tiles.ChickenFactoryTile;
 import WGHxPERNAxBEAST.BeastlyCustomization.tiles.DeathBoxTile;
+import WGHxPERNAxBEAST.BeastlyCustomization.tiles.ToolCrafterTile;
 import WGHxPERNAxBEAST.BeastlyCustomization.utils.EventHandler;
 import WGHxPERNAxBEAST.BeastlyCustomization.world.OreGeneration;
 import net.minecraft.block.Block;
@@ -245,6 +246,8 @@ public class BeastlyCustomizationMain {
             event.getRegistry().register(TileEntityType.Builder.create(CarbonDustGeneratorTile::new, BlockList.cd_pow_gener).build(null).setRegistryName("cd_pow_gener"));
             event.getRegistry().register(TileEntityType.Builder.create(BatteryTile::new, BlockList.battery).build(null).setRegistryName("bs_battery"));
             event.getRegistry().register(TileEntityType.Builder.create(DeathBoxTile::new, BlockList.death_box).build(null).setRegistryName("death_box"));
+            event.getRegistry().register(TileEntityType.Builder.create(ToolCrafterTile::new, BlockList.tool_crafter).build(null).setRegistryName("tool_crafter"));
+            
         }
 
         @SubscribeEvent
@@ -261,7 +264,7 @@ public class BeastlyCustomizationMain {
                 BlockPos pos = data.readBlockPos();
                 return new BatteryContainer(windowId, proxy.getClientWorld(), pos, inv, proxy.getClientPlayer());
             }).setRegistryName("bs_battery"));
-            event.getRegistry().register(IForgeContainerType.create((windowId, inv, data) -> {
+            event.getRegistry().register(IForgeContainerType.create((windowId, inv, data/*data == null*/) -> {
             	//BlockPos pos = data.readBlockPos();
             	
             	if (proxy.getClientWorld() == null) {

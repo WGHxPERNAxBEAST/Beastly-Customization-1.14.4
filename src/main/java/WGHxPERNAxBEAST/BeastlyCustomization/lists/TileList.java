@@ -5,6 +5,7 @@ import WGHxPERNAxBEAST.BeastlyCustomization.tiles.BatteryTile;
 import WGHxPERNAxBEAST.BeastlyCustomization.tiles.CarbonDustGeneratorTile;
 import WGHxPERNAxBEAST.BeastlyCustomization.tiles.ChickenFactoryTile;
 import WGHxPERNAxBEAST.BeastlyCustomization.tiles.DeathBoxTile;
+import WGHxPERNAxBEAST.BeastlyCustomization.tiles.ToolCrafterTile;
 import net.minecraft.tileentity.TileEntityType;
 import net.minecraftforge.registries.ObjectHolder;
 
@@ -17,4 +18,6 @@ public class TileList {
 	public static TileEntityType<BatteryTile> battery;
 	@ObjectHolder(BeastlyCustomizationMain.modid + ":death_box")
 	public static TileEntityType<DeathBoxTile> death_box;
+	@ObjectHolder(BeastlyCustomizationMain.modid + ":tool_crafter")
+	public static TileEntityType<ToolCrafterTile> tool_crafter;
 }

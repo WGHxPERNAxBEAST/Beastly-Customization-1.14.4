@@ -91,7 +91,7 @@ public class ToolCrafterContainer extends RecipeBookContainer<CraftingInventory>
 	   }
 
 	   public boolean matches(IRecipe<? super CraftingInventory> recipeIn) {
-	      return recipeIn.matches(this.mainInv, this.player.world);
+		      return recipeIn.matches(this.mainInv, this.player.world);
 	   }
 
 	   /**
@@ -107,9 +107,10 @@ public class ToolCrafterContainer extends RecipeBookContainer<CraftingInventory>
 	   /**
 	    * Determines whether supplied player can use this container
 	    */
-	   public boolean canInteractWith(PlayerEntity playerIn) {
-	      return isWithinUsableDistance(this.iWorldPos, playerIn, BlockList.tool_crafter);
-	   }
+	   @Override
+	    public boolean canInteractWith(PlayerEntity playerIn) {
+	        return isWithinUsableDistance(this.iWorldPos, this.player, BlockList.tool_crafter);
+	    }
 
 	   /**
 	    * Handle when the stack in slot {@code index} is shift-clicked. Normally this moves the stack between the player

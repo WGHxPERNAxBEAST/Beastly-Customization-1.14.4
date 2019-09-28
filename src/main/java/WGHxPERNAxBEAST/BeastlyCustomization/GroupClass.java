@@ -12,7 +12,7 @@ public class GroupClass extends ItemGroup{
 
 	@Override
 	public ItemStack createIcon() {
-		return new ItemStack(ItemList.golem_head);
+		return new ItemStack(ItemList.pps_mtool);
 	}
 	
 }

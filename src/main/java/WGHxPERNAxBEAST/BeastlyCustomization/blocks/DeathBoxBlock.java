@@ -461,7 +461,7 @@ public class DeathBoxBlock extends ContainerBlock implements IWaterLoggable {
 	public void setBoxOwner(PlayerEntity playerIn, Boolean shouldSaveLevels) {
 		owner = playerIn.getName().getString();
 		if (shouldSaveLevels) {
-			int xp = (int)(playerIn.experienceTotal / 1.25);
+			int xp = (int)((double)(playerIn.experienceTotal) / 1.85);
 			if (xp > 0) {
 				playerXP = xp;
 			} else {
