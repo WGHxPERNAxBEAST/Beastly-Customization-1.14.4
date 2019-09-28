@@ -37,8 +37,7 @@ public class ToolCrafterTile extends TileEntity implements ITickableTileEntity, 
 	private LazyOptional<IItemHandler> handler = LazyOptional.of(this::createHandler);
 	private LazyOptional<IEnergyStorage> energy = LazyOptional.of(this::createEnergy);
 	
-	private static final Set<Item> AcceptableItemsIn = Sets.newHashSet(ItemList.azr_ingot, ItemList.azr_stick, ItemList.blue_steel_block, ItemList.bs_stick, ItemList.rds_block, ItemList.rds_stick, ItemList.pop_ingot, ItemList.pop_stick, ItemList.pps_block, ItemList.pps_stick);
-	private static final Set<Item> AcceptableItemsOut = Sets.newHashSet(ItemList.azr_chestplate, ItemList.azr_helmet, ItemList.azr_hoe, ItemList.azr_axe, ItemList.azr_boots, ItemList.azr_leggings, ItemList.azr_pick, ItemList.azr_shovel, ItemList.azr_sword);
+	private static final Set<Item> AcceptableItemsOut = Sets.newHashSet(ItemList.azr_chestplate, ItemList.azr_helmet, ItemList.azr_hoe, ItemList.azr_axe, ItemList.azr_boots, ItemList.azr_leggings, ItemList.azr_pick, ItemList.azr_shovel, ItemList.azr_sword, ItemList.bs_chestplate, ItemList.bs_helmet, ItemList.bs_hoe, ItemList.bs_axe, ItemList.bs_boots, ItemList.bs_leggings, ItemList.bs_pick, ItemList.bs_shovel, ItemList.bs_sword, ItemList.rds_chestplate, ItemList.rds_helmet, ItemList.rds_hoe, ItemList.rds_axe, ItemList.rds_boots, ItemList.rds_leggings, ItemList.rds_pick, ItemList.rds_shovel, ItemList.rds_sword, ItemList.pop_chestplate, ItemList.pop_helmet, ItemList.pop_hoe, ItemList.pop_axe, ItemList.pop_boots, ItemList.pop_leggings, ItemList.pop_pick, ItemList.pop_shovel, ItemList.pop_sword, ItemList.pps_chestplate, ItemList.pps_helmet, ItemList.pps_hoe, ItemList.pps_axe, ItemList.pps_boots, ItemList.pps_leggings, ItemList.pps_pick, ItemList.pps_shovel, ItemList.pps_sword);
 	
 	private int maxEnStorage = 500;
 
@@ -97,13 +96,8 @@ public class ToolCrafterTile extends TileEntity implements ITickableTileEntity, 
 
             @Override
             public boolean isItemValid(int slot, @Nonnull ItemStack stack) {
-                if (slot < 20 && slot > 0) {
-                	for (Item item:AcceptableItemsIn) {
-                		if (stack.getItem() == item) {
-                			return true;
-                		}
-                	}
-                	return false;
+                if (slot < 21 && slot > 0) {
+                	return true;
                 } else if (slot == 0) {
                 	for (Item item:AcceptableItemsOut) {
                 		if (stack.getItem() == item) {

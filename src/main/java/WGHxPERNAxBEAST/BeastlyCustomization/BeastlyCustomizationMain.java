@@ -11,6 +11,7 @@ import WGHxPERNAxBEAST.BeastlyCustomization.blocks.DeathBoxBlock;
 import WGHxPERNAxBEAST.BeastlyCustomization.blocks.GolemHead;
 import WGHxPERNAxBEAST.BeastlyCustomization.blocks.ToolCrafter;
 import WGHxPERNAxBEAST.BeastlyCustomization.client.render.bcRenderRegistry;
+import WGHxPERNAxBEAST.BeastlyCustomization.client.render.tiles.DeathBoxSpecialRenderer;
 import WGHxPERNAxBEAST.BeastlyCustomization.containers.BatteryContainer;
 import WGHxPERNAxBEAST.BeastlyCustomization.containers.CarbonDustGeneratorContainer;
 import WGHxPERNAxBEAST.BeastlyCustomization.containers.ChickenFactoryContainer;
@@ -54,6 +55,7 @@ import net.minecraftforge.common.extensions.IForgeContainerType;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.DistExecutor;
+import net.minecraftforge.fml.client.registry.ClientRegistry;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
@@ -225,7 +227,15 @@ public class BeastlyCustomizationMain {
 			);
 			logger.info("Blocks registered.");
 		}
-		
+		/*
+		@SubscribeEvent
+		public static void registerRecipeTypes(final RegistryEvent.Register<IRecipeType<?>> event) {
+			event.getRegistry().registerAll(
+					IRecipeTypeList.TOOL_CRAFTING = IRecipeType.register("tool_crafting")
+			);
+			logger.info("RecipeTypes registered.");
+		}
+		*/
 		@SubscribeEvent
 		public static void registerEntities(final RegistryEvent.Register<EntityType<?>> event) {
 			event.getRegistry().registerAll(
@@ -242,12 +252,13 @@ public class BeastlyCustomizationMain {
 		
 		@SubscribeEvent
         public static void onTileEntityRegistry(final RegistryEvent.Register<TileEntityType<?>> event) {
-            event.getRegistry().register(TileEntityType.Builder.create(ChickenFactoryTile::new, BlockList.chicken_factory).build(null).setRegistryName("chick_fact"));
-            event.getRegistry().register(TileEntityType.Builder.create(CarbonDustGeneratorTile::new, BlockList.cd_pow_gener).build(null).setRegistryName("cd_pow_gener"));
-            event.getRegistry().register(TileEntityType.Builder.create(BatteryTile::new, BlockList.battery).build(null).setRegistryName("bs_battery"));
-            event.getRegistry().register(TileEntityType.Builder.create(DeathBoxTile::new, BlockList.death_box).build(null).setRegistryName("death_box"));
-            event.getRegistry().register(TileEntityType.Builder.create(ToolCrafterTile::new, BlockList.tool_crafter).build(null).setRegistryName("tool_crafter"));
+            event.getRegistry().register(TileEntityType.Builder.create(ChickenFactoryTile::new, BlockList.chicken_factory).build(null).setRegistryName(location("chick_fact")));
+            event.getRegistry().register(TileEntityType.Builder.create(CarbonDustGeneratorTile::new, BlockList.cd_pow_gener).build(null).setRegistryName(location("cd_pow_gener")));
+            event.getRegistry().register(TileEntityType.Builder.create(BatteryTile::new, BlockList.battery).build(null).setRegistryName(location("bs_battery")));
+            event.getRegistry().register(TileEntityType.Builder.create(DeathBoxTile::new, BlockList.death_box).build(null).setRegistryName(location("death_box")));
+            event.getRegistry().register(TileEntityType.Builder.create(ToolCrafterTile::new, BlockList.tool_crafter).build(null).setRegistryName(location("tool_crafter")));
             
+            ClientRegistry.bindTileEntitySpecialRenderer(DeathBoxTile.class, new DeathBoxSpecialRenderer<DeathBoxTile>());
         }
 
         @SubscribeEvent
@@ -255,15 +266,15 @@ public class BeastlyCustomizationMain {
             event.getRegistry().register(IForgeContainerType.create((windowId, inv, data) -> {
                 BlockPos pos = data.readBlockPos();
                 return new ChickenFactoryContainer(windowId, proxy.getClientWorld(), pos, inv, proxy.getClientPlayer());
-            }).setRegistryName("chick_fact"));
+            }).setRegistryName(location("chick_fact")));
             event.getRegistry().register(IForgeContainerType.create((windowId, inv, data) -> {
                 BlockPos pos = data.readBlockPos();
                 return new CarbonDustGeneratorContainer(windowId, proxy.getClientWorld(), pos, inv, proxy.getClientPlayer());
-            }).setRegistryName("cd_pow_gener"));
+            }).setRegistryName(location("cd_pow_gener")));
             event.getRegistry().register(IForgeContainerType.create((windowId, inv, data) -> {
                 BlockPos pos = data.readBlockPos();
                 return new BatteryContainer(windowId, proxy.getClientWorld(), pos, inv, proxy.getClientPlayer());
-            }).setRegistryName("bs_battery"));
+            }).setRegistryName(location("bs_battery")));
             event.getRegistry().register(IForgeContainerType.create((windowId, inv, data/*data == null*/) -> {
             	//BlockPos pos = data.readBlockPos();
             	
@@ -283,7 +294,7 @@ public class BeastlyCustomizationMain {
             		logger.log(Level.INFO, "everything should be fine.");
             	}
                 return new ToolCrafterContainer(windowId, proxy.getClientWorld(), data.readBlockPos(), inv, proxy.getClientPlayer());
-            }).setRegistryName("tool_crafter"));
+            }).setRegistryName(location("tool_crafter")));
             
         }
 		
