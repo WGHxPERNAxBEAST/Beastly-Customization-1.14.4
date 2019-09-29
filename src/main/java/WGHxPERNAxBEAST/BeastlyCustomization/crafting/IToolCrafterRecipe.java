@@ -1,4 +1,4 @@
-package WGHxPERNAxBEAST.BeastlyCustomization.utils;
+package WGHxPERNAxBEAST.BeastlyCustomization.crafting;
 
 import WGHxPERNAxBEAST.BeastlyCustomization.lists.IRecipeTypeList;
 import net.minecraft.inventory.CraftingInventory;

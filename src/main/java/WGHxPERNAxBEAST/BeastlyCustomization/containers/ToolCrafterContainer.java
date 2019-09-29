@@ -2,10 +2,10 @@ package WGHxPERNAxBEAST.BeastlyCustomization.containers;
 
 import java.util.Optional;
 
+import WGHxPERNAxBEAST.BeastlyCustomization.crafting.IToolCrafterRecipe;
 import WGHxPERNAxBEAST.BeastlyCustomization.lists.BlockList;
 import WGHxPERNAxBEAST.BeastlyCustomization.lists.ContainerList;
 import WGHxPERNAxBEAST.BeastlyCustomization.lists.IRecipeTypeList;
-import WGHxPERNAxBEAST.BeastlyCustomization.utils.IToolCrafterRecipe;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.entity.player.ServerPlayerEntity;

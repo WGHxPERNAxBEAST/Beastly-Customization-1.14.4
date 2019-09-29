@@ -1,6 +1,5 @@
 package WGHxPERNAxBEAST.BeastlyCustomization;
 
-import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -9,13 +8,11 @@ import WGHxPERNAxBEAST.BeastlyCustomization.blocks.CarbonDustGeneratorBlock;
 import WGHxPERNAxBEAST.BeastlyCustomization.blocks.ChickenFactoryBlock;
 import WGHxPERNAxBEAST.BeastlyCustomization.blocks.DeathBoxBlock;
 import WGHxPERNAxBEAST.BeastlyCustomization.blocks.GolemHead;
-import WGHxPERNAxBEAST.BeastlyCustomization.blocks.ToolCrafter;
 import WGHxPERNAxBEAST.BeastlyCustomization.client.render.bcRenderRegistry;
 import WGHxPERNAxBEAST.BeastlyCustomization.client.render.tiles.DeathBoxSpecialRenderer;
 import WGHxPERNAxBEAST.BeastlyCustomization.containers.BatteryContainer;
 import WGHxPERNAxBEAST.BeastlyCustomization.containers.CarbonDustGeneratorContainer;
 import WGHxPERNAxBEAST.BeastlyCustomization.containers.ChickenFactoryContainer;
-import WGHxPERNAxBEAST.BeastlyCustomization.containers.ToolCrafterContainer;
 import WGHxPERNAxBEAST.BeastlyCustomization.items.ItemCustomAxe;
 import WGHxPERNAxBEAST.BeastlyCustomization.items.ItemCustomPickaxe;
 import WGHxPERNAxBEAST.BeastlyCustomization.items.ItemMegaTool;
@@ -31,7 +28,6 @@ import WGHxPERNAxBEAST.BeastlyCustomization.tiles.BatteryTile;
 import WGHxPERNAxBEAST.BeastlyCustomization.tiles.CarbonDustGeneratorTile;
 import WGHxPERNAxBEAST.BeastlyCustomization.tiles.ChickenFactoryTile;
 import WGHxPERNAxBEAST.BeastlyCustomization.tiles.DeathBoxTile;
-import WGHxPERNAxBEAST.BeastlyCustomization.tiles.ToolCrafterTile;
 import WGHxPERNAxBEAST.BeastlyCustomization.utils.EventHandler;
 import WGHxPERNAxBEAST.BeastlyCustomization.world.OreGeneration;
 import net.minecraft.block.Block;
@@ -191,7 +187,7 @@ public class BeastlyCustomizationMain {
 					ItemList.cd_pow_gener = new BlockItem(BlockList.cd_pow_gener, new Item.Properties().group(bcItemGroup)).setRegistryName(BlockList.cd_pow_gener.getRegistryName()),
 					ItemList.battery = new BlockItem(BlockList.battery, new Item.Properties().group(bcItemGroup)).setRegistryName(BlockList.battery.getRegistryName()),
 					ItemList.death_box = new BlockItem(BlockList.death_box, new Item.Properties().group(bcItemGroup)).setRegistryName(BlockList.death_box.getRegistryName()),	
-					ItemList.tool_crafter = new BlockItem(BlockList.tool_crafter, new Item.Properties().group(bcItemGroup)).setRegistryName(BlockList.tool_crafter.getRegistryName()),	
+					//ItemList.tool_crafter = new BlockItem(BlockList.tool_crafter, new Item.Properties().group(bcItemGroup)).setRegistryName(BlockList.tool_crafter.getRegistryName()),	
 							
 					ItemList.carbon_rock = new BlockItem(BlockList.carbon_rock, new Item.Properties().group(bcItemGroup)).setRegistryName(BlockList.carbon_rock.getRegistryName()),
 					ItemList.azr_ore = new BlockItem(BlockList.azr_ore, new Item.Properties().group(bcItemGroup)).setRegistryName(BlockList.azr_ore.getRegistryName()),
@@ -218,7 +214,7 @@ public class BeastlyCustomizationMain {
 					BlockList.cd_pow_gener = new CarbonDustGeneratorBlock(Block.Properties.create(Material.IRON).hardnessAndResistance(6.0F, 7.0F).lightValue(14).sound(SoundType.METAL)).setRegistryName(location("cd_pow_gener")),
 					BlockList.battery = new BatteryBlock(Block.Properties.create(Material.IRON).hardnessAndResistance(6.0F, 7.0F).lightValue(14).sound(SoundType.METAL)).setRegistryName(location("bs_battery")),
 					BlockList.death_box = new DeathBoxBlock(Block.Properties.create(Material.IRON).hardnessAndResistance(4.0F, 5.0F).lightValue(0).sound(SoundType.METAL)).setRegistryName(location("death_box")),
-					BlockList.tool_crafter = new ToolCrafter(Block.Properties.create(Material.IRON).hardnessAndResistance(6.0F, 7.0F).lightValue(0).sound(SoundType.METAL)).setRegistryName(location("tool_crafter")),
+					//BlockList.tool_crafter = new ToolCrafter(Block.Properties.create(Material.IRON).hardnessAndResistance(6.0F, 7.0F).lightValue(0).sound(SoundType.METAL)).setRegistryName(location("tool_crafter")),
 																												
 					BlockList.carbon_rock = new Block(Block.Properties.create(Material.ROCK).hardnessAndResistance(3.0F, 3.0F).lightValue(0).sound(SoundType.STONE)).setRegistryName(location("carbon_rock")),
 					BlockList.azr_ore = new Block(Block.Properties.create(Material.ROCK).hardnessAndResistance(3.0F, 3.0F).lightValue(0).sound(SoundType.STONE)).setRegistryName(location("azr_ore")),
@@ -229,10 +225,8 @@ public class BeastlyCustomizationMain {
 		}
 		/*
 		@SubscribeEvent
-		public static void registerRecipeTypes(final RegistryEvent.Register<IRecipeType<?>> event) {
-			event.getRegistry().registerAll(
-					IRecipeTypeList.TOOL_CRAFTING = IRecipeType.register("tool_crafting")
-			);
+		public static void onRecipeTypeRegistry(final RegistryEvent.Register<IRecipeSerializer<?>> event) {
+			event.getRegistry().register((IRecipeTypeList.TOOL_CRAFTING_SER).setRegistryName(location("tool_crafting")));
 			logger.info("RecipeTypes registered.");
 		}
 		*/
@@ -256,7 +250,7 @@ public class BeastlyCustomizationMain {
             event.getRegistry().register(TileEntityType.Builder.create(CarbonDustGeneratorTile::new, BlockList.cd_pow_gener).build(null).setRegistryName(location("cd_pow_gener")));
             event.getRegistry().register(TileEntityType.Builder.create(BatteryTile::new, BlockList.battery).build(null).setRegistryName(location("bs_battery")));
             event.getRegistry().register(TileEntityType.Builder.create(DeathBoxTile::new, BlockList.death_box).build(null).setRegistryName(location("death_box")));
-            event.getRegistry().register(TileEntityType.Builder.create(ToolCrafterTile::new, BlockList.tool_crafter).build(null).setRegistryName(location("tool_crafter")));
+            //event.getRegistry().register(TileEntityType.Builder.create(ToolCrafterTile::new, BlockList.tool_crafter).build(null).setRegistryName(location("tool_crafter")));
             
             ClientRegistry.bindTileEntitySpecialRenderer(DeathBoxTile.class, new DeathBoxSpecialRenderer<DeathBoxTile>());
         }
@@ -275,7 +269,8 @@ public class BeastlyCustomizationMain {
                 BlockPos pos = data.readBlockPos();
                 return new BatteryContainer(windowId, proxy.getClientWorld(), pos, inv, proxy.getClientPlayer());
             }).setRegistryName(location("bs_battery")));
-            event.getRegistry().register(IForgeContainerType.create((windowId, inv, data/*data == null*/) -> {
+            /*
+            event.getRegistry().register(IForgeContainerType.create((windowId, inv, data) -> {
             	//BlockPos pos = data.readBlockPos();
             	
             	if (proxy.getClientWorld() == null) {
@@ -295,7 +290,7 @@ public class BeastlyCustomizationMain {
             	}
                 return new ToolCrafterContainer(windowId, proxy.getClientWorld(), data.readBlockPos(), inv, proxy.getClientPlayer());
             }).setRegistryName(location("tool_crafter")));
-            
+            */
         }
 		
 	}
