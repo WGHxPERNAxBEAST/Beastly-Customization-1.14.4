@@ -238,8 +238,9 @@ public class BeastlyCustomizationMain {
 					EntitiesList.RDS_BABY_GOLEM,
 					EntitiesList.RDS_ADULT_GOLEM,
 					EntitiesList.PPS_BABY_GOLEM,
-					EntitiesList.PPS_ADULT_GOLEM//,
-					//EntitiesList.BS_SKELLY
+					EntitiesList.PPS_ADULT_GOLEM,
+					EntitiesList.BS_SKELLY,
+					EntitiesList.BASIC_SUB
 			);
 			EntitiesList.registerEntityWorldSpawns();
 		}

@@ -14,6 +14,7 @@ import WGHxPERNAxBEAST.BeastlyCustomization.Entities.PPS_AdultGolem;
 import WGHxPERNAxBEAST.BeastlyCustomization.Entities.PPS_BabyGolem;
 import WGHxPERNAxBEAST.BeastlyCustomization.Entities.RDS_AdultGolem;
 import WGHxPERNAxBEAST.BeastlyCustomization.Entities.RDS_BabyGolem;
+import WGHxPERNAxBEAST.BeastlyCustomization.Entities.item.SubmarineEntity;
 import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
@@ -25,6 +26,7 @@ import net.minecraft.block.pattern.BlockPatternBuilder;
 import net.minecraft.block.pattern.BlockStateMatcher;
 import net.minecraft.entity.EntityClassification;
 import net.minecraft.entity.EntityType;
+import net.minecraft.entity.item.BoatEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
@@ -58,6 +60,8 @@ public class EntitiesList {
 	@SuppressWarnings("unchecked")
 	public static EntityType<?extends BS_Skelly> BS_SKELLY = (EntityType<? extends BS_Skelly>) EntityType.Builder.create(BS_Skelly::new, EntityClassification.CREATURE).build(BeastlyCustomizationMain.modid + ":bs_skelly").setRegistryName(BeastlyCustomizationMain.location("bs_skelly"));
 	
+	public static EntityType<?extends SubmarineEntity> BASIC_SUB = (EntityType<? extends SubmarineEntity>) EntityType.Builder.create(SubmarineEntity::new, EntityClassification.MISC).build(BeastlyCustomizationMain.modid + ":basic_sub").setRegistryName(BeastlyCustomizationMain.location("basic_sub"));
+	
 	public static void registerEntitySpawnEggs(final RegistryEvent.Register<Item> event) {
 		event.getRegistry().registerAll(
 				registerEntitySpawnEgg(BS_SKELLY, 0x2800db, 0x4f7ff7, BeastlyCustomizationMain.bcItemGroup, "bs_skelly_egg")
@@ -65,7 +69,7 @@ public class EntitiesList {
 	}
 	
 	public static void registerEntityWorldSpawns() {
-		registerEntityWorldSpawn(BS_SKELLY, Biome.BIOMES);
+		registerEntityWorldSpawn(BS_SKELLY, Biome.BIOMES, 14, 2, 7);
 	}
 
 	public static Item registerEntitySpawnEgg(EntityType<?> type, int color1, int color2, ItemGroup itemGroup, String name) {
@@ -74,18 +78,18 @@ public class EntitiesList {
 		return item;
 	}
 	
-	public static void registerEntityWorldSpawn(EntityType<?> entity, Biome...biomes) {
+	public static void registerEntityWorldSpawn(EntityType<?> entity, int weight, int minGroup, int maxGroup, Biome...biomes) {
 		for (Biome biome : biomes) {
 			if (biome != null) {
-				biome.getSpawns(entity.getClassification()).add(new SpawnListEntry(entity, 10, 1, 7));
+				biome.getSpawns(entity.getClassification()).add(new SpawnListEntry(entity, weight, minGroup, maxGroup));
 			}
 		}
 	}
 	
-	public static void registerEntityWorldSpawn(EntityType<?> entity, Set<Biome> biomes) {
+	public static void registerEntityWorldSpawn(EntityType<?> entity, Set<Biome> biomes, int weight, int minGroup, int maxGroup) {
 		for (Biome biome : biomes) {
 			if (biome != null) {
-				biome.getSpawns(entity.getClassification()).add(new SpawnListEntry(entity, 10, 1, 7));
+				biome.getSpawns(entity.getClassification()).add(new SpawnListEntry(entity, weight, minGroup, maxGroup));
 			}
 		}
 	}

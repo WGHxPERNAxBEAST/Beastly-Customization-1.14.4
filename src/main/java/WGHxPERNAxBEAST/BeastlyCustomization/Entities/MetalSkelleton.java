@@ -13,7 +13,6 @@ import net.minecraft.entity.monster.AbstractSkeletonEntity;
 import net.minecraft.entity.passive.IronGolemEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.EquipmentSlotType;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.ResourceLocation;
@@ -27,8 +26,11 @@ public class MetalSkelleton extends AbstractSkeletonEntity{
 	private double skellyBaseSpeed;// = 0.35D;
 	private double skellyMaxHealth;// = 30.0D;
 	private float skellyViewRange;// = 8.0F;
-	private Item skellyMainHand;// = Items.BOW;
-	private double skellyAttackDamage;// = 4.5D;
+	private ItemStack skellyMainHand;// = Items.BOW;
+	private ItemStack skellyHead;
+	private ItemStack skellyChest;
+	private ItemStack skellyLegs;
+	private ItemStack skellyFeet;
 	public static ResourceLocation textureLoc;// = BeastlyCustomizationMain.location("textures/entity/bs_skelly.png");
 	
 	public MetalSkelleton(EntityType<? extends MetalSkelleton> type, World world) {
@@ -49,15 +51,17 @@ public class MetalSkelleton extends AbstractSkeletonEntity{
 	@Override
 	protected void registerAttributes() {
 		super.registerAttributes();
-	    this.getAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(this.skellyMaxHealth);
+		this.getAttributes().registerAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(this.skellyMaxHealth);
 	    this.getAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(this.skellyBaseSpeed);
-	    this.getAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(this.skellyAttackDamage);
 	}
 	
 	@Override
 	protected void setEquipmentBasedOnDifficulty(DifficultyInstance difficulty) {
-		super.setEquipmentBasedOnDifficulty(difficulty);
-		this.setItemStackToSlot(EquipmentSlotType.MAINHAND, new ItemStack(this.skellyMainHand));
+		this.setItemStackToSlot(EquipmentSlotType.MAINHAND, this.skellyMainHand);
+		this.setItemStackToSlot(EquipmentSlotType.HEAD, this.skellyHead);
+		this.setItemStackToSlot(EquipmentSlotType.CHEST, this.skellyChest);
+		this.setItemStackToSlot(EquipmentSlotType.LEGS, this.skellyLegs);
+		this.setItemStackToSlot(EquipmentSlotType.FEET, this.skellyFeet);
 	}
 	
 	@Override
@@ -84,45 +88,25 @@ public class MetalSkelleton extends AbstractSkeletonEntity{
 	public void setTextureLoc(ResourceLocation textureLocIn) {
 		textureLoc = textureLocIn;
 	}
-	
-	public double getSkellyBaseSpeed() {
-		return skellyBaseSpeed;
-	}
 
 	public void setSkellyBaseSpeed(double skellyBaseSpeed) {
 		this.skellyBaseSpeed = skellyBaseSpeed;
-	}
-
-	public double getSkellyMaxHealth() {
-		return skellyMaxHealth;
 	}
 
 	public void setSkellyMaxHealth(double skellyMaxHealth) {
 		this.skellyMaxHealth = skellyMaxHealth;
 	}
 
-	public float getSkellyViewRange() {
-		return skellyViewRange;
-	}
-
 	public void setSkellyViewRange(float skellyViewRange) {
 		this.skellyViewRange = skellyViewRange;
 	}
 
-	public Item getSkellyMainHandItem() {
-		return skellyMainHand;
-	}
-
-	public void setSkellyMainHandItem(Item skellyMainHandItem) {
-		this.skellyMainHand = skellyMainHandItem;
-	}
-
-	public double getSkellyAttackDamage() {
-		return skellyAttackDamage;
-	}
-
-	public void setSkellyAttackDamage(double skellyAttackDamage) {
-		this.skellyAttackDamage = skellyAttackDamage;
+	public void setSkellyEquipment(ItemStack mainHand, ItemStack head, ItemStack chest, ItemStack legs, ItemStack feet) {
+		this.skellyMainHand = mainHand;
+		this.skellyHead = head;
+		this.skellyChest = chest;
+		this.skellyLegs = legs;
+		this.skellyFeet = feet;
 	}
 
 }
